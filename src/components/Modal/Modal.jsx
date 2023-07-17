@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { PrimaryButton } from "../Buttons/Buttons";
+import Button from "../Button/Button";
 
 /**
  * Modal
@@ -31,7 +31,8 @@ const Modal = ({ modalBody, openButtonName }) => {
   return (
     <>
       {/* modal opening button */}
-      <PrimaryButton title={openButtonName} onClick={openModal} />
+      <Button name={openButtonName} onClick={openModal} />
+      {/* <PrimaryButton title={openButtonName} onClick={openModal} /> */}
 
       {/* modal body */}
       <div

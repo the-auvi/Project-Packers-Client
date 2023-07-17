@@ -4,10 +4,7 @@ import ReloadImg from "../../assets/cd-reload.svg";
 
 import {AiOutlineMinus,AiOutlinePlus} from "react-icons/ai"
 
-import {
-  PrimaryButton,
-  SecondaryButton,
-} from "../../components/Buttons/Buttons";
+import Button from "../../components/Button/Button";
 import { BsCheck2Circle } from "react-icons/bs";
 import Slider from "../../components/Slider/Slider";
 import Modal from "../../components/Modal/Modal";
@@ -172,7 +169,8 @@ const Header = () => {
 {/* send requste button */}
 {
   loggedIn?
-  <PrimaryButton> <input type="submit" value={"re"} /></PrimaryButton> : <PrimaryButton/>
+  // <PrimaryButton> <input type="submit" value={"re"} /></PrimaryButton> : <PrimaryButton/>
+  <Button><input type="submit" value={"re"} /></Button> : <Button/>
 }
 
 

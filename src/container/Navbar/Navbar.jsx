@@ -1,9 +1,5 @@
 import React, { useRef, useState } from "react";
-import {
-  OutlineButton,
-  PrimaryButton,
-  SecondaryButton,
-} from "../../components/Buttons/Buttons";
+import Button from "../../components/Button/Button";
 import logo from "../../assets/logo.png";
 import logo2 from "../../assets/logo3.png";
 import myAcct from "../../assets/Avatar.png";
@@ -15,7 +11,7 @@ import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleClick = (p) => {
     console.log(p);
@@ -48,7 +44,11 @@ const Navbar = () => {
                 alt=""
                 className="w-20 md:w-full md:hidden"
               />{" "}
-              <SecondaryButton title="Login or Sign up" />
+              <Button  
+                buttonType="outlineButton"
+                name="Login or Sign up"
+                onClick= {()=>handleClick("pujon")}
+              />
             </div>
             <hr className="my-3" />
             <ul className="space-y-2">
@@ -146,11 +146,15 @@ const Navbar = () => {
               />
             </NavLink>
           ) : (
-            <SecondaryButton
-              title="Login"
-              className={"block md:hidden"}
-              onClick={() => handleClick("puon")}
-            />
+
+            <Button  
+            buttonType="secondaryButton"
+            name="Login"
+            className={"block md:hidden"}
+            onClick= {()=>handleClick("pujon")}
+          />
+
+          
           )}
         </>
 
@@ -188,15 +192,19 @@ const Navbar = () => {
             </ul>
           ) : (
             <div className="flex items-center gap-2">
-              <OutlineButton
-                title="Login"
-                className={""}
-                onClick={() => handleClick("puon")}
+            
+
+              <Button
+                buttonType="outlineButton"
+                // clas
+                name="Login"
+                onClick={() => handleClick("pujon")}
               />
-              <SecondaryButton
-                title="Sign Up"
-                className={""}
-                onClick={() => handleClick("puon")}
+
+              <Button
+               
+                name="Sign Up"
+                onClick={() => handleClick("pujon")}
               />
             </div>
           )}
