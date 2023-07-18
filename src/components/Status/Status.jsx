@@ -28,7 +28,7 @@ const Status = ({ title }) => {
         <div
           className={` w-2 h-2 rounded-full ${
             title === "Close" && "Refund Processing"
-              ? "bg-red-700 "
+              ? "bg-red-700"
               : title === "Paid" && "Abandoned"
               ? " bg-slate-700"
               : title === "Pending" && "Processing"

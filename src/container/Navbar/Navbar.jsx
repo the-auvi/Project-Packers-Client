@@ -8,10 +8,12 @@ import Cart from "../../assets/cd-products.svg";
 
 import { AiOutlineMenuUnfold, AiOutlineClose } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
+import DropDownNotification from "../../components/DropDownNotification/DropDownNotification";
 
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isOpen, setIsOpen] = useState(false)
 
   const handleClick = (p) => {
     console.log(p);
@@ -19,9 +21,8 @@ const Navbar = () => {
 
   return (
     <div>
-      <nav className="flex gap-1 max-w-screen-xl mx-auto items-center justify-between bg-white text-black p-6">
-        {/* for mobile response */}
-
+      <nav className="flex gap-1 max-w-screen-xl mx-auto items-center justify-between bg-white text-black h-20">
+        {/* button for open navbar in mobile response */}
         {isLoggedIn && (
           <button
             className={`text-2xl ${openMenu && "hidden"} sm:hidden      `}
@@ -31,78 +32,92 @@ const Navbar = () => {
           </button>
         )}
 
-        <div
-          className={` absolute z-50 bg-white h-screen w-3/4 top-0 md:hidden transition-all duration-1000 ${
-            openMenu ? " left-0 " : " -left-96"
-          }`}
-        >
-          <div className="px-4 py-10">
-            <div className="flex items-center">
-              {" "}
-              <img
-                src={logo2}
-                alt=""
-                className="w-20 md:w-full md:hidden"
-              />{" "}
-              <Button  
-                buttonType="outlineButton"
-                name="Login or Sign up"
-                onClick= {()=>handleClick("pujon")}
-              />
-            </div>
-            <hr className="my-3" />
-            <ul className="space-y-2">
-              <li>
-                <NavLink className="flex items-center gap-2">
-                  {" "}
-                  <img src={myAcct} alt="" /> My Account
-                </NavLink>
-              </li>
-              <li>
-                <NavLink className="flex items-center gap-2">
-                  {" "}
-                  <img
-                    src={Notification}
-                    alt=""
-                    className="bg-[#CFF6EF] p-1 rounded-full"
-                  />{" "}
-                  Notification
-                </NavLink>
-              </li>
-              <li>
-                <NavLink className="flex items-center gap-2">
-                  {" "}
-                  <img
-                    src={Notification}
-                    alt=""
-                    className="bg-[#CFF6EF] p-1 rounded-full"
-                  />{" "}
-                  Support
-                </NavLink>
-              </li>
-              <li>
-                <NavLink className="flex items-center gap-2">
-                  {" "}
-                  <img
-                    src={Notification}
-                    alt=""
-                    className="bg-[#CFF6EF] p-1 rounded-full"
-                  />{" "}
-                  Logout
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-          <button
-            onClick={() => setOpenMenu(false)}
-            className="absolute -right-10 top-8 text-3xl"
+        {/* NavMenu in Mobile responsive navmenu*/}
+        {isLoggedIn && (
+          <div
+            className={` absolute z-50 bg-white h-screen w-3/4 top-0 md:hidden transition-all duration-1000 ${
+              openMenu ? " left-0 " : " -left-[40rem]"
+            }`}
           >
-            <AiOutlineClose />
-          </button>
-        </div>
+            <div className="px-4 py-10">
+              {/* Logo and button */}
+              <div className="flex items-center">
+                <img src={logo2} alt="" className="w-20 md:w-full md:hidden" />
+                <Button
+                  buttonType="outlineButton"
+                  name="Login or Sign up"
+                  onClick={() => handleClick("pujon")}
+                />
+              </div>
+              {/*  */}
+              <hr className="my-3" />
 
+              {/* all nav menu  */}
+              <ul className="space-y-2 md:hidden">
+                {/* my account */}
+                <li>
+                  <NavLink className="flex items-center gap-2">
+                    <img src={myAcct} alt="" /> My Account
+                  </NavLink>
+                </li>
+
+                {/* Notification */}
+                <li>
+                  <NavLink className="flex items-center gap-2">
+                    <img
+                      src={Notification}
+                      alt=""
+                      className="bg-[#CFF6EF] p-1 rounded-full"
+                    />
+                    Notification
+                  </NavLink>
+                </li>
+
+                {/* Support */}
+                <li>
+                  <NavLink className="flex items-center gap-2">
+                    <img
+                      src={Notification}
+                      alt=""
+                      className="bg-[#CFF6EF] p-1 rounded-full"
+                    />
+                    Support
+                  </NavLink>
+                </li>
+
+                {/* LogOut */}
+                <li>
+                  <NavLink className="flex items-center gap-2">
+                    <img
+                      src={Notification}
+                      alt=""
+                      className="bg-[#CFF6EF] p-1 rounded-full"
+                    />
+                    Logout
+                  </NavLink>
+                </li>
+              </ul>
+            </div>
+
+            {/* button for closing navbar in mobile responsive */}
+            {isLoggedIn && (
+              <button
+                onClick={() => setOpenMenu(false)}
+                className="absolute -right-10 top-8 text-3xl md:hidden"
+              >
+                <AiOutlineClose />
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* logo for mobile responsinve with out opening navmenu */}
         <div>
-          <img src={logo2} alt="" className="w-20 md:w-full md:hidden" />
+          <img
+            src={logo2}
+            alt=""
+            className="max-w-[5rem] min-w-[5rem] md:hidden"
+          />
         </div>
 
         {/* for desktop */}
@@ -112,8 +127,8 @@ const Navbar = () => {
 
         {/* search */}
         <div className="w-auto md:w-2/4 flex px-3 items-center text-ellipsis truncate border rounded-3xl">
+          {/* search Icon */}
           <span>
-            {" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
@@ -128,6 +143,7 @@ const Navbar = () => {
             </svg>
           </span>
 
+          {/* search input */}
           <input
             type="search"
             className="relative m-0 block flex-auto bg-transparent bg-clip-padding ps-3 py-[0.25rem] text-base font-normal leading-[1.6] text-[#124E58] outline-none placeholder:text-[#124E58]"
@@ -135,26 +151,23 @@ const Navbar = () => {
           />
         </div>
 
-        {/* for mobile responsive */}
+        {/*Conditional button for mobile responsive */}
         <>
           {isLoggedIn ? (
             <NavLink className="flex items-center gap-2">
               <img
                 src={Cart}
                 alt=""
-                className="bg-[#CFF6EF] p-1 rounded-full"
+                className="bg-[#CFF6EF] p-1 rounded-full md:hidden min-w-[2.5rem] max-w-[2.5rem]"
               />
             </NavLink>
           ) : (
-
-            <Button  
-            buttonType="secondaryButton"
-            name="Login"
-            className={"block md:hidden"}
-            onClick= {()=>handleClick("pujon")}
-          />
-
-          
+            <Button
+              buttonType="secondaryButton"
+              name="Login"
+              className={"block md:hidden"}
+              onClick={() => handleClick("pujon")}
+            />
           )}
         </>
 
@@ -164,25 +177,36 @@ const Navbar = () => {
 
           {isLoggedIn ? (
             <ul className="flex items-center gap-2">
-              <li>
-                <NavLink className="flex items-center gap-2">
+
+              {/* Notification */}
+              <li   className="relative">
+                <button  onClick={()=>setIsOpen(!isOpen)} className="flex items-center gap-2">
                   <img
                     src={Notification}
                     alt=""
                     className="bg-[#CFF6EF] p-1 rounded-full"
-                  />{" "}
-                </NavLink>
+                  />
+                </button>
+
+                <div className={`${isOpen?"top-16 right-0 opacity-100": "opacity-0 -top-[999px] right-0 h-0"} transition-all ease-in-out duration-700 absolute `}>
+                   <DropDownNotification isOpen={isOpen}/>
+                </div>
+               
               </li>
+
+              {/* Cart */}
               <li>
-                <NavLink className="flex items-center gap-2">
-                  {" "}
+                <button className="flex items-center gap-2">
                   <img
                     src={Cart}
                     alt=""
                     className="bg-[#CFF6EF] p-1 rounded-full"
-                  />{" "}
-                </NavLink>
+                  />
+                </button>
+               
               </li>
+
+              {/* Account */}
               <li>
                 <NavLink className="flex items-center gap-2">
                   <img src={myAcct} alt="" />
@@ -192,20 +216,13 @@ const Navbar = () => {
             </ul>
           ) : (
             <div className="flex items-center gap-2">
-            
-
               <Button
                 buttonType="outlineButton"
-                // clas
                 name="Login"
                 onClick={() => handleClick("pujon")}
               />
 
-              <Button
-               
-                name="Sign Up"
-                onClick={() => handleClick("pujon")}
-              />
+              <Button name="Sign Up" onClick={() => handleClick("pujon")} />
             </div>
           )}
         </div>
@@ -215,18 +232,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-{
-  /* <div className="block lg:hidden">
-<button className="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
-  <svg
-    className="fill-current h-3 w-3"
-    viewBox="0 0 20 20"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <title>Menu</title>
-    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-  </svg>
-</button>
-</div> */
-}

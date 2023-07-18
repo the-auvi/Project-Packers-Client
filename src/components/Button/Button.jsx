@@ -18,7 +18,7 @@ const Button = ({ buttonType, name, className, ...eventHandlers }) => {
         {...eventHandlers}
         className={`flex items-center justify-center border py-2 px-5  rounded-50 text-sm font-bold 
         ${buttonType === "outlineButton"? "border-secondary text-primary bg-none": buttonType === "secondaryButton" ? "bg-secondary text-primary": "bg-primary text-white"}
-        ${className?className:""}
+        ${className}
         `}
       >
         {name}

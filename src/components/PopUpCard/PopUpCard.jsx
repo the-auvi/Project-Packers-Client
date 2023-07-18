@@ -1,35 +1,41 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "../Button/Button";
 import { IoIosClose } from "react-icons/io";
 
-const PopUpCard = ({ title, details, openButtonName, time }) => {
-  const [showModal, setShowModal] = useState(false);
+/**
+ *
+ * @param {string} title - receive title of the popup
+ * @param {string} details - recive short details of popup
+ * @param {number} time - receive time for when popuot will close
+ * @param {boolean} showPopOut - receive state as boolean for popout should show or not. if true popout will open else close
+ * @param {function} setShowPopUp - receive setShowPopUp function for automatically or manually close popup
+ * @returns
+ */
 
-  /**
-   * @description this funtion used for opening a popup
-   */
-  const openModal = () => {
-    setShowModal(true);
-  };
+const PopUpCard = ({ title, details, time, showPopUp, setShowPopUp }) => {
 
-  setTimeout(() => {
-    setShowModal(false);
-  }, time*1000);
+  // if showPopOut is true then after fixed time it will false by setTimeout function
+  if (showPopUp) {
+    setTimeout(() => {
+      console.log(time);
+      setShowPopUp(false);
+    }, time * 1000);
+  }
 
   /**
    * @description this funtion used for close a popup
    */
-  const closeModal = () => {
-    setShowModal(false);
+  const closePopUp = () => {
+    setShowPopUp(false);
   };
 
   return (
     <div>
-      <Button name={openButtonName} onClick={openModal} />
 
+{/* Popup body */}
       <div
         className={`absolute right-5 bottom-5 flex items-center   justify-center z-50 ${
-          showModal ? "" : "hidden"
+          showPopUp ? "" : "hidden"
         }`}
       >
         <div className="bg-primary space-y-2 text-white p-6 rounded shadow-lg w-[320px] h-[172px] relative">
@@ -38,13 +44,13 @@ const PopUpCard = ({ title, details, openButtonName, time }) => {
           <Button
             buttonType="secondaryButton"
             name="Check now"
-            className="rounded border-none"
+            className="rounded-[4px] border-none"
           />
 
           {/* Popup Close Button */}
           <button
             className="text-4xl absolute top-4 right-4 text-[#3E949A] font-normal rounded"
-            onClick={closeModal}
+            onClick={closePopUp}
           >
             <IoIosClose />
           </button>

@@ -23,3 +23,29 @@ html {
     @apply max-w-screen-xl mx-auto px-2 md:px-5
 
  }
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+  
+/* width */
+::-webkit-scrollbar {
+    width: 0px;
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+  
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+  
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
