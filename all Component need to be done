@@ -13,15 +13,22 @@ Product Card(Done)
 Heading(Done)
 titleBar(Done)
 AboutFAQs(Done)
+Notification Dropdown(Done)
+Card Dropdown
+Notification Card(Done)
+Cart Card
 
 
 all components that need to be done on admin side
-overview card
+overview card(Done)
 status button(Done)
-support Card
-chat card
-role card
-Popup card                              
+chatBox(Done)
+chat(Done)
+CahtJoin(Done)
+role card(Done)---responsive needed
+Popup card(Done)---transition needed
+Table
+
 
 
 

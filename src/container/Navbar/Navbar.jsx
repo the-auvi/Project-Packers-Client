@@ -3,18 +3,25 @@ import Button from "../../components/Button/Button";
 import logo from "../../assets/logo.png";
 import logo2 from "../../assets/logo3.png";
 import myAcct from "../../assets/Avatar.png";
-import Notification from "../../assets/cd-notification.svg";
-import Cart from "../../assets/cd-products.svg";
+import NotificationImg from "../../assets/cd-notification.svg";
+import Cart1 from "../../assets/cd-products.svg";
+import card1 from "../../assets/card1.png";
 
 import { AiOutlineMenuUnfold, AiOutlineClose } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
-import DropDownNotification from "../../components/DropDownNotification/DropDownNotification";
+import DropDownNotification from "../../components/DropDown/DropDown";
+import Notification from "../../pages/Notification/Notification";
+import NotificationCard from "../../components/NotificationCard/NotificationCard";
+import Cart from "../../pages/Cart/Cart";
 
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [isOpen, setIsOpen] = useState(false)
-
+  const [isCartOpen, setIsCartOpen] = useState(false)
+  const date = new Date();
+  // console.log(date.getMinutes());
+  const sendingMin = date.getMinutes();
   const handleClick = (p) => {
     console.log(p);
   };
@@ -65,7 +72,7 @@ const Navbar = () => {
                 <li>
                   <NavLink className="flex items-center gap-2">
                     <img
-                      src={Notification}
+                      src={NotificationImg}
                       alt=""
                       className="bg-[#CFF6EF] p-1 rounded-full"
                     />
@@ -77,7 +84,7 @@ const Navbar = () => {
                 <li>
                   <NavLink className="flex items-center gap-2">
                     <img
-                      src={Notification}
+                      src={NotificationImg}
                       alt=""
                       className="bg-[#CFF6EF] p-1 rounded-full"
                     />
@@ -89,7 +96,7 @@ const Navbar = () => {
                 <li>
                   <NavLink className="flex items-center gap-2">
                     <img
-                      src={Notification}
+                      src={NotificationImg}
                       alt=""
                       className="bg-[#CFF6EF] p-1 rounded-full"
                     />
@@ -156,7 +163,7 @@ const Navbar = () => {
           {isLoggedIn ? (
             <NavLink className="flex items-center gap-2">
               <img
-                src={Cart}
+                src={Cart1}
                 alt=""
                 className="bg-[#CFF6EF] p-1 rounded-full md:hidden min-w-[2.5rem] max-w-[2.5rem]"
               />
@@ -182,27 +189,31 @@ const Navbar = () => {
               <li   className="relative">
                 <button  onClick={()=>setIsOpen(!isOpen)} className="flex items-center gap-2">
                   <img
-                    src={Notification}
+                    src={NotificationImg}
                     alt=""
                     className="bg-[#CFF6EF] p-1 rounded-full"
                   />
                 </button>
 
-                <div className={`${isOpen?"top-16 right-0 opacity-100": "opacity-0 -top-[999px] right-0 h-0"} transition-all ease-in-out duration-700 absolute `}>
-                   <DropDownNotification isOpen={isOpen}/>
+                <div >
+                   <DropDownNotification isOpen={isOpen} >  <Notification isNavbar={true}/>  </DropDownNotification>
                 </div>
                
               </li>
 
               {/* Cart */}
-              <li>
-                <button className="flex items-center gap-2">
+             <li   className="relative">
+                <button  onClick={()=>setIsCartOpen(!isCartOpen)} className="flex items-center gap-2">
                   <img
-                    src={Cart}
+                    src={Cart1}
                     alt=""
                     className="bg-[#CFF6EF] p-1 rounded-full"
                   />
                 </button>
+
+                <div >
+                   <DropDownNotification isOpen={isCartOpen} >  <Cart isNavbar={true}/>  </DropDownNotification>
+                </div>
                
               </li>
 

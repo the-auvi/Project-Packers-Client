@@ -8,14 +8,9 @@ const TitleBar = () => {
 
   const { pathname } = location;
 
-  // console.log(pathname.slice(1));
-
   const paths = pathname.split("/").filter((path) => path !== "");
 
-
-
   const pathsWithCapitalizedLetter = []
-
 /**
  * @description - for capitalized each path first letter
  */
@@ -23,7 +18,6 @@ const TitleBar = () => {
       const concatenate= path.charAt(0).toUpperCase() + path.slice(1)
       pathsWithCapitalizedLetter.push(concatenate);
     })
-
 
 /**
  * @description - joined all paths with "|" and set in the browser title

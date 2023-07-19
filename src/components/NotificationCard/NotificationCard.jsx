@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 /**
  *
@@ -8,16 +9,16 @@ import React from "react";
  * @param {string} type - receive notification type like is this notification occurs for any user action or for any cart action
  * @returns
  */
-const Notification = ({ icon, message, time, type, className }) => {
-  const date = new Date();
-//   console.log(date.getMinutes() - time);
+const NotificationCard = ({ icon, message, time, type, className, isNavbar }) => {
 
-//   console.log(typeof date);
+
+  
+  const date = new Date();
 
   const NotificationTime = date.getMinutes() - time;
 
   return (
-    <div className="flex items-start max-w-[764px] min-h-16 gap-1 border-t p-1">
+    <div   className="flex items-start max-w-[764px]  gap-1 border-t p-1">
       <div>
         <img
           src={icon}
@@ -27,9 +28,11 @@ const Notification = ({ icon, message, time, type, className }) => {
           } min-w-[24px] max-w-[24px] min-h-[24px] rounded-lg p-1`}
         />
       </div>
-      <div className={`flex flex-col gap-2 text-base font-normal ${className}` }>
-        <p className="">{message}</p>
-        <p className="text-black/40">
+      <div className={`flex flex-col gap-2 text-base font-normal ${isNavbar && "text-sm"} ${className}` }>
+        <p className="">{
+          isNavbar ? message.slice(0,20)+"...":message
+        }</p>
+        <p className={`text-black/40 ${isNavbar && "text-xs"}`}>
           {NotificationTime}min ago
         </p>
       </div>
@@ -37,4 +40,4 @@ const Notification = ({ icon, message, time, type, className }) => {
   );
 };
 
-export default Notification;
+export default NotificationCard;

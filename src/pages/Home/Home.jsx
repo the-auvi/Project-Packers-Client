@@ -20,7 +20,11 @@ import ChatBox from "../../components/ChatBox/ChatBox";
 import Chat from "../../components/Chat/Chat";
 import ChatJoin from "../../components/ChatJoin/ChatJoin";
 import StaffCard from "../../components/StaffCard/StaffCard";
-import Notification from "../../components/Notification/Notification";
+import NotificationCard from "../../components/NotificationCard/NotificationCard";
+import Notification from "../Notification/Notification";
+import CartCard from "../../components/CartCard/CartCard";
+
+import cart11 from "../../assets/cart1.png"
 
 const Home = () => {
   const [showPopUp, setShowPopUp] = useState(false);
@@ -53,6 +57,11 @@ const Home = () => {
 
   return (
     <div className="wrapper">
+
+
+      <CartCard ProductQuantity={1} productImg={cart11} price={12212132} productName="OUTERBOX COMPUTER SERIES Case for iPhone 12 & iPhone 12 pro" />
+
+   
       {/* <OverviewCard title="Total Cost" amount={10440} deatails="New const in total 30 days" />
 <OverviewCard title="Total Request" amount={10440} deatails="New const in total 30 days" />
 <OverviewCard title="Total Order" amount={10440} deatails="New const in total 30 days" />
@@ -68,7 +77,7 @@ const Home = () => {
 
 
 
-<Notification icon={card1} message="We've reviewed item #3163652 (Fitbit Versa...). You can now take it to checkout!" time={sendingMin} type="cart" />
+{/* <NotificationCard icon={card1} message="We've reviewed item #3163652 (Fitbit Versa...). You can now take it to checkout!" time={sendingMin} type="cart" /> */}
 {/* 
 
       <Chat
