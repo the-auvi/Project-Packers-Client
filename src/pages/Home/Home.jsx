@@ -1,93 +1,153 @@
 // import Modal from "../../components/Modal/Modal";
 
-import FAQs from "../../components/FAQs/FAQs";
-import Modal from "../../components/Modal/Modal";
-import ProductsCard from "../../components/ProductsCard/ProductsCard";
-import Header from "../../container/Header/Header";
+import FAQs from '../../components/FAQs/FAQs';
+import Modal from '../../components/Modal/Modal';
+import ProductsCard from '../../components/ProductsCard/ProductsCard';
+import Header from '../../container/Header/Header';
 
-import card1 from "../../assets/card1.png";
-import BlogCard1 from "../../assets/Blog1.png";
-import BlogCard from "../../components/BlogCard/BlogCard";
+import card1 from '../../assets/card1.png';
+import BlogCard1 from '../../assets/Blog1.png';
+import BlogCard from '../../components/BlogCard/BlogCard';
 
-import Button from "../../components/Button/Button";
-import Headings from "../../components/Headings/Headings";
-import AboutFAQs from "../../components/AboutFAQs/AboutFAQs";
-import Status from "../../components/Status/Status";
-import PopUpCard from "../../components/PopUpCard/PopUpCard";
-import { useEffect, useState } from "react";
-import OverviewCard from "../../components/OverviewCard/OverviewCard";
-import ChatBox from "../../components/ChatBox/ChatBox";
-import Chat from "../../components/Chat/Chat";
-import ChatJoin from "../../components/ChatJoin/ChatJoin";
-import StaffCard from "../../components/StaffCard/StaffCard";
-import NotificationCard from "../../components/NotificationCard/NotificationCard";
-import Notification from "../Notification/Notification";
-import CartCard from "../../components/CartCard/CartCard";
+import Button from '../../components/Button/Button';
+import Headings from '../../components/Headings/Headings';
+import AboutFAQs from '../../components/AboutFAQs/AboutFAQs';
+import Status from '../../components/Status/Status';
+import PopUpCard from '../../components/PopUpCard/PopUpCard';
+import { useEffect, useState } from 'react';
+import OverviewCard from '../../components/OverviewCard/OverviewCard';
+import ChatBox from '../../components/ChatBox/ChatBox';
+import Chat from '../../components/Chat/Chat';
+import ChatJoin from '../../components/ChatJoin/ChatJoin';
+import StaffCard from '../../components/StaffCard/StaffCard';
+import NotificationCard from '../../components/NotificationCard/NotificationCard';
+import Notification from '../Notification/Notification';
+import CartCard from '../../components/CartCard/CartCard';
 
-import cart11 from "../../assets/cart1.png";
-import Table from "../../components/Table/Table";
+import cart11 from '../../assets/cart1.png';
+import Table from '../../components/Table/Table';
+import InputField from '../../components/InputField/InputField';
+import FormWithValidation from '../../components/Try/Buttonn';
 
 const Home = () => {
-  const [showPopUp, setShowPopUp] = useState(false);
+	const [showPopUp, setShowPopUp] = useState(false);
 
-  const date = new Date();
-  // console.log(date.getMinutes());
-  const sendingMin = date.getMinutes();
+	const date = new Date();
+	// console.log(date.getMinutes());
+	const sendingMin = date.getMinutes();
 
-  // console.log(typeof setShowPopUp  );
+	// console.log(typeof setShowPopUp  );
 
-  const handleCheck = (k) => {
-    console.log(k);
-  };
+	const handleCheck = (k) => {
+		console.log(k);
+	};
 
-  const handleClick = () => {
-    console.log("clicked");
-  };
+	const handleClick = () => {
+		console.log('clicked');
+	};
 
-  const handleBlr = () => {
-    console.log("blured");
-  };
+	const handleBlr = () => {
+		console.log('blured');
+	};
 
-  const handleMouseHover = () => {
-    console.log("mouseHover");
-  };
+	const handleMouseHover = () => {
+		console.log('mouseHover');
+	};
 
-  const handeMouseMoveCapture = () => {
-    console.log("ccaptured");
-  };
+	const handeMouseMoveCapture = () => {
+		console.log('ccaptured');
+	};
 
-  const [cusotmer, setCusontmer] = useState([])
+	const [cusotmer, setCusontmer] = useState([]);
 
-  useEffect(() => {
-    fetch("cusotmer.json")
-      .then((res) => res.json())
-      .then((data) => setCusontmer(data));
-  }, []);
+	const arr = [];
 
-  console.log(cusotmer);
+	useEffect(() => {
+		fetch(
+			'https://dff5794c-3698-4de1-8334-ba068985722f.mock.pstmn.io/api/order',
+		)
+			.then((res) => res.json())
+			.then((d) => {
+				d.docs.map((data) => {
+					const orderID = data.id;
+					const userName = data.user.fullName;
+					const productName = data.products[0].product.productName;
+					const quantity = data.products[0].quantity;
+					const total = data.totalprice;
+					const status = data.status;
+					const date = data.trxID;
 
-  return (
-    <div className="wrapper">
+					const tableData = {
+						'order ID': orderID,
+						customer: userName,
+						'product name': productName,
+						quantity: quantity,
+						total: total,
+						status: status,
+						data: date,
+					};
 
+					// console.log(tableData);
 
-    {cusotmer && cusotmer.length && <Table data={cusotmer} />}  
-      {/* <CartCard ProductQuantity={1} productImg={cart11} price={12212132} productName="OUTERBOX COMPUTER SERIES Case for iPhone 12 & iPhone 12 pro" /> */}
+					// arr.push(tableData);
+					// setCusontmer([prev=>{...prev}]);
+					setCusontmer((oldArray) => [...oldArray, tableData]);
+					// console.log(
+					// 	orderID,
+					// 	userName,
+					// 	productName,
+					// 	quantity,
+					// 	total,
+					// 	status,
+					// 	date,
+					// );
+				});
+			});
+	}, []);
 
-      {/* <OverviewCard title="Total Cost" amount={10440} deatails="New const in total 30 days" />
+	// const [, set] = useState(second)
+
+	// console.log(arr[0]);
+	// console.log(arr.length);
+
+	// console.log(cusotmer);
+
+  const handleChange = (e) =>{
+    console.log(e.target.value);
+  }
+
+	return (
+		<div className='wrapper'>
+			{cusotmer && cusotmer.length && <Table data={cusotmer} />}
+
+			<InputField
+				inputType='text'
+				placeHolder='********'
+				inputLabel='Name'
+				id='name'
+				name='name'
+        onChange={handleChange}
+			/>
+
+      <FormWithValidation/>
+
+			<CartCard ProductQuantity={1} productImg={cart11} price={12212132} productName="OUTERBOX COMPUTER SERIES Case for iPhone 12 & iPhone 12 pro" />
+
+			<OverviewCard title="Total Cost" amount={10440} deatails="New const in total 30 days" />
 <OverviewCard title="Total Request" amount={10440} deatails="New const in total 30 days" />
 <OverviewCard title="Total Order" amount={10440} deatails="New const in total 30 days" />
 <OverviewCard title="Completed" amount={10440} deatails="New const in total 30 days" />
-<OverviewCard title="Canceled" amount={10440} deatails="New const in total 30 days" /> */}
+<OverviewCard title="Canceled" amount={10440} deatails="New const in total 30 days" />
 
-      {/* <AboutFAQs aboutQuestion="Tell us the item your are looking for" aboutAnswer="Thousand of deals  on gadgets, shoes, cosmetics, watches - everything from the US" /> */}
+			<AboutFAQs aboutQuestion="Tell us the item your are looking for" aboutAnswer="Thousand of deals  on gadgets, shoes, cosmetics, watches - everything from the US" />
 
-      {/* <Headings title="Trending products on Project Packers" subTitle="Get inpiredd by what people in your city are buying from abroad with the biggest savings" /> */}
+			<Headings title="Trending products on Project Packers" subTitle="Get inpiredd by what people in your city are buying from abroad with the biggest savings" />
 
-      {/* <Modal modalBody={<>Pujon Das Auvi</>} openButtonName="Open Modal" /> */}
-      {/* <Header/> */}
+			<Modal modalBody={<>Pujon Das Auvi</>} openButtonName="Open Modal" />
+			<Header/>
 
-      {/* <NotificationCard icon={card1} message="We've reviewed item #3163652 (Fitbit Versa...). You can now take it to checkout!" time={sendingMin} type="cart" /> */}
-      {/* 
+			<NotificationCard icon={card1} message="We've reviewed item #3163652 (Fitbit Versa...). You can now take it to checkout!" time={sendingMin} type="cart" />
+			
 
       <Chat
         isSender={false}
@@ -137,12 +197,12 @@ const Home = () => {
         openButtonName="Open Modal"
         showPopUp={showPopUp}
         setShowPopUp={setShowPopUp}
-      /> */}
+      />
 
-      {/* <Status title="Completed" />
-      <Status title="Paid" /> */}
+			<Status title="Completed" />
+      <Status title="Paid" />
 
-      {/* <Button
+			<Button
         buttonType=""
         className="rounded-md"
         name="primaryButton"
@@ -150,8 +210,8 @@ const Home = () => {
         onBlur={handleBlr}
         onMouseMove={handleMouseHover}
         onMouseMoveCapture = {handeMouseMoveCapture}
-      /> */}
-      {/* <Button
+      />
+			<Button
         buttonType="secondaryButton"
         className=""
         name="secondaryButton"
@@ -168,9 +228,9 @@ const Home = () => {
         onBlur={handleBlr}
         onMouseMove={handleMouseHover}
         onMouseMoveCapture = {handeMouseMoveCapture}
-      /> */}
+      />
 
-      {/* <FAQs question="FAQs is not working. Why?" answer="I don't knwo" />
+			<FAQs question="FAQs is not working. Why?" answer="I don't knwo" />
       <ProductsCard
         img={card1}
         title="iConnect by timex active smartWatch"
@@ -180,12 +240,12 @@ const Home = () => {
         img={BlogCard1}
         title="Validate your product and market"
         details="You have a great product. Now its time to test your Idea to see if it can become a business"
-      /> */}
-    </div>
-  );
+      />
+		</div>
+	);
 };
 
 export default Home;
 {
-  /* <Modal modalBody={<>Pujon Das Auvi</>} openButtonName="Open Modal" /> */
+	/* <Modal modalBody={<>Pujon Das Auvi</>} openButtonName="Open Modal" /> */
 }

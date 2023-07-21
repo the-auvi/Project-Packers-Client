@@ -217,7 +217,7 @@ const Navbar = () => {
                 </button>
 
                 <div >
-                   <DropDownNotification isOpen={isCartOpen} >  <Cart isNavbar={true}/>  </DropDownNotification>
+                   <DropDownNotification isOpen={isCartOpen} isNotification={false } >  <Cart isNavbar={true}/>  </DropDownNotification>
                 </div>
                
               </li>
