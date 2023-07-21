@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+
 
 /**
  *
@@ -7,14 +7,13 @@ import { useLocation } from "react-router-dom";
  * @param {string} message - receive notification message
  * @param {object} time - receive notification sending time
  * @param {string} type - receive notification type like is this notification occurs for any user action or for any cart action
+ * @param {string} className - receive extarnal style
+ * @param {boolean} isNavbar - recieve why this component used for. if true then it used for navigation else for page
  * @returns
  */
 const NotificationCard = ({ icon, message, time, type, className, isNavbar }) => {
 
-
-  
   const date = new Date();
-
   const NotificationTime = date.getMinutes() - time;
 
   return (

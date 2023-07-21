@@ -14,14 +14,19 @@ import Notification from "../../pages/Notification/Notification";
 import NotificationCard from "../../components/NotificationCard/NotificationCard";
 import Cart from "../../pages/Cart/Cart";
 
+
+
+
+
+// TODO: add comment and short it more
+
+
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [isOpen, setIsOpen] = useState(false)
   const [isCartOpen, setIsCartOpen] = useState(false)
-  const date = new Date();
-  // console.log(date.getMinutes());
-  const sendingMin = date.getMinutes();
+
   const handleClick = (p) => {
     console.log(p);
   };
@@ -196,7 +201,7 @@ const Navbar = () => {
                 </button>
 
                 <div >
-                   <DropDownNotification isOpen={isOpen} >  <Notification isNavbar={true}/>  </DropDownNotification>
+                   <DropDownNotification isOpen={isOpen} isNotification={true} >  <Notification isNavbar={true}/>  </DropDownNotification>
                 </div>
                
               </li>

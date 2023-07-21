@@ -13,10 +13,10 @@ Product Card(Done)
 Heading(Done)
 titleBar(Done)
 AboutFAQs(Done)
-Notification Dropdown(Done)
-Card Dropdown
+Notification Dropdown(Done)---(need to close when click outside funtion)
+Card Dropdown(Done)---(need to close when click outside funtion)
 Notification Card(Done)
-Cart Card
+Cart Card(Done)
 
 
 all components that need to be done on admin side

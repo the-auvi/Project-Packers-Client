@@ -1,51 +1,49 @@
 /* fonts  */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Sora&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sora&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 * {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
-.no-scroll{
-    overflow: hidden;
+.no-scroll {
+  overflow: hidden;
 }
 
-
-.wrapper{
-    @apply max-w-screen-xl mx-auto px-2 md:px-5
-
- }
-
+.wrapper {
+  @apply max-w-screen-xl mx-auto px-2 md:px-5;
+}
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-  
+
 /* width */
 ::-webkit-scrollbar {
-    width: 0px;
+  width: 0px;
 }
-  
+
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+  background: #f1f1f1;
 }
-  
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 5px;
+  background: #888;
+  border-radius: 5px;
 }
-  
+
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+  background: #555;
 }
+

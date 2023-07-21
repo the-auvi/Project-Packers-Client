@@ -4,7 +4,7 @@ import Footer from "../container/Footer/Footer";
 import TitleBar from "../components/TitleBar/TitleBar";
 
 const Root = () => {
-    console.log(window.document.title);
+    
     return (
         <>
             <Navbar />

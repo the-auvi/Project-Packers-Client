@@ -4,16 +4,17 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 
 const TitleBar = () => {
-  const location = useLocation();
 
+  // used for taking path of this page
+  const location = useLocation();
   const { pathname } = location;
 
+  // spliting them with "/" and filter them withouot any empty string
   const paths = pathname.split("/").filter((path) => path !== "");
 
   const pathsWithCapitalizedLetter = []
-/**
- * @description - for capitalized each path first letter
- */
+
+// making 1st letter capitalized
     paths.map((path) => {
       const concatenate= path.charAt(0).toUpperCase() + path.slice(1)
       pathsWithCapitalizedLetter.push(concatenate);
@@ -23,8 +24,9 @@ const TitleBar = () => {
  * @description - joined all paths with "|" and set in the browser title
  */
   const title  = pathsWithCapitalizedLetter.join(" | ")
-console.log(title);
 
+
+  // added title
   window.document.title = title 
 
   return (
@@ -36,7 +38,7 @@ console.log(title);
             {/* added "/" */}
             {index !== 0 && <span className="text-white/50">/</span>}
             <span
-              className={`py-2 text-white text-sm font-normal ${
+              className={`py-2 text-white text-sm font-normal mx-1 ${
                 index < paths.length - 1 ? "text-white/50" : "text-white"
               }`}
             >

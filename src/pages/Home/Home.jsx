@@ -14,7 +14,7 @@ import Headings from "../../components/Headings/Headings";
 import AboutFAQs from "../../components/AboutFAQs/AboutFAQs";
 import Status from "../../components/Status/Status";
 import PopUpCard from "../../components/PopUpCard/PopUpCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import OverviewCard from "../../components/OverviewCard/OverviewCard";
 import ChatBox from "../../components/ChatBox/ChatBox";
 import Chat from "../../components/Chat/Chat";
@@ -24,14 +24,15 @@ import NotificationCard from "../../components/NotificationCard/NotificationCard
 import Notification from "../Notification/Notification";
 import CartCard from "../../components/CartCard/CartCard";
 
-import cart11 from "../../assets/cart1.png"
+import cart11 from "../../assets/cart1.png";
+import Table from "../../components/Table/Table";
 
 const Home = () => {
   const [showPopUp, setShowPopUp] = useState(false);
 
-  const date = new Date()
+  const date = new Date();
   // console.log(date.getMinutes());
-  const sendingMin = date.getMinutes()
+  const sendingMin = date.getMinutes();
 
   // console.log(typeof setShowPopUp  );
 
@@ -55,13 +56,23 @@ const Home = () => {
     console.log("ccaptured");
   };
 
+  const [cusotmer, setCusontmer] = useState([])
+
+  useEffect(() => {
+    fetch("cusotmer.json")
+      .then((res) => res.json())
+      .then((data) => setCusontmer(data));
+  }, []);
+
+  console.log(cusotmer);
+
   return (
     <div className="wrapper">
 
 
-      <CartCard ProductQuantity={1} productImg={cart11} price={12212132} productName="OUTERBOX COMPUTER SERIES Case for iPhone 12 & iPhone 12 pro" />
+    {cusotmer && cusotmer.length && <Table data={cusotmer} />}  
+      {/* <CartCard ProductQuantity={1} productImg={cart11} price={12212132} productName="OUTERBOX COMPUTER SERIES Case for iPhone 12 & iPhone 12 pro" /> */}
 
-   
       {/* <OverviewCard title="Total Cost" amount={10440} deatails="New const in total 30 days" />
 <OverviewCard title="Total Request" amount={10440} deatails="New const in total 30 days" />
 <OverviewCard title="Total Order" amount={10440} deatails="New const in total 30 days" />
@@ -75,10 +86,8 @@ const Home = () => {
       {/* <Modal modalBody={<>Pujon Das Auvi</>} openButtonName="Open Modal" /> */}
       {/* <Header/> */}
 
-
-
-{/* <NotificationCard icon={card1} message="We've reviewed item #3163652 (Fitbit Versa...). You can now take it to checkout!" time={sendingMin} type="cart" /> */}
-{/* 
+      {/* <NotificationCard icon={card1} message="We've reviewed item #3163652 (Fitbit Versa...). You can now take it to checkout!" time={sendingMin} type="cart" /> */}
+      {/* 
 
       <Chat
         isSender={false}
