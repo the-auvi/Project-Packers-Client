@@ -9,7 +9,7 @@ import Button from "../Button/Button";
  * @param {string} openButtonName - recive name of open modal button
  */
 
-const Modal = ({ modalBody, openButtonName }) => {
+const Modal = ({ children, openButtonName, className}) => {
 
   const [showModal, setShowModal] = useState(false);
 
@@ -27,22 +27,22 @@ const Modal = ({ modalBody, openButtonName }) => {
   const closeModal = () => {
     setShowModal(false);
   };
+  
 
   return (
     <>
       {/* modal opening button */}
-      <Button name={openButtonName} onClick={openModal} />
-      {/* <PrimaryButton title={openButtonName} onClick={openModal} /> */}
+      <Button buttonType="secondaryButton" name={openButtonName} onClick={openModal} className={className} />
 
       {/* modal body */}
       <div
-        className={`w-screen text-black h-screen fixed top-0 left-0 right-0 bottom-0 z-20 bg-[#0D3D4B]/90 ${
-          showModal ? "" : "hidden"
-        } `}
+        className={`w-screen text-black h-screen fixed top-0 left-0 right-0 bottom-0 z-20  ${
+          showModal ? "scale-100 bg-[#0D3D4B]/70" : "scale-0 bg-[#0D3D4B]/0"
+        } transition-all  duration-500 `}
       >
         <div className={`fixed inset-0 flex items-center justify-center z-50 `}>
           <div className="bg-white p-6 rounded-lg shadow-lg relative">
-            {modalBody}
+            {children}
 
             {/* Modal Close Button */}
             <button

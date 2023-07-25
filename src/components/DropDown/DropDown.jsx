@@ -21,7 +21,7 @@ const DropDownNotification = ({
 
 	return (
 		<div
-			className={` bg-white p-5 pt-0 rounded-lg  ${
+			className={` bg-white p-5 pt-0 rounded-lg z-50 ${
 				isNotification ? 'w-[280px]' : 'w-[381px] '
 			} h-[372px] overflow-y-scroll shadow-2xl ${
 				isOpen

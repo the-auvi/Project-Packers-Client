@@ -5,9 +5,9 @@ import { IoIosClose } from "react-icons/io";
 /**
  *
  * @param {string} title - receive title of the popup
- * @param {string} details - recive short details of popup
- * @param {number} time - receive time for when popuot will close
- * @param {boolean} showPopOut - receive state as boolean for popout should show or not. if true popout will open else close
+ * @param {string} details - receive short details of popup
+ * @param {number} time - receive time for when popup will close
+ * @param {boolean} showPopUp - receive state as boolean for popup should show or not. if true popup will open else close
  * @param {function} setShowPopUp - receive setShowPopUp function for automatically or manually close popup
  * @returns
  */

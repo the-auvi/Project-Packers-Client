@@ -52,7 +52,7 @@ const Youtubecard = ({videoId}) => {
 
         <iframe
 
-          className="absolute top-0 left-0 w-[200px] h-[300px]"
+          className="absolute top-0 left-0 h-[400px] w-[283px]"
 
           src={`https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}&controls=0`}
 
