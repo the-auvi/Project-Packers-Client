@@ -22,6 +22,10 @@ html {
   @apply max-w-screen-xl mx-auto px-2 md:px-5;
 }
 
+.backgroundImage{
+  @apply bg-no-repeat bg-[length:100%_600px] bg-black/60 bg-blend-overlay bg-center
+}
+
 
 /* width */
 ::-webkit-scrollbar {

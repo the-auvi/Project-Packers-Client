@@ -10,12 +10,12 @@ import Image from "../../assets/card1.png"
  * @returns 
  */
 const ProductsCard = ({img, title, price}) => {
-  console.log(img)
+  // console.log(img)
   return (
     <div className='w-full h-[402px} bg-white'>
 
        <div className='flex  flex-col justify-center p-3'>
-       <img src="http://localhost:4000/api/images/2b298231f64df75fc32007b0d366a382.jpg" alt="image" />
+       <img src={Image} alt="image" />
         <p className='text-lg font-semibold'>{title}</p>
         <div className='flex justify-between items-center' >
             <p className='text-base'>Retailer Price</p>

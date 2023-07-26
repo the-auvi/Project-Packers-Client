@@ -17,8 +17,8 @@ const Button = ({ buttonType, name, className, icon, ...eventHandlers }) => {
     <>
       <button
         {...eventHandlers}
-        className={`flex items-center justify-center gap-2 border py-2 px-5  rounded-50 text-sm font-bold 
-        ${buttonType === "outlineButton"? "border-secondary text-primary bg-none": buttonType === "secondaryButton" ? "bg-secondary text-primary": "bg-primary text-white"}
+        className={`flex items-center justify-center gap-2  py-2 px-5  rounded-50 text-sm font-bold 
+        ${buttonType === "outlineButton"? "border border-secondary text-primary bg-none": buttonType === "secondaryButton" ? "bg-secondary text-primary": "bg-primary text-white"}
         ${className}
         `}
       >

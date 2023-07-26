@@ -6,7 +6,7 @@ const PackersWorks = () => {
 	return (
 		<div className='bg-[#CFF6EF]'>
 			<div className='wrapper p-[100px]'>
-				<div className='flex gap-16'>
+				<div className='flex gap-16 flex-col md:flex-row'>
 					<div className='flex-1 text-[#0D3D4B]'>
 						{/* title */}
 						<div className='text-4xl font-semibold ' >How Project Packers works</div>

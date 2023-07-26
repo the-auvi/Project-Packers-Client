@@ -31,7 +31,7 @@ const TitleBar = () => {
 
   return (
     <div className=" bg-primary">
-      <div className="wrapper flex items-center mb-4">
+      <div className="wrapper flex items-center">
        
         {pathsWithCapitalizedLetter.map((path, index) => (
           <React.Fragment key={index}>

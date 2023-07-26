@@ -33,7 +33,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <nav className="flex gap-1 max-w-screen-xl mx-auto items-center justify-between bg-white text-black h-20">
+      <nav className="flex gap-1 max-w-screen-xl mx-auto items-center justify-between bg-white text-black h-20 px-2 md:px-5">
         {/* button for open navbar in mobile response */}
         {isLoggedIn && (
           <button
@@ -48,7 +48,7 @@ const Navbar = () => {
         {isLoggedIn && (
           <div
             className={` absolute z-50 bg-white h-screen w-3/4 top-0 md:hidden transition-all duration-1000 ${
-              openMenu ? " left-0 " : " -left-[40rem]"
+              openMenu ? " left-0 opacity-100" : "h-0 opacity-0 -left-[40rem]"
             }`}
           >
             <div className="px-4 py-10">
