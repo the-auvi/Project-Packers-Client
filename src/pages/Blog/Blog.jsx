@@ -29,15 +29,19 @@ const Blog = () => {
 			{/* header */}
 			<div
 				style={{ backgroundImage: `url(${blog1})` }}
-				className={`backgroundImage w-screen h-[600px] flex items-center justify-center`}
+				className={`backgroundImage w-[375px] h-[276px] md:w-screen md:h-[600px] flex items-center justify-center`}
 			>
 				<div className='wrapper  '>
-					<p className='text-[40px] font-semibold text-white'>
+					<p className=' text-[32px] md:text-[40px] font-semibold text-white'>
 						{blogDetails?.title}
 					</p>
-					<div className='flex items-center gap-4 text-white '>
-						<img src={blog1} alt='' className='w-[42px] h-[42px] rounded-50' />
-						<p className='text-base font-medium'>Pujon Das Auvi</p>
+					<div className='flex items-center gap-4 text-white text-base'>
+						<img
+							src={blog1}
+							alt=''
+							className=' w-[32px] md:w-[42px] h-[32px] md:h-[42px] rounded-50'
+						/>
+						<p className=' font-medium'>Pujon Das Auvi</p>
 						<div className='w-[4px] h-[4px] rounded-full text-white border-[4px]'></div>
 						<p>July 26, 2023</p>
 					</div>
@@ -48,12 +52,12 @@ const Blog = () => {
 				<div className='w-[804px] mx-auto pt-12 pb-[148px]'>
 					{/* title */}
 					<div className='text-[32px] font-semibold'>{blogDetails?.title}</div>
-                    {/* description */}
+					{/* description */}
 					<p className='text-base font-normal'>{blogDetails?.description}</p>
 				</div>
 
 				{/* more blogs section */}
-				<div className='pb-[148px]' >
+				<div className='pb-[148px]'>
 					<div className='flex items-center justify-between w-full pb-12'>
 						<div className='text-[32px] font-semibold text-[#0D3D4B]'>
 							You may also like
@@ -62,14 +66,16 @@ const Blog = () => {
 							<button className='p-2 rounded-50 bg-[#CFF6EF] text-[#0D3D4B]'>
 								{'<='}
 							</button>
-							<Link to="/home/blogs" ><button className='p-2 rounded-50 bg-[#F2C852] text-[#0D3D4B]'>
-								{'=>'}
-							</button></Link>
+							<Link to='/home/blogs'>
+								<button className='p-2 rounded-50 bg-[#F2C852] text-[#0D3D4B]'>
+									{'=>'}
+								</button>
+							</Link>
 						</div>
 					</div>
 
 					{/* more blog card */}
-					<div className='grid grid-cols-4 gap-7'>
+					<div className='flex items-center overflow-x-scroll gap-7'>
 						{blogs.map((blog) => (
 							<div key={blog.id}>
 								<BlogCard

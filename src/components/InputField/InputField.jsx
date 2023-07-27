@@ -1,6 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { BsExclamation } from 'react-icons/bs';
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input';
 
 import './InputField.css';
 
@@ -28,32 +30,51 @@ const InputField = ({
 	errors,
 	className,
 	placeholder,
+	id,
 	...eventHandler
 }) => {
-
-
 	return (
 		<>
-			<div className='relative'>
-				<label htmlFor={name} className='text-lg font-semibold text-white'>
+			<div className='relative flex gap-2 flex-col '>
+				<label htmlFor={name} className='text-lg font-semibold text-white '>
 					{label}
 				</label>
-				<input
-				value={value}
-					name={name}
-					type={type}
-					{...register(name, { required })}
-					{...eventHandler}
-					placeholder={placeholder}
-					className={` w-full border-2 py-[17px] text-sm font-medium  text-[#124E58] px-[20px] caret-[#F2C852] border-[#F2C852] rounded-50 focus:shadow-[0px_0px_10px_0px_#F2C852] outline-none   placeholder:text-[#124E58] ${className}
-					${errors[name]&& "focus:border-red-600 focus:shadow-none"}
-					`}
-				/>
+				{name === 'phoneNumber' ? (
+					<>
+						<PhoneInput
+							placeholder={placeholder}
+							// value={value}
+							// onChange={setValue}
+							defaultCountry='BD'
+							international
+							className={` w-full border-2 py-[17px] text-sm font-medium bg-white  text-[#124E58] px-[20px] caret-[#F2C852] border-[#F2C852] rounded-50 focus:shadow-[0px_0px_10px_0px_#F2C852] placeholder:text-[#124E58] ${className}
+							${errors[name] && 'focus:border-red-600 focus:shadow-none'}
+							`}
+							// className={'input-phone-number'}
+							{...register(name)}
+
+							// {...register(name, { required })}
+						/>
+					</>
+				) : (
+					<input
+						id={id && id}
+						value={value}
+						name={name}
+						type={type}
+						{...register(name, { required })}
+						{...eventHandler}
+						placeholder={placeholder}
+						className={` w-full border-2 py-[17px] text-sm font-medium  text-[#124E58] px-[20px] caret-[#F2C852] border-[#F2C852] rounded-50 focus:shadow-[0px_0px_10px_0px_#F2C852] outline-none   placeholder:text-[#124E58] ${className}
+				${errors[name] && 'focus:border-red-600 focus:shadow-none'}
+				`}
+					/>
+				)}
 				{errors[name] && (
 					<div className='absolute right-0 -bottom-6'>
 						<span className='bg-red-600 py-[2px] px-3 rounded-50  text-white flex items-center justify-end gap-1 text-xs font-medium'>
-						 
-							<BsExclamation className='text-sm bg-white text-red-600 rounded-50'/> Please enter your {label}
+							<BsExclamation className='text-sm bg-white text-red-600 rounded-50' />{' '}
+							Please enter your {label}
 						</span>
 					</div>
 				)}
@@ -63,4 +84,3 @@ const InputField = ({
 };
 
 export default InputField;
-

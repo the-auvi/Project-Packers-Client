@@ -23,7 +23,7 @@ html {
 }
 
 .backgroundImage{
-  @apply bg-no-repeat bg-[length:100%_600px] bg-black/60 bg-blend-overlay bg-center
+  @apply bg-no-repeat bg-[length:375px_276px] md:bg-[length:100%_600px] bg-black/60 bg-blend-overlay bg-center
 }
 
 
@@ -48,4 +48,9 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-
+ input[type="tel"]:focus{
+  outline: none !important;
+  border:none !important;
+  box-shadow: none !important;
+  /* background: #000; */
+}
