@@ -9,8 +9,11 @@ import Blogs from '../pages/Blogs/Blogs';
 import Blog from '../pages/Blog/Blog';
 import About from '../pages/About/About';
 import AuthRoot from '../layout/AuthRoot';
-import Login from '../pages/Login/Login';
-import SignUp from '../pages/SignUp/SignUp';
+import Login from '../pages/Authentication/Login/Login';
+import SignUp from '../pages/Authentication/SignUp/SignUp';
+import AccountIdentify from '../pages/Authentication/AcccountIdentify/AccountIdentify';
+import Verification from '../pages/Authentication/Verification/Verification';
+import NewPass from '../pages/Authentication/NewPass/NewPass';
 
 export const router = createBrowserRouter([
 	{
@@ -59,6 +62,18 @@ export const router = createBrowserRouter([
 			{
 				path: 'signup',
 				element: <SignUp />,
+			},
+			{
+				path: 'identify',
+				element: <AccountIdentify />,
+			},
+			{
+				path: 'verification',
+				element: <Verification />,
+			},
+			{
+				path: 'set-password',
+				element: <NewPass />,
 			},
 		],
 	},

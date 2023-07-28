@@ -31,14 +31,18 @@ const InputField = ({
 	className,
 	placeholder,
 	id,
+	maxLength,
+	tabIndex,
 	...eventHandler
 }) => {
 	return (
 		<>
 			<div className='relative flex gap-2 flex-col '>
-				<label htmlFor={name} className='text-lg font-semibold text-white '>
-					{label}
-				</label>
+				{label && (
+					<label htmlFor={name} className='text-lg font-semibold text-white '>
+						{label}
+					</label>
+				)}
 				{name === 'phoneNumber' ? (
 					<>
 						<PhoneInput
@@ -62,9 +66,11 @@ const InputField = ({
 						value={value}
 						name={name}
 						type={type}
+						tabIndex={tabIndex && tabIndex}
+						maxLength={maxLength && maxLength}
 						{...register(name, { required })}
 						{...eventHandler}
-						placeholder={placeholder}
+						placeholder={placeholder && placeholder}
 						className={` w-full border-2 py-[17px] text-sm font-medium  text-[#124E58] px-[20px] caret-[#F2C852] border-[#F2C852] rounded-50 focus:shadow-[0px_0px_10px_0px_#F2C852] outline-none   placeholder:text-[#124E58] ${className}
 				${errors[name] && 'focus:border-red-600 focus:shadow-none'}
 				`}

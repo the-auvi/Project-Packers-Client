@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import InputField from '../../components/InputField/InputField';
+import React from 'react';
+// import InputField from '../../components/InputField/InputField';
 import { useForm } from 'react-hook-form';
-import Button from '../../components/Button/Button';
+import Button from '../../../components/Button/Button';
 
 // socialMedia
-import facebook from '../../assets/SocialMedia/facebook.png';
-import apple from '../../assets/SocialMedia/apple.png';
-import google from '../../assets/SocialMedia/google.png';
+import facebook from '../../../assets/SocialMedia/facebook.png';
+import apple from '../../../assets/SocialMedia/apple.png';
+import google from '../../../assets/SocialMedia/google.png';
 import { Link } from 'react-router-dom';
+import InputField from '../../../components/InputField/InputField';
 
-const SignUp = () => {
+const Login = () => {
 	const {
 		register,
 		handleSubmit,
@@ -23,32 +24,22 @@ const SignUp = () => {
 	// console.log("in home", errors[name])
 
 	const onSubmit = (data) => {
-		console.log('click');
 		console.log(data);
 		reset();
 	};
-	const [value, setValue] = useState();
 
 	return (
 		<div className=' '>
 			<div className='wrapper'>
-				<div className='flex flex-row-reverse text-white items-center justify-center h-screen gap-[119px] '>
+				<div className='flex text-white items-center justify-center h-screen gap-[119px] '>
 					<div className='flex-1'>
-						<h1 className='text-[52px] font-semibold mb-[30px]'>Sign up</h1>
+						<h1 className='text-[52px] font-semibold mb-[30px]'>
+							Welcome Back
+						</h1>
 
 						{/* login form */}
 						<form onSubmit={handleSubmit(onSubmit)}>
 							<div className='flex flex-col gap-5'>
-								<InputField
-									placeholder='Enter your full name'
-									name='fullName'
-									type='text'
-									errors={errors}
-									register={register}
-									required={true}
-									label='Full Name'
-								/>
-
 								<InputField
 									placeholder='Enter your email address'
 									name='email'
@@ -56,28 +47,8 @@ const SignUp = () => {
 									errors={errors}
 									register={register}
 									required={true}
-									label='Email address'
+									label='Email address/Phone Number'
 								/>
-
-								<InputField
-									placeholder='Enter your phone Number'
-									name='phoneNumber'
-									label='Phone Number'
-									register={register}
-									required={true}
-									errors={errors}
-								/>
-
-								{/* <InputField
-									placeholder='4437727843***'
-									name='phoneNumber'
-									id='phone'
-									type='tel'
-									errors={errors}
-									register={register}
-									required={true}
-									label='Phone Number'
-								/> */}
 								<InputField
 									placeholder='******'
 									name='password'
@@ -101,9 +72,12 @@ const SignUp = () => {
 											Remember me
 										</label>
 									</div>
-									<div className='text-[#F2C852] text-base font-normal'>
+									<Link
+										to='/authentication/identify'
+										className='text-[#F2C852] text-base font-normal'
+									>
 										Forgot your password
-									</div>
+									</Link>
 								</div>
 							</div>
 
@@ -145,4 +119,4 @@ const SignUp = () => {
 	);
 };
 
-export default SignUp;
+export default Login;

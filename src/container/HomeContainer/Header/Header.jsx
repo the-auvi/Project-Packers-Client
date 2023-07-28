@@ -4,9 +4,12 @@ import { BsCheck2Circle } from 'react-icons/bs';
 import Slider from '../../../components/Slider/Slider';
 import Modal from '../../../components/Modal/Modal';
 import CreateReqModal from '../../Modal/CreateReqModal';
+import Button from '../../../components/Button/Button';
 
 const Header = () => {
 	const [reqURL, setReqURL] = useState('');
+	const [showModal, setShowModal] = useState(false);
+	const [showModal2, setShowModal2] = useState(false);
 
 	const handleChangeRequestURL = (e) => {
 		setReqURL(e.target.value);
@@ -53,10 +56,21 @@ const Header = () => {
 							/>
 						</div>
 
+						{/* modal opening button */}
+						<Button
+							buttonType='secondaryButton'
+							name='Create Request'
+							onClick={() => {
+								setShowModal(true);
+							}}
+							className='px-xl py-[17px]'
+						/>
 						{/* modal */}
-
-						<Modal className='px-xl py-[17px]' openButtonName='Create request'>
-							<CreateReqModal />
+						<Modal showModal={showModal} setShowModal={setShowModal}>
+							<CreateReqModal
+								setShowModal={setShowModal}
+								setShowModal2={setShowModal2}
+							/>
 						</Modal>
 					</div>
 
@@ -79,9 +93,14 @@ const Header = () => {
 				{/* slider for youtube video */}
 				<div className='wrapper absolute left-0 right-0 md:-bottom-[17.5rem] -bottom-[20rem]  overflow-x-scroll'>
 					<Slider />
-					
 				</div>
 			</div>
+
+			{/*  */}
+			{/* confirmation modal after create request */}
+			<Modal showModal={showModal2} setShowModal={setShowModal2}>
+				<p>Pujon das</p>
+			</Modal>
 		</header>
 	);
 };

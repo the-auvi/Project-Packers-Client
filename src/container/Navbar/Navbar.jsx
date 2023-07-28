@@ -18,7 +18,7 @@ import Cart from '../../pages/Cart/Cart';
 
 const Navbar = () => {
 	const [openMenu, setOpenMenu] = useState(false);
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(true);
 	const [isOpen, setIsOpen] = useState(false);
 	const [isCartOpen, setIsCartOpen] = useState(false);
 

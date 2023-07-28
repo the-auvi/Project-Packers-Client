@@ -4,12 +4,13 @@ import camera from '../../assets/cd-camera.png';
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineSearch } from 'react-icons/ai';
 import { MdOutlineClose } from 'react-icons/md';
 import Button from '../../components/Button/Button';
+import Modal from '../../components/Modal/Modal';
 
-const CreateReqModal = () => {
+const CreateReqModal = ({ setShowModal, setShowModal2 }) => {
 	const [reqURL, setReqURL] = useState('');
 	const [quantity, setQuantity] = useState(0);
 	const [productImage, setProductImage] = useState(false);
-	const [loggedIn, setLoggedIn] = useState(false);
+	const [loggedIn, setLoggedIn] = useState(true);
 	const [selectedImage, setSelectedImage] = useState();
 	const [previewImage, setPreviewImage] = useState([]);
 
@@ -43,6 +44,16 @@ const CreateReqModal = () => {
 		e.target.value = '';
 	};
 
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		setShowModal(false);
+		setShowModal2(true);
+
+		const form = e.target;
+		// const
+		console.log(form.file.value);
+	};
+
 	return (
 		<>
 			<div className='w-[596px] h-[658px] p-[30px] '>
@@ -68,7 +79,7 @@ const CreateReqModal = () => {
 				</div>
 				<hr className='my-2' />
 
-				<form className='space-y-[10px]'>
+				<form className='space-y-[10px]' onSubmit={handleSubmit}>
 					{/* Product Images */}
 					<div
 						className={`flex ${
@@ -132,11 +143,12 @@ const CreateReqModal = () => {
 							<label htmlFor='productLink'>Product Link </label>
 							<div className='flex items-center gap-1'>
 								<div className='w-full flex py-3 px-5 gap-1 rounded-50 items-center text-ellipsis truncate border bg-white'>
-									 <AiOutlineSearch className='text-xl text-[#F2C852]' /> 
+									<AiOutlineSearch className='text-xl text-[#F2C852]' />
 									<input
 										type='search'
 										defaultValue={reqURL}
 										id='productLink'
+										name='productLink'
 										onChange={handleChangeRequestURL}
 										className='relative m-0 block flex-auto bg-transparent bg-clip-padding text-base font-normal  text-[#124E58] outline-none placeholder:text-[#124E58]'
 										placeholder='Paste the URL of the product'
@@ -158,10 +170,11 @@ const CreateReqModal = () => {
 							<label htmlFor='productName'>Product Name </label>
 							<div className='flex items-center gap-1'>
 								<div className='w-full flex py-3 px-5 rounded-50 gap-1 items-center text-ellipsis truncate border bg-white'>
-								<AiOutlineSearch className='text-xl text-[#F2C852]' /> 
+									<AiOutlineSearch className='text-xl text-[#F2C852]' />
 									<input
 										type='text'
 										id='productName'
+										name='productName'
 										className='relative m-0 block flex-auto bg-transparent bg-clip-padding  text-base font-normal   text-[#124E58] outline-none placeholder:text-[#124E58]'
 										placeholder='Paste the URL of the product'
 									/>
@@ -189,7 +202,8 @@ const CreateReqModal = () => {
 									type='number'
 									readOnly
 									value={quantity}
-									id='productLink'
+									id='productQuantity'
+									name='productQuantity'
 									onChange={handleChangeRequestURL}
 									className='bg-transparent  text-center text-black text-sm outline-none  font-normal w-24'
 								/>
@@ -232,10 +246,15 @@ const CreateReqModal = () => {
 					{loggedIn ? (
 						<Button
 							buttonType='secondaryButton'
-							name='Request Your Item'
-							className='w-full py-[17px] px-5'
+							name='Create Request'
+							// onClick={(e) => {
+							// 	e.preventDefault();
+							// 	setShowModal(false);
+							// 	setShowModal2(true);
+							// }}
+							className='px-xl py-[17px]'
 						>
-							<input type='submit' value={'re'} />
+							<input type='submit' />
 						</Button>
 					) : (
 						<Button
