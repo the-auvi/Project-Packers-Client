@@ -5,6 +5,7 @@ import Slider from '../../../components/Slider/Slider';
 import Modal from '../../../components/Modal/Modal';
 import CreateReqModal from '../../Modal/CreateReqModal';
 import Button from '../../../components/Button/Button';
+import ReqSuccessful from '../../Modal/ReqSuccessful';
 
 const Header = () => {
 	const [reqURL, setReqURL] = useState('');
@@ -17,7 +18,7 @@ const Header = () => {
 
 	return (
 		<header className='bg-[#0D3D4B]   text-white mb-80 '>
-			<div className='wrapper md:h-[759px] relative  flex justify-between items-center flex-col md:flex-row pt-8'>
+			<div className='wrapper md:h-[759px] relative  flex justify-between items-center flex-col lg:flex-row pt-8'>
 				<div className='space-y-4'>
 					{/* title */}
 					<div className='text-[32px] md:text-[52px] font-bold'>
@@ -99,7 +100,7 @@ const Header = () => {
 			{/*  */}
 			{/* confirmation modal after create request */}
 			<Modal showModal={showModal2} setShowModal={setShowModal2}>
-				<p>Pujon das</p>
+				<ReqSuccessful />
 			</Modal>
 		</header>
 	);

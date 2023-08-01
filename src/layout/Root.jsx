@@ -6,14 +6,14 @@ import TitleBar from '../components/TitleBar/TitleBar';
 const Root = () => {
 	const { pathname } = useLocation();
 	console.log(pathname);
-	const title = pathname.includes('home');
+	const title = pathname !== '/home' && pathname !== '/home/';
 	console.log(title);
 
 	return (
 		<>
 			<Navbar />
 
-			{!title && <TitleBar />}
+			{title && <TitleBar />}
 
 			<Outlet />
 			<Footer />

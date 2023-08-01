@@ -4,6 +4,7 @@ import Headings from '../../../components/Headings/Headings';
 import ProductsCard from '../../../components/ProductsCard/ProductsCard';
 import Button from '../../../components/Button/Button';
 import { BsArrowRight } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 
 const TrendingProducts = () => {
 	const [tProducts, setTProducts] = useState();
@@ -17,7 +18,7 @@ const TrendingProducts = () => {
 			setTProducts(res.data.docs.slice(0, 8));
 		});
 	}, []);
-
+	console.log(tProducts);
 	return (
 		<div>
 			<div className='wrapper'>
@@ -31,16 +32,16 @@ const TrendingProducts = () => {
 						tProducts.map((product, index) => {
 							const { id, images, price, description } = product;
 
-							console.log(id, images, price);
+							console.log('id', id, images, price);
 
 							return (
-								<div className='' key={id}>
+								<Link to={`/home/items/${product.id}`} className='' key={id}>
 									<ProductsCard
 										img={images[0]}
 										title={description}
 										price={price}
 									/>
-								</div>
+								</Link>
 							);
 						})}
 				</div>

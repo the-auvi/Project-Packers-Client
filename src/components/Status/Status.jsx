@@ -6,17 +6,20 @@ import React from 'react';
  * @returns
  */
 const Status = ({ title }) => {
-	// console.log(title === 'Close' && 'Refund Processing');
+	// console.log(title === 'Close' || 'Refund Processing');
 
 	return (
 		<>
 			<div
 				className={`flex items-center justify-center gap-1 rounded-[10px] text-sm font-normal py-[2px] ps-[6px] pe-2 w-fit ${
-					title.toLowerCase() === 'close' && 'refund Processing'
+					title.toLowerCase() === 'close' ||
+					title.toLowerCase() === 'refund processing'
 						? 'bg-red-200 '
-						: title.toLowerCase() === 'paid' && 'abandoned'
+						: title.toLowerCase() === 'paid' ||
+						  title.toLowerCase() === 'abandoned'
 						? ' bg-slate-200'
-						: title.toLowerCase() === 'pending' && 'processing'
+						: title.toLowerCase() === 'pending' ||
+						  title.toLowerCase() === 'processing'
 						? ' bg-[#F7DA7C]'
 						: title.toLowerCase() === 'completed'
 						? 'bg-green-300'
@@ -25,18 +28,26 @@ const Status = ({ title }) => {
 			>
 				<div
 					className={` w-2 h-2 rounded-full ${
-						title.toLowerCase() === 'close' && 'refund Processing'
+						title.toLowerCase() === 'close' ||
+						title.toLowerCase() === 'refund processing'
 							? 'bg-red-700'
-							: title.toLowerCase() === 'paid' && 'abandoned'
+							: title.toLowerCase() === 'paid' ||
+							  title.toLowerCase() === 'abandoned'
 							? ' bg-slate-700'
-							: title.toLowerCase() === 'pending' && 'processing'
+							: title.toLowerCase() === 'pending' ||
+							  title.toLowerCase() === 'processing'
 							? ' bg-[#8C651A]'
 							: title.toLowerCase() === 'completed'
 							? ' bg-green-700'
 							: 'bg-[#092F3F]'
 					}`}
 				></div>
-				{title[0].toUpperCase() + title.slice(1)}
+
+				{title.toLowerCase() === 'refund processing' ? (
+					'Processing'
+				) : (
+					<> {title[0].toUpperCase() + title.slice(1)}</>
+				)}
 			</div>
 		</>
 	);

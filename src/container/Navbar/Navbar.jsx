@@ -161,7 +161,10 @@ const Navbar = () => {
 				{/*Conditional button for mobile responsive */}
 				<>
 					{isLoggedIn ? (
-						<NavLink className='flex items-center gap-2'>
+						<NavLink
+							to='/home/myAccount/orders'
+							className='flex items-center gap-2'
+						>
 							<img
 								src={Cart1}
 								alt=''
@@ -231,7 +234,10 @@ const Navbar = () => {
 
 							{/* Account */}
 							<li>
-								<NavLink className='flex items-center gap-2'>
+								<NavLink
+									to='/home/myAccount/orders'
+									className='flex items-center gap-2'
+								>
 									<img src={myAcct} alt='' />
 								</NavLink>
 							</li>

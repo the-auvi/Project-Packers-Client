@@ -37,7 +37,6 @@ const SignUp = () => {
 					<div className='flex-1'>
 						<h1 className='text-[52px] font-semibold mb-[30px]'>Sign up</h1>
 
-						{/* login form */}
 						<form onSubmit={handleSubmit(onSubmit)}>
 							<div className='flex flex-col gap-5'>
 								<InputField

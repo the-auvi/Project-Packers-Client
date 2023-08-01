@@ -5,6 +5,8 @@ import { AiOutlineMinus, AiOutlinePlus, AiOutlineSearch } from 'react-icons/ai';
 import { MdOutlineClose } from 'react-icons/md';
 import Button from '../../components/Button/Button';
 import Modal from '../../components/Modal/Modal';
+import { Link } from 'react-router-dom';
+import internet from '../../assets/icons/cd-internet.svg';
 
 const CreateReqModal = ({ setShowModal, setShowModal2 }) => {
 	const [reqURL, setReqURL] = useState('');
@@ -44,19 +46,21 @@ const CreateReqModal = ({ setShowModal, setShowModal2 }) => {
 		e.target.value = '';
 	};
 
+	/**
+	 *
+	 * @description - for handling modals
+	 */
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setShowModal(false);
-		setShowModal2(true);
-
-		const form = e.target;
-		// const
-		console.log(form.file.value);
+		if (loggedIn) {
+			setShowModal2(true);
+		}
 	};
 
 	return (
 		<>
-			<div className='w-[596px] h-[658px] p-[30px] '>
+			<div className=' md:w-[596px] md:h-[658px] md:p-[30px] '>
 				{/* button */}
 				<div className='flex items-center gap-4 justify-start text-base font-semibold'>
 					<h1 className='font-semibold text-xl'>Request Item</h1>
@@ -143,14 +147,14 @@ const CreateReqModal = ({ setShowModal, setShowModal2 }) => {
 							<label htmlFor='productLink'>Product Link </label>
 							<div className='flex items-center gap-1'>
 								<div className='w-full flex py-3 px-5 gap-1 rounded-50 items-center text-ellipsis truncate border bg-white'>
-									<AiOutlineSearch className='text-xl text-[#F2C852]' />
+									<img src={internet} alt='' />
 									<input
 										type='search'
 										defaultValue={reqURL}
 										id='productLink'
 										name='productLink'
 										onChange={handleChangeRequestURL}
-										className='relative m-0 block flex-auto bg-transparent bg-clip-padding text-base font-normal  text-[#124E58] outline-none placeholder:text-[#124E58]'
+										className='relative m-0 block flex-auto bg-transparent bg-clip-padding text-base font-normal   outline-none placeholder:text-[#000]'
 										placeholder='Paste the URL of the product'
 									/>
 								</div>
@@ -170,12 +174,11 @@ const CreateReqModal = ({ setShowModal, setShowModal2 }) => {
 							<label htmlFor='productName'>Product Name </label>
 							<div className='flex items-center gap-1'>
 								<div className='w-full flex py-3 px-5 rounded-50 gap-1 items-center text-ellipsis truncate border bg-white'>
-									<AiOutlineSearch className='text-xl text-[#F2C852]' />
 									<input
 										type='text'
 										id='productName'
 										name='productName'
-										className='relative m-0 block flex-auto bg-transparent bg-clip-padding  text-base font-normal   text-[#124E58] outline-none placeholder:text-[#124E58]'
+										className='relative m-0 block flex-auto bg-transparent bg-clip-padding  text-base font-normal outline-none placeholder:text-[#000]'
 										placeholder='Paste the URL of the product'
 									/>
 								</div>
@@ -247,21 +250,18 @@ const CreateReqModal = ({ setShowModal, setShowModal2 }) => {
 						<Button
 							buttonType='secondaryButton'
 							name='Create Request'
-							// onClick={(e) => {
-							// 	e.preventDefault();
-							// 	setShowModal(false);
-							// 	setShowModal2(true);
-							// }}
-							className='px-xl py-[17px]'
+							className=' w-full px-xl py-[17px]'
 						>
 							<input type='submit' />
 						</Button>
 					) : (
-						<Button
-							buttonType='secondaryButton'
-							name='Login and Request your Item'
-							className='w-full py-[17px] px-5'
-						/>
+						<Link to='/authentication/login'>
+							<Button
+								buttonType='secondaryButton'
+								name='Login and Request your Item'
+								className='w-full py-[17px] px-5'
+							/>
+						</Link>
 					)}
 				</form>
 			</div>

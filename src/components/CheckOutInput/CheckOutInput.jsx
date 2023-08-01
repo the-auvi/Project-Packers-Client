@@ -4,7 +4,7 @@ import { BsExclamation } from 'react-icons/bs';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 
-import './InputField.css';
+import './CheckOutInput.css';
 
 /**
  *
@@ -20,7 +20,7 @@ import './InputField.css';
  * @param {Function} eventHandler - receive event handler
  * @returns
  */
-const InputField = ({
+const CheckOutInput = ({
 	value,
 	type,
 	name,
@@ -33,27 +33,17 @@ const InputField = ({
 	id,
 	maxLength,
 	tabIndex,
-	neededFor,
 	...eventHandler
 }) => {
 	return (
 		<>
 			<div className='relative flex gap-2 flex-col '>
 				{label && (
-					<label
-						htmlFor={name}
-						className={` ${
-							neededFor === 'homePage'
-								? 'text-base font-normal text-black'
-								: 'adminPages'
-								? 'text-sm font-normal'
-								: 'text-lg font-semibold text-white'
-						} `}
-					>
+					<label htmlFor={name} className='text-base font-normal text-black '>
 						{label}
 					</label>
 				)}
-				{name === 'phoneNumber' || name === 'phoneNumberAlt' ? (
+				{name === 'phoneNumber' ? (
 					<>
 						<PhoneInput
 							placeholder={placeholder}
@@ -61,16 +51,13 @@ const InputField = ({
 							// onChange={setValue}
 							defaultCountry='BD'
 							international
-							className={` w-full border-2 text-sm font-medium bg-white rounded-50  text-[#124E58] ${
-								neededFor === 'homePage'
-									? 'px-[20px] py-[12px] border-[#000316]/5'
-									: 'adminPages'
-									? 'px-[12px] py-[8px] border-slate-200 text-black'
-									: 'px-[20px] py-[17px] caret-[#F2C852] border-[#F2C852] focus:shadow-[0px_0px_10px_0px_#F2C852]'
-							} placeholder:text-[#124E58] ${className}
+							className={` w-full border-2 py-[12px] text-sm font-medium bg-white  text-[#124E58] border-[#000316]/5 px-[20px] rounded-50 placeholder:text-[#124E58] ${className}
 							${errors[name] && 'focus:border-red-600 focus:shadow-none'}
 							`}
+							// className={'input-phone-number'}
 							{...register(name)}
+
+							// {...register(name, { required })}
 						/>
 					</>
 				) : (
@@ -84,15 +71,9 @@ const InputField = ({
 						{...register(name, { required })}
 						{...eventHandler}
 						placeholder={placeholder && placeholder}
-						className={` w-full border-2 text-sm font-medium bg-white rounded-50  text-[#124E58] ${
-							neededFor === 'homePage'
-								? 'px-[20px] py-[14px] border-[#000316]/5'
-								: 'adminPages'
-								? 'px-[12px] py-[8px] border-slate-200 text-black'
-								: 'px-[20px] py-[17px] caret-[#F2C852] border-[#F2C852] focus:shadow-[0px_0px_10px_0px_#F2C852]'
-						} placeholder:text-[#124E58] ${className}
-						${errors[name] && 'focus:border-red-600 focus:shadow-none'}
-						`}
+						className={` w-full border-2 text-sm font-medium  text-[#124E58]   rounded-50   outline-none   placeholder:text-[#124E58] ${className}
+				${errors[name] && 'focus:border-red-600 focus:shadow-none'}
+				`}
 					/>
 				)}
 				{errors[name] && (
@@ -108,4 +89,4 @@ const InputField = ({
 	);
 };
 
-export default InputField;
+export default CheckOutInput;

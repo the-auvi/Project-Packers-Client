@@ -14,6 +14,12 @@ import SignUp from '../pages/Authentication/SignUp/SignUp';
 import AccountIdentify from '../pages/Authentication/AcccountIdentify/AccountIdentify';
 import Verification from '../pages/Authentication/Verification/Verification';
 import NewPass from '../pages/Authentication/NewPass/NewPass';
+import FAQsPage from '../pages/Blog/FAQsPage/FAQsPage';
+import Checkout from '../pages/Checkout/Checkout';
+import MyAccount from '../layout/MyAccount';
+import MyAccountOrders from '../pages/MyAccountPage/MyAccountOrders/MyAccountOrders';
+import AccountDetails from '../pages/MyAccountPage/AccountDetails/AccountDetails';
+import Item from '../pages/Item/Item';
 
 export const router = createBrowserRouter([
 	{
@@ -48,6 +54,32 @@ export const router = createBrowserRouter([
 			{
 				path: 'about',
 				element: <About />,
+			},
+			{
+				path: 'faqs',
+				element: <FAQsPage />,
+			},
+			{
+				path: 'checkout',
+				element: <Checkout />,
+			},
+			{
+				path: 'myAccount',
+				element: <MyAccount />,
+				children: [
+					{
+						path: 'orders',
+						element: <MyAccountOrders />,
+					},
+					{
+						path: 'accountDetails',
+						element: <AccountDetails />,
+					},
+				],
+			},
+			{
+				path: 'items/:id',
+				element: <Item />,
 			},
 		],
 	},
