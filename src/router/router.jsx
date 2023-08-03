@@ -20,6 +20,17 @@ import MyAccount from '../layout/MyAccount';
 import MyAccountOrders from '../pages/MyAccountPage/MyAccountOrders/MyAccountOrders';
 import AccountDetails from '../pages/MyAccountPage/AccountDetails/AccountDetails';
 import Item from '../pages/Item/Item';
+import ConfirmationTemplate from '../Template/ConfirmationTemplate';
+import Admin from '../layout/Admin';
+import DashBoard from '../pages/About/Admin/Dashboard/DashBoard';
+import ItemRequest from '../pages/About/Admin/ItemRequest/ItemRequest';
+import AllOrders from '../pages/About/Admin/AllOrders/AllOrders';
+import AllProducts from '../pages/About/Admin/AllProducts/AllProducts';
+import Discount from '../pages/About/Admin/Discount/Discount';
+import Categories from '../pages/About/Admin/Categories/Categories';
+import Customers from '../pages/About/Admin/Customers/Customers';
+import Support from '../pages/About/Admin/Support/Support';
+import Staff from '../pages/About/Admin/Staff/Staff';
 
 export const router = createBrowserRouter([
 	{
@@ -81,6 +92,12 @@ export const router = createBrowserRouter([
 				path: 'items/:id',
 				element: <Item />,
 			},
+
+			// TODO: remove this from here
+			{
+				path: 'template1',
+				element: <ConfirmationTemplate />,
+			},
 		],
 	},
 	{
@@ -106,6 +123,48 @@ export const router = createBrowserRouter([
 			{
 				path: 'set-password',
 				element: <NewPass />,
+			},
+		],
+	},
+	{
+		path: '/admin',
+		element: <Admin />,
+		children: [
+			{
+				path: '/admin',
+				element: <DashBoard />,
+			},
+			{
+				path: 'itemRequest',
+				element: <ItemRequest />,
+			},
+			{
+				path: 'allOrders',
+				element: <AllOrders />,
+			},
+			{
+				path: 'allProducts',
+				element: <AllProducts />,
+			},
+			{
+				path: 'discount',
+				element: <Discount />,
+			},
+			{
+				path: 'categories',
+				element: <Categories />,
+			},
+			{
+				path: 'customers',
+				element: <Customers />,
+			},
+			{
+				path: 'support',
+				element: <Support />,
+			},
+			{
+				path: 'staff',
+				element: <Staff />,
 			},
 		],
 	},

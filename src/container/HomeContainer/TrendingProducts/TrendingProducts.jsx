@@ -11,14 +11,20 @@ const TrendingProducts = () => {
 
 	const [axiosSecure] = useAxiosSecure([]);
 
+	const baseURL = axiosSecure.getUri();
+
 	useEffect(() => {
-		axiosSecure.get('/api/products').then((res) => {
+		axiosSecure.get('products').then((res) => {
 			// console.log(res.data.docs.slice(0,8))
+
+			console.log(res.data.docs);
 
 			setTProducts(res.data.docs.slice(0, 8));
 		});
 	}, []);
-	console.log(tProducts);
+
+	// console.log()
+	console.log('trendinf', tProducts);
 	return (
 		<div>
 			<div className='wrapper'>
@@ -35,8 +41,14 @@ const TrendingProducts = () => {
 							console.log('id', id, images, price);
 
 							return (
-								<Link to={`/home/items/${product.id}`} className='' key={id}>
+								<Link
+									to={`/home/items/${product.id}`}
+									state={{ item: product, baseURL: baseURL }}
+									className=''
+									key={id}
+								>
 									<ProductsCard
+										baseURL={baseURL}
 										img={images[0]}
 										title={description}
 										price={price}
@@ -47,12 +59,15 @@ const TrendingProducts = () => {
 				</div>
 
 				<div className='flex items-center justify-center my-5'>
-					<Button
-						buttonType='secondaryButton'
-						name='View more items'
-						className='py-[14px] px-[20px]'
-						icon={<BsArrowRight />}
-					/>
+					<Link to='/home/shop'>
+						{' '}
+						<Button
+							buttonType='secondaryButton'
+							name='View more items'
+							className='py-[14px] px-[20px]'
+							icon={<BsArrowRight />}
+						/>
+					</Link>
 				</div>
 			</div>
 		</div>

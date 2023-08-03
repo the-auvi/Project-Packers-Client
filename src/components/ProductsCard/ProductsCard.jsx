@@ -1,30 +1,34 @@
-import React from 'react'
+import React from 'react';
 // TODO: Remove this when image from db works properly
-import Image from "../../assets/card1.png"
+import Image from '../../assets/card1.png';
 
 /**
- * 
+ *
  * @param {string} img - recive img src
  * @param {string} title - recive title
- * @param {string} price - recive price 
- * @returns 
+ * @param {string} price - recive price
+ * @returns
  */
-const ProductsCard = ({img, title, price}) => {
-  // console.log(img)
-  return (
-    <div className='w-full h-[402px} bg-white'>
+const ProductsCard = ({ baseURL, img, title, price, className }) => {
+	// console.log(img)
+	return (
+		<div
+			className={`min-w-[284px] man-w-[284px] h-[402px} bg-white ${className}`}
+		>
+			<div className='flex flex-col justify-center p-3'>
+				<img
+					src={`${baseURL + img}`}
+					alt='image'
+					className='w-[280px] h-[280px]'
+				/>
+				<p className='text-lg font-semibold'>{title}</p>
+				<div className='flex justify-between items-center'>
+					<p className='text-base'>Retailer Price</p>
+					<p className='text-lg font-semibold'>${price}</p>
+				</div>
+			</div>
+		</div>
+	);
+};
 
-       <div className='flex  flex-col justify-center p-3'>
-       <img src={Image} alt="image" />
-        <p className='text-lg font-semibold'>{title}</p>
-        <div className='flex justify-between items-center' >
-            <p className='text-base'>Retailer Price</p>
-            <p className='text-lg font-semibold'>${price}</p>
-        </div>
-       </div>
-
-    </div>
-  )
-}
-
-export default ProductsCard
+export default ProductsCard;
