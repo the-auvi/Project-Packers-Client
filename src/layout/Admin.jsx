@@ -5,11 +5,15 @@ import Navbar from '../container/Navbar/Navbar';
 
 const Admin = () => {
 	return (
-		<div className='wrapper'>
+		<div className=''>
 			<Navbar />
 			<div className='flex'>
-				<AdminSIdebar />
-				<Outlet />
+				<div className='shrink w-[287px]'>
+					<AdminSIdebar />
+				</div>
+				<div className='grow px-8 '>
+					<Outlet />
+				</div>
 			</div>
 		</div>
 	);
