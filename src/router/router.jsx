@@ -22,15 +22,15 @@ import AccountDetails from '../pages/MyAccountPage/AccountDetails/AccountDetails
 import Item from '../pages/Item/Item';
 import ConfirmationTemplate from '../Template/ConfirmationTemplate';
 import Admin from '../layout/Admin';
-import DashBoard from '../pages/About/Admin/Dashboard/DashBoard';
-import ItemRequest from '../pages/About/Admin/ItemRequest/ItemRequest';
-import AllOrders from '../pages/About/Admin/AllOrders/AllOrders';
-import AllProducts from '../pages/About/Admin/AllProducts/AllProducts';
-import Discount from '../pages/About/Admin/Discount/Discount';
-import Categories from '../pages/About/Admin/Categories/Categories';
-import Customers from '../pages/About/Admin/Customers/Customers';
-import Support from '../pages/About/Admin/Support/Support';
-import Staff from '../pages/About/Admin/Staff/Staff';
+import DashBoard from '../pages/Admin/Dashboard/DashBoard';
+import ItemRequest from '../pages/Admin/ItemRequest/ItemRequest';
+import AllOrders from '../pages/Admin/AllOrders/AllOrders';
+import AllProducts from '../pages/Admin/AllProducts/AllProducts';
+import Discount from '../pages/Admin/Discount/Discount';
+import Categories from '../pages/Admin/Categories/Categories';
+import Customers from '../pages/Admin/Customers/Customers';
+import Support from '../pages/Admin/Support/Support';
+import Staff from '../pages/Admin/Staff/Staff';
 
 export const router = createBrowserRouter([
 	{
