@@ -31,6 +31,8 @@ import Categories from '../pages/Admin/Categories/Categories';
 import Customers from '../pages/Admin/Customers/Customers';
 import Support from '../pages/Admin/Support/Support';
 import Staff from '../pages/Admin/Staff/Staff';
+import ItemRequestUpdate from '../pages/Admin/ItemRequestUpdate/ItemRequestUpdate';
+import OrderDetails from '../pages/Admin/OrderDetails/OrderDetails';
 
 export const router = createBrowserRouter([
 	{
@@ -139,8 +141,16 @@ export const router = createBrowserRouter([
 				element: <ItemRequest />,
 			},
 			{
+				path: 'updateItemRequest/:id',
+				element: <ItemRequestUpdate />,
+			},
+			{
 				path: 'allOrders',
 				element: <AllOrders />,
+			},
+			{
+				path: 'orderDetails',
+				element: <OrderDetails />,
 			},
 			{
 				path: 'allProducts',

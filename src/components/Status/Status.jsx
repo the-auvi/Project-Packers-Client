@@ -45,6 +45,8 @@ const Status = ({ title }) => {
 
 				{title.toLowerCase() === 'refund processing' ? (
 					'Processing'
+				) : title.toLowerCase() === 'sent' ? (
+					'Estimate Sent'
 				) : (
 					<> {title[0].toUpperCase() + title.slice(1)}</>
 				)}

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import Status from '../Status/Status';
 
@@ -6,10 +7,15 @@ const ItemRequestTable = ({ filterStatus, filterSearch }) => {
 	const [allRequest, setAllRequest] = useState();
 
 	const [axiosSecure] = useAxiosSecure();
-	console.log(filterStatus);
+	// console.log(filterStatus);
+	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (filterStatus !== 'all') {
+		if (!filterSearch && !filterStatus) {
+			axiosSecure.get(`/request`).then((res) => {
+				setAllRequest(res.data.docs);
+			});
+		} else if (filterStatus !== 'all') {
 			if (!filterSearch) {
 				axiosSecure.get(`/request?status=${filterStatus}`).then((res) => {
 					setAllRequest(res.data.docs);
@@ -31,12 +37,6 @@ const ItemRequestTable = ({ filterStatus, filterSearch }) => {
 					setAllRequest(res.data.docs);
 				});
 			}
-		}
-
-		if (!filterSearch && !filterStatus) {
-			axiosSecure.get(`/request`).then((res) => {
-				setAllRequest(res.data.docs);
-			});
 		}
 	}, [filterStatus, filterSearch]);
 
@@ -63,7 +63,14 @@ const ItemRequestTable = ({ filterStatus, filterSearch }) => {
 								<td className='p-[18px_16px]'>
 									<input type='checkbox' name='' id='' />
 								</td>
-								<td className='p-[18px_16px]'>{request.id}</td>
+								<td
+									onClick={() =>
+										navigate(`/admin/updateItemRequest/${request.id}`)
+									}
+									className='p-[18px_16px] cursor-pointer '
+								>
+									{request.id}
+								</td>
 								<td className='p-[18px_16px]'>{request.name}</td>
 								<td className='p-[18px_16px]'>{request.link}</td>
 								<td className='p-[18px_16px]'>{}</td>

@@ -47,7 +47,7 @@ const AllOrders = () => {
 		},
 		{
 			name: 'Refund',
-			value: 'refund processing',
+			value: 'refunded',
 		},
 		{
 			name: 'Paid',

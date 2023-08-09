@@ -9,7 +9,11 @@ const OrdersTable = ({ filterStatus, filterSearch }) => {
 	console.log(filterStatus);
 
 	useEffect(() => {
-		if (filterStatus !== 'all') {
+		if (!filterSearch && !filterStatus) {
+			axiosSecure.get(`/order`).then((res) => {
+				setAllOrders(res.data.docs);
+			});
+		} else if (filterStatus !== 'all') {
 			if (!filterSearch) {
 				axiosSecure.get(`/order?status=${filterStatus}`).then((res) => {
 					setAllOrders(res.data.docs);
@@ -31,12 +35,6 @@ const OrdersTable = ({ filterStatus, filterSearch }) => {
 					setAllOrders(res.data.docs);
 				});
 			}
-		}
-
-		if (!filterSearch && !filterStatus) {
-			axiosSecure.get(`/order`).then((res) => {
-				setAllOrders(res.data.docs);
-			});
 		}
 	}, [filterStatus, filterSearch]);
 

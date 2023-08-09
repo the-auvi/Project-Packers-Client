@@ -255,3 +255,273 @@ const ConfirmationTemplate = () => {
 };
 
 export default ConfirmationTemplate;
+
+// {
+// 	<div className='w-[600px] bg-[#124E58] mx-auto px-4 pt-4 my-5'>
+
+// 	   <div className='bg-white p-5 rounded'>
+
+// 		   {/* top logo and date */}
+
+// 		   <div className='flex justify-between items-center'>
+
+// 			   <img src={logo1} alt='' />
+
+// 			   <p>March 24, 2023</p>
+
+// 		   </div>
+
+// 		   {/* header */}
+
+// 		   <div className='flex items-center justify-center flex-col text-center mt-[45px] mb-8'>
+
+// 			   <img src={confirmLogo} alt='' className='mb-6' />
+
+// 			   <p className='text-[32px] font-bold text-[#0D3D4B]'>
+
+// 				   Your order is on its way
+
+// 			   </p>
+
+// 			   <p className='text-slate-600 text-base font-normal mt-2'>
+
+// 				   Please allow 24 hours to track your order
+
+// 			   </p>
+
+// 			   <button className='bg-[#F2C852] text-[#0D3D4B] p-[12px_14px] mt-4 mb-8 rounded-50 text[#0D3D4B] font-semibold '>
+
+// 				   Track your order
+
+// 			   </button>
+
+// 		   </div>
+
+// 		   {/* summary and shipping address */}
+
+// 		   <div className='grid grid-cols-2 font-semibold text-slate-600 text-sm'>
+
+// 			   {/* summary */}
+
+// 			   <div className='border p-3 space-y-2 '>
+
+// 				   <p className='text-lg text-[#124E58] mb-5'>Summary:</p>
+
+// 				   <p>
+
+// 					   <span>Order:</span> <span className='ms-2'>#3214324</span>
+
+// 				   </p>
+
+// 				   <p>
+
+// 					   <span>Order Date:</span>
+
+// 					   <span className='ms-2'>March 24, 2023</span>
+
+// 				   </p>
+
+// 				   <p>
+
+// 					   <span>Order Total:</span>
+
+// 					   <span className='ms-2'>$254.00</span>
+
+// 				   </p>
+
+// 			   </div>
+
+// 			   {/* Shipping address */}
+
+// 			   <div className='border p-3 space-y-2'>
+
+// 				   <p className='text-lg text-[#124E58] mb-5 font-semibold'>
+
+// 					   Shipping Address
+
+// 				   </p>
+
+// 				   <p>4517 Washington Ave. Manchester, Kentucky 39495</p>{' '}
+
+// 			   </div>
+
+// 		   </div>
+
+// 		   {/* Product list */}
+
+// 		   <div>
+
+// 			   <table>
+
+// 				   <thead className='text-sm text-[#124E58] font-semibold border-b'>
+
+// 					   <tr>
+
+// 						   <th className='text-start'>Product List</th>
+
+// 						   <th className='text-start'>Qty</th>
+
+// 						   <th className='text-start'>Price</th>
+
+// 					   </tr>
+
+// 				   </thead>
+
+// 				   <tbody>
+
+// 					   <tr className='border-b'>
+
+// 						   {/* 1st col */}
+
+// 						   <td className='col  '>
+
+// 							   <div className='flex items-center gap-1 '>
+
+// 								   <img src={productImg} alt='' />
+
+// 								   {/* for bigger device */}
+
+// 								   <p className='text-base font-normal hidden md:block'>
+
+// 									   OTTERBOX COMMUTER SERIES Case for iPhone 12 & iPhone 12
+
+// 									   Pro
+
+// 								   </p>
+
+// 							   </div>
+
+// 						   </td>
+
+// 						   {/* 2nd col */}
+
+// 						   <td className='col  '>
+
+// 							   <div className='flex items-center gap-5'>1</div>
+
+// 						   </td>
+
+// 						   {/* 3rd col */}
+
+// 						   <td className='col   '>
+
+// 							   <div className='flex items-center gap-5'>
+
+// 								   <span>৳22,590.00tk</span>
+
+// 							   </div>
+
+// 						   </td>
+
+// 					   </tr>
+
+// 					   <tr className='border-b'>
+
+// 						   {/* 1st col */}
+
+// 						   <td className='col  '>
+
+// 							   <div className='flex items-center gap-1 '>
+
+// 								   <img src={productImg} alt='' />
+
+// 								   {/* for bigger device */}
+
+// 								   <p className='text-base font-normal hidden md:block'>
+
+// 									   OTTERBOX COMMUTER SERIES Case for iPhone 12 & iPhone 12
+
+// 									   Pro
+
+// 								   </p>
+
+// 							   </div>
+
+// 						   </td>
+
+// 						   {/* 2nd col */}
+
+// 						   <td className='col  '>
+
+// 							   <div className='flex items-center gap-5'>1</div>
+
+// 						   </td>
+
+// 						   {/* 3rd col */}
+
+// 						   <td className='col   '>
+
+// 							   <div className='flex items-center gap-5'>
+
+// 								   <span>৳22,590.00tk</span>
+
+// 							   </div>
+
+// 						   </td>
+
+// 					   </tr>
+
+// 				   </tbody>
+
+// 			   </table>
+
+// 		   </div>
+
+// 		   {/* details */}
+
+// 		   <div className='w-[347px] ms-auto'>
+
+// 			   <div className='border-b text-base text-slate-600'>
+
+// 				   <div className='flex justify-between items-center py-4'>
+
+// 					   <span className='text-start'>Seller Takes</span>
+
+// 					   <span className='text-end'>৳ 2323k</span>
+
+// 				   </div>
+
+// 				   <div className='flex justify-between items-center py-4'>
+
+// 					   <span className='text-start'>Seller Takes</span>
+
+// 					   <span className='text-end'>৳ 2312312k</span>
+
+// 				   </div>{' '}
+
+// 				   <div className='flex justify-between items-center py-4'>
+
+// 					   <span className='text-start'>Packers Fee</span>
+
+// 					   <span className='text-end'>৳ 123123 k</span>
+
+// 				   </div>
+
+// 			   </div>
+
+// 			   <div className='flex justify-between items-center py-4'>
+
+// 				   <span className='text-start'>Estimated total</span>
+
+// 				   <span className='text-end text-xl font-bold'>৳ 22,590.00tk </span>
+
+// 			   </div>
+
+// 		   </div>
+
+// 		   <button className='bg-[#F2C852] text-[#0D3D4B] p-[12px_14px] rounded-50 w-full text-sm font-bold'>
+
+// 			   Keep Shopping with us
+
+// 		   </button>
+
+// 	   </div>
+
+// 	   <div className='flex items-center justify-center py-5'>
+
+// 		   <img src={logo2} alt='' />
+
+// 	   </div>
+
+// 	  </div>
+// }

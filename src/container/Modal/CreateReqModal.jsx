@@ -15,7 +15,12 @@ const CreateReqModal = ({ setShowModal, setShowModal2 }) => {
 	const [loggedIn, setLoggedIn] = useState(true);
 	const [selectedImage, setSelectedImage] = useState();
 	const [previewImage, setPreviewImage] = useState([]);
+	const [imagePath, setImagePath] = useState();
+	let reader = new FileReader();
 
+	let imageForm = new FormData();
+
+	// for preview images
 	useEffect(() => {
 		if (!selectedImage) {
 			setPreviewImage([]);
@@ -28,6 +33,7 @@ const CreateReqModal = ({ setShowModal, setShowModal2 }) => {
 		return () => URL.revokeObjectURL(objectUrl);
 	}, [selectedImage]);
 
+	// quantity changes
 	const handleQuantity = (type) => {
 		if (type === 'minus' && quantity > 0) {
 			setQuantity(quantity - 1);
@@ -37,14 +43,24 @@ const CreateReqModal = ({ setShowModal, setShowModal2 }) => {
 		}
 	};
 
+	// store url
 	const handleChangeRequestURL = (e) => {
 		setReqURL(e.target.value);
 	};
 
+	// for take file
 	const handleFile = (e) => {
+		console.log(e.target.files[0].path);
+
+		const file = e.target.files[0];
+		imageForm.append('images', file);
+		reader.readAsDataURL(e.target.files[0]);
+
 		setSelectedImage(e.target.files[0]);
 		e.target.value = '';
 	};
+
+	console.log(imageForm);
 
 	/**
 	 *

@@ -32,7 +32,7 @@ const ItemRequest = () => {
 		},
 		{
 			name: 'Estimate sent',
-			value: 'estimate sent',
+			value: 'sent',
 		},
 		{
 			name: 'Closed',
