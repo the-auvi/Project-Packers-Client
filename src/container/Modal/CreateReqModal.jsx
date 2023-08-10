@@ -50,11 +50,7 @@ const CreateReqModal = ({ setShowModal, setShowModal2 }) => {
 
 	// for take file
 	const handleFile = (e) => {
-		console.log(e.target.files[0].path);
-
 		const file = e.target.files[0];
-		imageForm.append('images', file);
-		reader.readAsDataURL(e.target.files[0]);
 
 		setSelectedImage(e.target.files[0]);
 		e.target.value = '';

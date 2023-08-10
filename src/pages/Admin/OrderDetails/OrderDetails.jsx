@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 const OrderDetails = () => {
 	const [selectedImage, setSelectedImage] = useState(null);
@@ -29,6 +30,9 @@ const OrderDetails = () => {
 			// 		.then((res) => res.json())
 			// 		.then((data) => console.log(data));
 			// }
+
+			formData.forEach((e) => console.log(e));
+
 			try {
 				const response = await axios.patch(
 					'http://localhost:4000/api/request/64d32151ff0abe43d9cbb5ab',
@@ -54,10 +58,33 @@ const OrderDetails = () => {
 		}
 	};
 
+	const {
+		register,
+		handleSubmit,
+		watch,
+		reset,
+		formState: { errors },
+	} = useForm();
+
+	const onSubmit = (data) => {
+		console.log('click');
+		console.log(data);
+		reset();
+	};
+
 	return (
 		<div>
 			<input type='file' onChange={handleFileChange} />
 			<button onClick={handleUpload}>Upload Image</button>
+
+			<button type='submit' form='try-form' className='p-2 border bg-green-400'>
+				form submit try
+			</button>
+
+			<form id='try-form' action='' onSubmit={handleSubmit(onSubmit)}>
+				<label htmlFor='text'></label>
+				<input type='text' name='text' id='text' {...register('text')} />
+			</form>
 		</div>
 	);
 };

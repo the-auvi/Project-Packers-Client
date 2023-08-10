@@ -59,7 +59,10 @@ const ItemRequestTable = ({ filterStatus, filterSearch }) => {
 				<tbody>
 					{allRequest &&
 						allRequest.map((request) => (
-							<tr key={request.id} className='border-b py-[180px] '>
+							<tr
+								key={request.id}
+								className='border-b py-[180px] hover:bg-[#FEF9DC]'
+							>
 								<td className='p-[18px_16px]'>
 									<input type='checkbox' name='' id='' />
 								</td>
@@ -71,7 +74,14 @@ const ItemRequestTable = ({ filterStatus, filterSearch }) => {
 								>
 									{request.id}
 								</td>
-								<td className='p-[18px_16px]'>{request.name}</td>
+								<td
+									onClick={() =>
+										navigate(`/admin/updateItemRequest/${request.id}`)
+									}
+									className='p-[18px_16px] cursor-pointer'
+								>
+									{request.name}
+								</td>
 								<td className='p-[18px_16px]'>{request.link}</td>
 								<td className='p-[18px_16px]'>{}</td>
 								<td className='p-[18px_16px]'>{request.user.fullName}</td>

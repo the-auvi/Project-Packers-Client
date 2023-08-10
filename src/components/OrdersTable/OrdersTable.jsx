@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import Status from '../Status/Status';
 
 const OrdersTable = ({ filterStatus, filterSearch }) => {
 	const [allOrders, setAllOrders] = useState();
+	const navigate = useNavigate();
 
 	const [axiosSecure] = useAxiosSecure();
 	console.log(filterStatus);
@@ -59,11 +61,19 @@ const OrdersTable = ({ filterStatus, filterSearch }) => {
 				<tbody>
 					{allOrders &&
 						allOrders.map((order) => (
-							<tr key={order.id} className='border-b py-[180px] '>
+							<tr
+								key={order.id}
+								className='border-b py-[180px] hover:bg-[#FEF9DC] '
+							>
 								<td className='p-[18px_16px]'>
 									<input type='checkbox' name='' id='' />
 								</td>
-								<td className='p-[18px_16px]'>{order.id}</td>
+								<td
+									onClick={() => navigate(`/admin/orderDetails/${order.id}`)}
+									className='p-[18px_16px] cursor-pointer'
+								>
+									{order.id}
+								</td>
 								<td className='p-[18px_16px]'>
 									{order.products[0].product.name}
 								</td>
