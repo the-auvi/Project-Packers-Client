@@ -33,6 +33,7 @@ import Support from '../pages/Admin/Support/Support';
 import Staff from '../pages/Admin/Staff/Staff';
 import ItemRequestUpdate from '../pages/Admin/ItemRequestUpdate/ItemRequestUpdate';
 import OrderDetails from '../pages/Admin/OrderDetails/OrderDetails';
+import AddOrUpdateProducts from '../pages/Admin/AddOrUpdateProducts/AddOrUpdateProducts';
 
 export const router = createBrowserRouter([
 	{
@@ -155,6 +156,14 @@ export const router = createBrowserRouter([
 			{
 				path: 'allProducts',
 				element: <AllProducts />,
+			},
+			{
+				path: 'addProduct',
+				element: <AddOrUpdateProducts />,
+			},
+			{
+				path: 'updateProduct/:id',
+				element: <AddOrUpdateProducts />,
 			},
 			{
 				path: 'discount',

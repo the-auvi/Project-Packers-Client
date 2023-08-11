@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../../components/Button/Button';
 import TableFunctions1 from '../../../components/TableFunctions1/TableFunctions1';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
@@ -28,6 +28,8 @@ const AllProducts = () => {
 	const [searchId, setSearchId] = useState(null);
 	const [products, setProducts] = useState();
 	const [page, setPage] = useState(1);
+
+	const navigate = useNavigate();
 
 	const [axiosSecure] = useAxiosSecure();
 	const baseURL = axiosSecure.getUri();
@@ -66,7 +68,7 @@ const AllProducts = () => {
 				<h2 className='p-[20px_0]   w-full text-[#0D3D4B] text-xl font-semibold'>
 					All Products
 				</h2>
-				<Link>
+				<Link to='/admin/addProduct'>
 					<Button
 						buttonType='secondaryButton'
 						name='Add New Product'
@@ -101,7 +103,10 @@ const AllProducts = () => {
 					<tbody>
 						{products &&
 							products.map((product) => (
-								<tr key={product.id} className='border-b py-[180px] '>
+								<tr
+									key={product.id}
+									className='border-b py-[180px] hover:bg-[#FEF9DC]'
+								>
 									<td className='p-[18px_16px] flex gap-2 '>
 										<input type='checkbox' name='' id='' />
 										<img
@@ -114,7 +119,15 @@ const AllProducts = () => {
 											alt=''
 										/> */}
 									</td>
-									<td className='p-[18px_16px]'>{product.name}</td>
+									<td
+										onClick={(e) => {
+											e.preventDefault();
+											navigate(`/admin/updateProduct/${product.id}`);
+										}}
+										className='p-[18px_16px]'
+									>
+										{product.name}
+									</td>
 									<td className='p-[18px_16px]'>{product.quantity}</td>
 									<td className='p-[18px_16px]'>{product.price}</td>
 									<td className='p-[18px_16px]'>{product.category.name}</td>

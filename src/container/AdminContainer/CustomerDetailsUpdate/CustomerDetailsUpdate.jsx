@@ -84,7 +84,10 @@ const CustomerDetailsUpdate = ({ isEdit, setIsEdit, register }) => {
 							Shipping Address
 						</p>
 						<button
-							onClick={() => setIsEdit('shipping')}
+							onClick={(e) => {
+								e.preventDefault();
+								setIsEdit('shipping');
+							}}
 							className='text-[#3E949A]'
 						>
 							Edit
@@ -158,7 +161,8 @@ const CustomerDetailsUpdate = ({ isEdit, setIsEdit, register }) => {
 							Billing Address
 						</p>
 						<button
-							onClick={() => {
+							onClick={(e) => {
+								e.preventDefault();
 								setIsEdit('billing');
 							}}
 							className='text-[#3E949A]'

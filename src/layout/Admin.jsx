@@ -11,7 +11,7 @@ const Admin = () => {
 				<div className='shrink w-[287px]'>
 					<AdminSIdebar />
 				</div>
-				<div className='grow px-8 '>
+				<div className='grow px-8 max-w-screen-2xl mx-auto'>
 					<Outlet />
 				</div>
 			</div>
