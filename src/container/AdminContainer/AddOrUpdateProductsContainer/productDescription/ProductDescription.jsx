@@ -1,12 +1,12 @@
 import { Editor } from '@tinymce/tinymce-react';
 import React, { useRef } from 'react';
 
-const ProductDescription = () => {
+const ProductDescription = ({ register }) => {
 	const editorRef = useRef(null);
 
 	const log = () => {
 		if (editorRef.current) {
-			console.log(editorRef.current.getContent());
+			register('description', { value: editorRef.current.getContent() });
 		}
 	};
 
@@ -21,6 +21,7 @@ const ProductDescription = () => {
 					Product Name
 				</label>
 				<input
+					{...register('name')}
 					type='text'
 					className='w-full py-2 px-3 border rounded outline-none'
 					id='productName'

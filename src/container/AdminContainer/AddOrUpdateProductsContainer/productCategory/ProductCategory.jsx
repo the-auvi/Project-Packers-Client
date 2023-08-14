@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProductCategory = () => {
+const ProductCategory = ({register	}) => {
 	return (
 		<div className='w-full p-3 rounded-lg border'>
 			{/* product category */}

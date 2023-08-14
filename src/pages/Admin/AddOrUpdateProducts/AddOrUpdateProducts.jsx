@@ -41,7 +41,7 @@ const AddOrUpdateProducts = () => {
 						<h2 className='text-[#0D3D4B] text-base font-semibold my-3'>
 							Category
 						</h2>
-						<ProductCategory />
+						<ProductCategory register={register}/>
 					</>
 				</div>
 
@@ -97,11 +97,28 @@ const AddOrUpdateProducts = () => {
 					</>
 					{/* buttons */}
 					<div className='flex gap-2 items-center justify-between mt-3'>
-						<button className='p-[8px_16px] border rounded '>Discard</button>
+						<button
+							onClick={(e) => {
+								e.preventDefault();
+							}}
+							className='p-[8px_16px] border rounded '
+						>
+							Discard
+						</button>
 
 						<div className='flex gap-3'>
-							<button className='p-[8px_16px] border rounded '>Draft</button>
-							<button className='p-[8px_16px] border rounded bg-[#F2C852]'>
+							<button
+								onClick={(e) => {
+									e.preventDefault();
+								}}
+								className='p-[8px_16px] border rounded '
+							>
+								Draft
+							</button>
+							<button
+								type='submit'
+								className='p-[8px_16px] border rounded bg-[#F2C852]'
+							>
 								Publish
 							</button>
 						</div>
