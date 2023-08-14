@@ -20,7 +20,7 @@ const CartCard = ({
 	updatePrice,
 }) => {
 	/**
-	 * @description for storeing updated quantities
+	 * @description for storing updated quantities
 	 *
 	 */
 	const [quantity, setQuantity] = useState(ProductQuantity);
@@ -55,7 +55,7 @@ const CartCard = ({
 
 	/**
 	 *
-	 * @param {string} type - receieved for what reason the button was clicked. "minus" or "plus"
+	 * @param {string} type - received for what reason the button was clicked. "minus" or "plus"
 	 * @returns - updated quantity
 	 */
 	const handleQuantity = (type) => {

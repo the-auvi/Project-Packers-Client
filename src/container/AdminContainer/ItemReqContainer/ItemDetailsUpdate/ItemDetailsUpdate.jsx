@@ -51,12 +51,6 @@ const ItemDetailsUpdate = ({ isEdit, setIsEdit, register }) => {
 		setPreviewImages((prev) => [...prev, URL.createObjectURL(file)]);
 	};
 
-	// const handleSearch = (e) => {
-	// 	setSearchURL(e.target.value);
-	// };
-
-	// const  {on } = register("search")
-
 	console.log(searchURL);
 
 	return (

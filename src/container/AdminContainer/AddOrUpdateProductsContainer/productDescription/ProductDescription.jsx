@@ -1,7 +1,15 @@
 import { Editor } from '@tinymce/tinymce-react';
-import React from 'react';
+import React, { useRef } from 'react';
 
 const ProductDescription = () => {
+	const editorRef = useRef(null);
+
+	const log = () => {
+		if (editorRef.current) {
+			console.log(editorRef.current.getContent());
+		}
+	};
+
 	return (
 		<div className='w-full p-3 rounded-lg border'>
 			{/* product name */}
@@ -20,29 +28,22 @@ const ProductDescription = () => {
 			</div>
 
 			{/* description */}
-			<div>
+			<div className=''>
 				<label
 					htmlFor='productDescription'
 					className='text-sm font-normal text-slate-600'
 				>
 					Description
 				</label>
-				{/* <textarea
-					name='productDescription'
-					id='productDescription'
-					cols='30'
-					rows='10'
-					className='w-full border rounded outline-none'
-				></textarea> */}
 
 				<Editor
 					apiKey='your-api-key'
 					onInit={(evt, editor) => (editorRef.current = editor)}
-					initialValue='<p>This is the initial content of the editor.</p>'
+					initialValue=''
 					inline
 					init={{
 						height: 500,
-						menubar: true,
+
 						plugins: [
 							'advlist',
 							'autolink',
@@ -63,12 +64,20 @@ const ProductDescription = () => {
 							'help',
 							'wordcount',
 						],
-						toolbar:
-							'  blocks | ' + 'bold italic    ' + '  bullist numlist  | ',
+						toolbar: 'bold italic underline   ' + '  bullist numlist  + link',
 
+						selector: 'textarea', // change this value according to your HTML
 						content_style:
-							'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+							'.mce-content-body { height: 20rem; border:1px solid #E5E7EB; outline:none; padding:1rem } ' +
+							`.mce-content-body[data-mce-placeholder]:not(.mce-visualblocks)::before {
+								 
+								padding: 0 1rem;
+								}
+								`,
+						menubar: false,
+						placeholder: 'Product Descriptions...',
 					}}
+					onChange={() => log()}
 				/>
 			</div>
 		</div>
