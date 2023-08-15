@@ -6,11 +6,92 @@ import ProductDescription from '../../../container/AdminContainer/AddOrUpdatePro
 import ProductImages from '../../../container/AdminContainer/AddOrUpdateProductsContainer/ProductImage/ProductImages';
 import ProductPricing from '../../../container/AdminContainer/AddOrUpdateProductsContainer/ProductPricing/ProductPricing';
 import internet from '../../../assets/icons/cd-internet.svg';
+import { useLocation, useParams } from 'react-router-dom';
+import { plane } from '../../../contexts/terminal/Terminal';
+import axios from 'axios';
 const AddOrUpdateProducts = () => {
 	const { handleSubmit, register } = useForm();
 
-	const onSubmit = (data) => {
-		console.log(data);
+	const { id } = useParams();
+
+	const location = useLocation();
+	const newProducts = location.pathname.includes(id);
+	const prevProducts = location?.state?.product;
+
+	// console.log(prevProducts);
+
+	// console.log(newProducts);
+
+	const onSubmit = async (data) => {
+		// // console.log(data);
+		// const d = {
+		// 	name: data.name,
+		// 	subcategory: data.subcategory,
+		// 	tags: data.tags,
+		// 	price: data.price,
+		// 	fee: data.fee,
+		// 	tax: data.tax,
+		// 	category: data.category,
+		// 	description: data.description,
+		// };
+
+		// const images = data.images;
+		// console.log(data.images);
+		// const { images, ...rest } = data;
+		// console.log(
+		// 	'dfsdsdfsd',
+		// 	JSON.stringify(rest),
+		// 	images && { images: images[0] },
+		// );
+		// const fd = new FormData();
+		// // fd.append('data', JSON.stringify(rest));
+		// fd.append('images', JSON.stringify(data.images));
+		// // images.forEach((image, i) => fd.append(`images.${i}`, image));
+		// fetch('http://localhost:4000/api/products', {
+		// 	method: 'POST',
+		// 	credentials: 'include',
+		// 	headers: {
+		// 		// 'Content-Type': 'multipart/form-data; ',
+		// 		Accept: 'application/json',
+		// 		'Content-Type': 'multipart/form-data',
+		// 		'Access-Control-Allow-Credentials': true,
+		// 	},
+		// 	body: fd,
+		// })
+		// 	.then((res) => res.json())
+		// 	.then((data) => console.log(data))
+		// 	.catch((e) => console.log(e));
+
+		const formData = new FormData();
+
+		formData.append('images', JSON.stringify(data.images));
+		try {
+			const response = await axios.post(
+				'http://localhost:4000/api/products',
+				formData,
+				{
+					withCredentials: true,
+					headers: {
+						Accept: 'application/json',
+						'Content-Type': 'multipart/form-data',
+						'Access-Control-Allow-Credentials': true,
+					},
+				},
+			);
+			console.log('Image uploaded:', response.data);
+		} catch (error) {
+			console.error('Error uploading image:', error);
+		}
+
+		// plane
+		// 	.request({
+		// 		name: `${newProducts ? 'updateProduct' : 'registerProduct'}`,
+		// 		body: { data: JSON.stringify(rest), images: images[0] },
+		// 	})
+		// 	.then((data) => {
+		// 		console.log(data);
+		// 		// setCategory(data);
+		// 	});
 	};
 
 	return (
@@ -33,7 +114,10 @@ const AddOrUpdateProducts = () => {
 							Description
 						</h2>
 
-						<ProductDescription register={register} />
+						<ProductDescription
+							register={register}
+							prevProducts={prevProducts}
+						/>
 					</>
 
 					{/* category */}
@@ -41,7 +125,7 @@ const AddOrUpdateProducts = () => {
 						<h2 className='text-[#0D3D4B] text-base font-semibold my-3'>
 							Category
 						</h2>
-						<ProductCategory register={register}/>
+						<ProductCategory register={register} prevProducts={prevProducts} />
 					</>
 				</div>
 
@@ -60,7 +144,7 @@ const AddOrUpdateProducts = () => {
 						<h2 className='text-[#0D3D4B] text-base font-semibold mb-3'>
 							Pricing
 						</h2>
-						<ProductPricing />
+						<ProductPricing register={register} />
 					</>
 
 					{/* product link */}

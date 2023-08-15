@@ -1,7 +1,7 @@
 import { Editor } from '@tinymce/tinymce-react';
 import React, { useRef } from 'react';
 
-const ProductDescription = ({ register }) => {
+const ProductDescription = ({ register, prevProducts }) => {
 	const editorRef = useRef(null);
 
 	const log = () => {
@@ -21,6 +21,7 @@ const ProductDescription = ({ register }) => {
 					Product Name
 				</label>
 				<input
+					value={prevProducts && prevProducts.name}
 					{...register('name')}
 					type='text'
 					className='w-full py-2 px-3 border rounded outline-none'
@@ -40,7 +41,7 @@ const ProductDescription = ({ register }) => {
 				<Editor
 					apiKey='your-api-key'
 					onInit={(evt, editor) => (editorRef.current = editor)}
-					initialValue=''
+					initialValue={prevProducts ? prevProducts.name : ''}
 					inline
 					init={{
 						height: 500,

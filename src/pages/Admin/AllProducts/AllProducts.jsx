@@ -122,9 +122,11 @@ const AllProducts = () => {
 									<td
 										onClick={(e) => {
 											e.preventDefault();
-											navigate(`/admin/updateProduct/${product.id}`);
+											navigate(`/admin/updateProduct/${product.id}`, {
+												state: { product: product },
+											});
 										}}
-										className='p-[18px_16px]'
+										className='p-[18px_16px] cursor-pointer'
 									>
 										{product.name}
 									</td>
