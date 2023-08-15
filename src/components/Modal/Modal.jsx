@@ -63,7 +63,7 @@ const Modal = ({
 				className={` md:hidden w-screen text-black h-screen fixed top-0 left-0 right-0 bottom-0 z-20  ${
 					showModal
 						? 'translate-y-0 bg-[#0D3D4B]/70'
-						: 'translate-y-full bg-[#0D3D4B]/0'
+						: 'translate-y-[100rem] bg-[#0D3D4B]/0'
 				} transition-all  duration-500 `}
 			>
 				<div

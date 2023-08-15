@@ -24,7 +24,7 @@ const TrendingProducts = () => {
 	}, []);
 
 	// console.log()
-	console.log('trendinf', tProducts);
+	// console.log('trendinf', tProducts);
 	return (
 		<div>
 			<div className='wrapper'>
@@ -33,7 +33,7 @@ const TrendingProducts = () => {
 					subTitle='Get inspired by what people in your city are buying from abroad with the biggest savings'
 				/>
 
-				<div className='grid py-[1px] justify-items-center px-0 grid-cols-2 md:grid-cols-4 bg-gray-500 gap-[1px]'>
+				<div className='grid py-[1px] justify-items-center px-0 grid-cols-2 md:grid-cols-4  bg-gray-500 gap-[1px]'>
 					{tProducts &&
 						tProducts.map((product, index) => {
 							const { id, images, price, description } = product;

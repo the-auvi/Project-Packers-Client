@@ -35,27 +35,27 @@ const ItemRequestUpdate = () => {
 	const formData = new FormData();
 
 	const onSubmit = async (data) => {
-		// console.log('click');
-		// console.log(data.images);
-		// formData.append('images', JSON.stringify(data.images));
-		// try {
-		// 	const response = await axios.patch(
-		// 		'http://localhost:4000/api/request/64d32151ff0abe43d9cbb5ab',
-		// 		formData,
-		// 		{
-		// 			withCredentials: true,
-		// 			headers: {
-		// 				Accept: 'application/json',
-		// 				'Content-Type': 'multipart/form-data',
-		// 				'Access-Control-Allow-Credentials': true,
-		// 			},
-		// 		},
-		// 	);
-		// 	console.log('Image uploaded:', response.data);
-		// } catch (error) {
-		// 	console.error('Error uploading image:', error);
-		// }
-		// reset();
+		console.log('click');
+		console.log(data.images);
+		formData.append('images', JSON.stringify(data.images));
+		try {
+			const response = await axios.patch(
+				'http://localhost:4000/api/request/64d32151ff0abe43d9cbb5ab',
+				formData,
+				{
+					withCredentials: true,
+					headers: {
+						Accept: 'application/json',
+						'Content-Type': 'multipart/form-data',
+						'Access-Control-Allow-Credentials': true,
+					},
+				},
+			);
+			console.log('Image uploaded:', response.data);
+		} catch (error) {
+			console.error('Error uploading image:', error);
+		}
+		reset();
 	};
 
 	return (
