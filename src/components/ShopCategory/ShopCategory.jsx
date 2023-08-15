@@ -6,6 +6,7 @@ import {
 	MdOutlineKeyboardArrowDown,
 	MdOutlineKeyboardArrowUp,
 } from 'react-icons/md';
+import { plane } from '../../contexts/terminal/Terminal';
 
 const ShopCategory = ({ setIds, ids }) => {
 	const [categories, setCategories] = useState();
@@ -14,14 +15,7 @@ const ShopCategory = ({ setIds, ids }) => {
 	const [axiosSecure] = useAxiosSecure();
 
 	useEffect(() => {
-		axiosSecure
-			.get('category')
-			.then((res) => {
-				setCategories(res.data);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		plane.request({ name: 'allCategory' }).then(data => data.length && setCategories(data))
 	}, []);
 
 	const handleCategoryClick = (categoryID) => {
@@ -42,7 +36,7 @@ const ShopCategory = ({ setIds, ids }) => {
 			<h1 className='text-[28px] font-semibold mb-6'>Trending Items</h1>
 
 			<div className='p-2 text-slate-600 font-normal space-y-1 '>
-				<h3 className='text-base font-semibold text-[#3E949A] p-[6px_8px]'>
+				<h3 onClick={() => { setIds({}) }} className='text-base font-semibold text-[#3E949A] p-[6px_8px] cursor-pointer'>
 					All Category
 				</h3>
 				{categories?.map((item, index) => (

@@ -55,7 +55,7 @@ const Checkout = () => {
 						{/* Alternative phone number (Optional) */}
 						<InputField
 							placeholder='Enter your phone Number'
-							name='phoneNumberAlt'
+							name='alternativephone'
 							label='Alternative phone number (Optional)'
 							register={register}
 							required={true}

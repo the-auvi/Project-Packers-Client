@@ -1,44 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import moneyBack from '../../assets/icons/money-back.svg';
 import Headings from '../../components/Headings/Headings';
-import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import ProductsCard from '../../components/ProductsCard/ProductsCard';
+import { plane } from '../../contexts/terminal/Terminal';
 
 const Item = () => {
 	const { id } = useParams();
-
-	const products = useLocation()?.state?.item;
-	const baseURL = useLocation()?.state?.baseURL;
-	// console.log(products);
-
-	const {
-		category,
-		description,
-		images,
-		link,
-		origin,
-		price,
-		productName,
-		quantity,
-		status,
-		tags,
-	} = products;
-
-	const [fullImage, setFullImage] = useState(images[0]);
-
-	const [RelatedProducts, setRelatedProducts] = useState();
-
-	const [axiosSecure] = useAxiosSecure([]);
-
+	const [fullImage, setFullImage] = useState(null);
+	const [RelatedProducts, setRelatedProducts] = useState([]);
+	const [product, setProduct] = useState({});
 	useEffect(() => {
-		axiosSecure.get('products').then((res) => {
-			// console.log(res.data.docs.slice(0,8))
-
-			setRelatedProducts(res.data.docs.slice(0, 8));
+		plane.request({ name: 'allProduct', query: { limit: 8 } }).then(data => data.docs && setRelatedProducts(data.docs))
+		plane.request({ name: 'singleProduct', params: { id: id } }).then(data => {
+			if (data.id) setProduct(data); setFullImage(data?.images[0])
 		});
-	}, []);
+	}, [id]);
 
 	return (
 		<>
@@ -50,7 +28,7 @@ const Item = () => {
 						<div className='grid grid-cols-12 gap-0 md:gap-[30px]'>
 							{/* all images */}
 							<div className='col-span-3  flex flex-col gap-5 items-center justify-center'>
-								{images.map((image, index) => {
+								{product?.images?.map((image, index) => {
 									return (
 										<button
 											key={index}
@@ -58,7 +36,7 @@ const Item = () => {
 											className={`active:scale-90 transition-all duration-200 border rounded-xl focus:border-[#6BCCCB] outline-none`}
 										>
 											<img
-												src={` ${baseURL + image}`}
+												src={`${import.meta.env.VITE_SERVER_URL}/${image}`}
 												className='w-[73px] h-[73px] md:w-[177px] md:h-[177px] border rounded-xl '
 											/>
 										</button>
@@ -68,7 +46,7 @@ const Item = () => {
 							{/* preview image */}
 							<div className='col-span-9  border rounded-xl flex items-center justify-center'>
 								<img
-									src={baseURL + fullImage}
+									src={`${import.meta.env.VITE_SERVER_URL}/${fullImage}`}
 									className=' md:w-[480px] md:h-[480px] rounded-xl'
 								/>
 							</div>
@@ -80,13 +58,13 @@ const Item = () => {
 						{/* product price */}
 						<div className='flex items-center justify-between py-4 border-b'>
 							<p className=' '>Product Price</p>
-							<p className='text-[#0D3D4B] text-2xl font-bold'>$400</p>
+							<p className='text-[#0D3D4B] text-2xl font-bold'>${product?.price + product?.tax + product?.fee}</p>
 						</div>
 
 						{/* Product from */}
 						<div className='py-4'>
 							<p>Product from</p>
-							<p className='text-black '>United state of America</p>
+							<p className='text-black '>{product?.origin}</p>
 						</div>
 
 						{/* Where to buy */}
@@ -97,7 +75,7 @@ const Item = () => {
 								target='_blank'
 								className='text-[#3E949A]'
 							>
-								apple.com
+								{product?.link}
 							</a>
 						</div>
 
@@ -131,20 +109,10 @@ const Item = () => {
 				{/* description */}
 				<div className='mt-12 w-full md:w-4/6  `'>
 					<p className='text-[28px] font-semibold text-[#0D3D4B] mb-4'>
-						iPad Air 64Gb Wi-Fi Space Gray
+						{product?.name}
 					</p>
 					<p className='text-base font-normal text-slate-600'>
-						Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-						sint. Velit officia consequat duis enim velit mollit. Exercitation
-						veniam consequat sunt nostrud amet. Amet minim mollit non deserunt
-						ullamco est sit aliqua dolor do amet sint. Velit officia consequat
-						duis enim velit mollit. Exercitation
-						<br />
-						<br />
-						veniam consequat sunt nostrud amet.Amet minim mollit non deserunt
-						ullamco est sit aliqua dolor do amet sint. Velit officia consequat
-						duis enim velit mollit. Exercitation veniam consequat sunt nostrud
-						amet.Exercitation veniam consequat sunt nostrud amet.
+						{product?.description}
 					</p>
 				</div>
 				{/* lower content */}
@@ -154,14 +122,17 @@ const Item = () => {
 						subTitle='Get inspired by what people in your city are buying from abroad with the biggest savings'
 					/>
 					<div className='flex items-center overflow-x-scroll gap-[1px] border-y bg-gray-400 '>
-						{RelatedProducts?.map((product, index) => (
-							<ProductsCard
-								key={product.id}
-								baseURL={baseURL}
-								img={product.images[0]}
-								title={product.productName}
-								price={product.price}
-							/>
+						{RelatedProducts?.map((product) => (
+							<Link to={`/home/items/${product.id}`}
+								key={product.id}>
+								<ProductsCard
+									key={product.id}
+									img={product.images[0]}
+									title={product.productName}
+									price={product?.price + product?.tax + product?.fee}
+								/>
+							</Link>
+
 						))}
 					</div>
 				</div>

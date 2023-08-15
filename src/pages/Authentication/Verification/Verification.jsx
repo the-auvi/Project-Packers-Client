@@ -1,31 +1,29 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '../../../components/Button/Button';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import InputField from '../../../components/InputField/InputField';
 
 import rec1 from '../../../assets/verifications/1.png';
 import rec2 from '../../../assets/verifications/2.png';
 import rec3 from '../../../assets/verifications/3.png';
 import star from '../../../assets/verifications/4.png';
+import { plane } from '../../../contexts/terminal/Terminal';
 
 const Verification = () => {
-	const [otpDigit, setOtpDigit] = useState();
-
+	const navigate = useNavigate()
+	const location = useLocation()
 	const {
 		register,
 		handleSubmit,
-		watch,
 		reset,
-
 		formState: { errors },
 	} = useForm();
 
 	const onSubmit = (data) => {
-		// console.log(data);
 		const otp = Object.values(data).join('');
-		setOtpDigit(otp);
-		console.log(otp);
+		plane.request({ name: 'verifyOTP', body: data }).then(data => data.status === false ? toaster({ type: 'error', message: data.message }) :
+			navigate("/authentication/set-password", { state: { ...location.state, otp: otp } }))
 		reset();
 	};
 
@@ -42,7 +40,6 @@ const Verification = () => {
 				elmnt.target.form.elements[next].focus();
 			}
 		}
-		// console.log(e);
 	};
 
 	// console.log(window.Clipboard);

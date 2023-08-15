@@ -53,7 +53,7 @@ const InputField = ({
 						{label}
 					</label>
 				)}
-				{name === 'phoneNumber' || name === 'phoneNumberAlt' ? (
+				{name === 'phone' || name === 'alternativephone' ? (
 					<>
 						<PhoneInput
 							placeholder={placeholder}

@@ -5,26 +5,14 @@ import ProductsCard from '../../../components/ProductsCard/ProductsCard';
 import Button from '../../../components/Button/Button';
 import { BsArrowRight } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import { plane } from '../../../contexts/terminal/Terminal';
 
 const TrendingProducts = () => {
 	const [tProducts, setTProducts] = useState();
-
-	const [axiosSecure] = useAxiosSecure([]);
-
-	const baseURL = axiosSecure.getUri();
-
 	useEffect(() => {
-		axiosSecure.get('products').then((res) => {
-			// console.log(res.data.docs.slice(0,8))
-
-			console.log(res.data.docs);
-
-			setTProducts(res.data.docs.slice(0, 8));
-		});
+		plane.request({ name: 'allProduct', queries: { limit: 8 } }).then(data => data.docs && setTProducts(data.docs))
 	}, []);
 
-	// console.log()
-	console.log('trendinf', tProducts);
 	return (
 		<div>
 			<div className='wrapper'>
@@ -33,25 +21,19 @@ const TrendingProducts = () => {
 					subTitle='Get inspired by what people in your city are buying from abroad with the biggest savings'
 				/>
 
-				<div className='grid py-[1px] justify-items-center px-0 grid-cols-2 md:grid-cols-4 bg-gray-500 gap-[1px]'>
+				<div className='grid py-[1px] justify-items-center px-0 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 bg-gray-500 gap-[1px]'>
 					{tProducts &&
 						tProducts.map((product, index) => {
-							const { id, images, price, description } = product;
-
-							console.log('id', id, images, price);
-
+							const { id, images, price, tax, fee, description } = product;
 							return (
 								<Link
 									to={`/home/items/${product.id}`}
-									state={{ item: product, baseURL: baseURL }}
-									className=''
 									key={id}
 								>
 									<ProductsCard
-										baseURL={baseURL}
 										img={images[0]}
 										title={description}
-										price={price}
+										price={price + tax + fee}
 									/>
 								</Link>
 							);

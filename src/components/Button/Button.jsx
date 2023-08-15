@@ -10,6 +10,7 @@ import React from 'react';
  */
 
 const Button = ({
+	dis = true,
 	buttonType,
 	name,
 	className,
@@ -17,25 +18,22 @@ const Button = ({
 	image,
 	...eventHandlers
 }) => {
-	// console.log(icon);
-
 	return (
 		<>
 			<button
+				disabled={!dis}
 				{...eventHandlers}
-				className={` ${
-					buttonType !== 'imageButton' &&
+				className={`${buttonType !== 'imageButton' &&
 					'flex items-center justify-center gap-2  py-2 px-5 rounded-50 text-sm font-bold '
-				}
-        ${
-					buttonType === 'outlineButton'
+					}
+        ${buttonType === 'outlineButton'
 						? 'border border-secondary text-primary bg-none'
 						: buttonType === 'secondaryButton'
-						? 'bg-secondary text-primary'
-						: buttonType === 'imageButton'
-						? 'py-0 px-0 gap-0'
-						: 'bg-primary text-white'
-				}
+							? 'bg-secondary text-primary'
+							: buttonType === 'imageButton'
+								? 'py-0 px-0 gap-0'
+								: 'bg-primary text-white'
+					}
         ${className}
         `}
 			>

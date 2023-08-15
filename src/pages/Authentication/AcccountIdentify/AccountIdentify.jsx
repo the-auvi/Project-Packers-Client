@@ -1,20 +1,23 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '../../../components/Button/Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import InputField from '../../../components/InputField/InputField';
+import { plane } from '../../../contexts/terminal/Terminal';
+import toaster from '../../../utils/toaster';
 
 const AccountIdentify = () => {
+	const navigate = useNavigate()
 	const {
 		register,
 		handleSubmit,
-		watch,
 		reset,
 		formState: { errors },
 	} = useForm();
 
 	const onSubmit = (data) => {
-		console.log(data);
+		plane.request({ name: 'sendOTP', body: data }).then(data => data.status === false ? toaster({ type: 'error', message: data.message }) :
+			navigate("/authentication/verification", { state: { ...data, time: Date.now() } }))
 		reset();
 	};
 
@@ -56,7 +59,7 @@ const AccountIdentify = () => {
 							products from any USA website.
 						</p>
 						<p className='text-base font-normal mt-5'>
-							Don’t have an account yet?
+							Don't have an account yet?
 							<Link className='text-[#F2C852]' to='/authentication/signup'>
 								Sign up
 							</Link>

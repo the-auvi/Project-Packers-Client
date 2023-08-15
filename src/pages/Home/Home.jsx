@@ -8,17 +8,13 @@ import FAQsPage from '../Blog/FAQsPage/FAQsPage';
 
 const Home = () => {
 	return (
-		<div>
+		<>
 			<Header />
-
 			<Brands />
-
 			<TrendingProducts />
-
 			<PackersWorks />
-
 			<FAQsPage />
-		</div>
+		</>
 	);
 };
 

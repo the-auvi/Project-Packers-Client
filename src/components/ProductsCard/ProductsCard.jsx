@@ -9,15 +9,14 @@ import Image from '../../assets/card1.png';
  * @param {string} price - recive price
  * @returns
  */
-const ProductsCard = ({ baseURL, img, title, price, className }) => {
-	// console.log(img)
+const ProductsCard = ({ img, title, price, className }) => {
 	return (
 		<div
 			className={`min-w-[284px] man-w-[284px] h-[402px} bg-white ${className}`}
 		>
 			<div className='flex flex-col justify-center p-3'>
 				<img
-					src={`${baseURL + img}`}
+					src={`${import.meta.env.VITE_SERVER_URL}/${img}`}
 					alt='image'
 					className='w-[280px] h-[280px]'
 				/>

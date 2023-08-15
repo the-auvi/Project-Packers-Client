@@ -1,38 +1,38 @@
-import React, { useRef, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Button from '../../components/Button/Button';
 import logo from '../../assets/logo.png';
 import logo2 from '../../assets/logo3.png';
 import myAcct from '../../assets/Avatar.png';
 import NotificationImg from '../../assets/cd-notification.svg';
 import Cart1 from '../../assets/cd-products.svg';
-import card1 from '../../assets/card1.png';
-
 import { AiOutlineMenuUnfold, AiOutlineClose } from 'react-icons/ai';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import DropDownNotification from '../../components/DropDown/DropDown';
 import Notification from '../../pages/Notification/Notification';
-import NotificationCard from '../../components/NotificationCard/NotificationCard';
 import Cart from '../../pages/Cart/Cart';
+import { plane } from '../../contexts/terminal/Terminal';
+import { UserContext } from '../../contexts/user/UserContext';
 
 // TODO: add comment and short it more
 
 const Navbar = () => {
 	const [openMenu, setOpenMenu] = useState(false);
-	const [isLoggedIn, setIsLoggedIn] = useState(true);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 	const [isCartOpen, setIsCartOpen] = useState(false);
-
+	const { dispatch, data } = useContext(UserContext)
 	const isAdmin = useLocation().pathname.includes('admin');
-
-	const handleClick = (p) => {
-		console.log(p);
-	};
-
+	useEffect(() => {
+		plane.request({ name: 'fetchUser' }).then(data => {
+			if (data.id) dispatch({ type: "SAVE_USER", payload: data }); setIsLoggedIn(true)
+		})
+	}, [])
 	return (
-		<div className='border-b shadow-md '>
+		<div className='border-b shadow-md relative z-20'>
 			<nav
 				className={`flex gap-1 max-w-screen-xl mx-auto items-center justify-between
-			 bg-white text-black h-20 px-2 md:px-5  `}
+			 bg-white text-black h-20 px-2 md:px-5`}
 			>
 				{/* button for open navbar in mobile response */}
 				{isLoggedIn && (
@@ -47,9 +47,8 @@ const Navbar = () => {
 				{/* NavMenu in Mobile responsive navmenu*/}
 				{isLoggedIn && (
 					<div
-						className={` absolute z-50 bg-white h-screen w-3/4 top-0 md:hidden transition-all duration-1000 ${
-							openMenu ? ' left-0 opacity-100' : 'h-0 opacity-0 -left-[40rem]'
-						}`}
+						className={` absolute z-50 bg-white h-screen w-3/4 top-0 md:hidden transition-all duration-1000 ${openMenu ? ' left-0 opacity-100' : 'h-0 opacity-0 -left-[40rem]'
+							}`}
 					>
 						<div className='px-4 py-10'>
 							{/* Logo and button */}
@@ -58,7 +57,6 @@ const Navbar = () => {
 								<Button
 									buttonType='outlineButton'
 									name='Login or Sign up'
-									onClick={() => handleClick('pujon')}
 								/>
 							</div>
 							{/*  */}
@@ -123,27 +121,30 @@ const Navbar = () => {
 					</div>
 				)}
 
-				{/* logo for mobile responsinve with out opening navmenu */}
+				{/* logo for mobile responsive with out opening navmenu */}
 				<div>
-					<img
-						src={logo2}
-						alt=''
-						className='max-w-[5rem] min-w-[5rem] md:hidden'
-					/>
+					<Link to={"/home"}>
+						<img
+							src={logo2}
+							alt=''
+							className='max-w-[5rem] min-w-[5rem] md:hidden'
+						/>
+					</Link>
 				</div>
 
 				{/* for desktop */}
 				<div>
-					<img src={logo} alt='' className='w-20 md:w-full hidden md:block' />
+					<Link to={"/home"}>
+						<img src={logo} alt='' className='w-20 md:w-full hidden md:block' />
+					</Link>
 				</div>
 
 				{/* search */}
 				<div
-					className={`w-auto md:w-2/4 lg:w-3/5 flex px-3 items-center text-ellipsis truncate   ${
-						isAdmin
-							? 'rounded-none border-none bg-slate-50'
-							: 'border rounded-3xl'
-					} `}
+					className={`w-auto md:w-2/4 lg:w-3/5 flex px-3 items-center text-ellipsis truncate   ${isAdmin
+						? 'rounded-none border-none bg-slate-50'
+						: 'border rounded-3xl'
+						} `}
 				>
 					{/* search Icon */}
 					<span>
@@ -151,9 +152,8 @@ const Navbar = () => {
 							xmlns='http://www.w3.org/2000/svg'
 							viewBox='0 0 20 20'
 							fill='currentColor'
-							className={`h-5 w-5 ${
-								isAdmin ? 'text-[#5C5F62]' : ' text-[#F2C852]'
-							}`}
+							className={`h-5 w-5 ${isAdmin ? 'text-[#5C5F62]' : ' text-[#F2C852]'
+								}`}
 						>
 							<path
 								fillRule='evenodd'
@@ -167,9 +167,8 @@ const Navbar = () => {
 					<input
 						type='search'
 						className='relative m-0 block flex-auto bg-transparent bg-clip-padding ps-3 py-[0.25rem] text-base font-normal leading-[1.6] text-[#124E58] outline-none placeholder:text-[#124E58]'
-						placeholder={`${
-							isAdmin ? 'Search' : 'Paste the URL of the product'
-						}`}
+						placeholder={`${isAdmin ? 'Search' : 'Paste the URL of the product'
+							}`}
 					/>
 				</div>
 
@@ -191,7 +190,7 @@ const Navbar = () => {
 							buttonType='secondaryButton'
 							name='Login'
 							className={'block md:hidden'}
-							onClick={() => handleClick('pujon')}
+
 						/>
 					)}
 				</>
@@ -253,10 +252,10 @@ const Navbar = () => {
 									to='/home/myAccount/orders'
 									className='flex items-center gap-2'
 								>
-									<img src={myAcct} alt='' />
+									<img src={myAcct || data?.avatar} alt='' />
 								</NavLink>
 							</li>
-							<li>Pujon Das</li>
+							<li>{data?.fullName}</li>
 						</ul>
 					) : (
 						<div className='flex items-center gap-2'>
@@ -264,11 +263,11 @@ const Navbar = () => {
 								<Button
 									buttonType='outlineButton'
 									name='Login'
-									// onClick={() => handleClick('pujon')}
 								/>
 							</Link>
-
-							<Button name='Sign Up' onClick={() => handleClick('pujon')} />
+							<Link to='/authentication/signup'>
+								<Button name='Sign Up' />
+							</Link>
 						</div>
 					)}
 				</div>

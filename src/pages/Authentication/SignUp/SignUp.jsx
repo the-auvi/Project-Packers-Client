@@ -8,27 +8,24 @@ import facebook from '../../../assets/SocialMedia/facebook.png';
 import apple from '../../../assets/SocialMedia/apple.png';
 import google from '../../../assets/SocialMedia/google.png';
 // import facebook from "../../../"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { plane } from '../../../contexts/terminal/Terminal';
 
 const SignUp = () => {
+	const navigate = useNavigate();
+	const [accept, setAccept] = useState(false)
 	const {
 		register,
 		handleSubmit,
-		watch,
 		reset,
 		formState: { errors },
 	} = useForm();
 
-	const name = 'text';
-
-	// console.log("in home", errors[name])
-
 	const onSubmit = (data) => {
-		console.log('click');
-		console.log(data);
+		plane.request({ name: 'registerUser', body: data }).then(data => data.status === false ? toaster({ type: 'error', message: data.message }) :
+			navigate("/authentication/login"))
 		reset();
 	};
-	const [value, setValue] = useState();
 
 	return (
 		<div className=' '>
@@ -61,7 +58,7 @@ const SignUp = () => {
 
 								<InputField
 									placeholder='Enter your phone Number'
-									name='phoneNumber'
+									name='phone'
 									label='Phone Number'
 									register={register}
 									required={true}
@@ -94,8 +91,8 @@ const SignUp = () => {
 											type='checkbox'
 											name='remember'
 											id='remember'
-											{...register('remember', { required: true })}
-											// className=''
+											onChange={() => setAccept(!accept)}
+										// className=''
 										/>
 										<label htmlFor='remember' className='ml-1'>
 											I agree to Project Packers{' '}
@@ -122,6 +119,7 @@ const SignUp = () => {
 								<Button buttonType='imageButton' image={apple} className='' />
 
 								<Button
+									dis={accept}
 									buttonType='secondaryButton'
 									name='Sign up'
 									className='w-full py-[17px] px-5 '

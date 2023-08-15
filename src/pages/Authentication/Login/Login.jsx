@@ -3,14 +3,17 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '../../../components/Button/Button';
 
+
 // socialMedia
 import facebook from '../../../assets/SocialMedia/facebook.png';
 import apple from '../../../assets/SocialMedia/apple.png';
 import google from '../../../assets/SocialMedia/google.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import InputField from '../../../components/InputField/InputField';
+import { plane } from '../../../contexts/terminal/Terminal';
 
 const Login = () => {
+	const navigate = useNavigate();
 	const {
 		register,
 		handleSubmit,
@@ -24,7 +27,9 @@ const Login = () => {
 	// console.log("in home", errors[name])
 
 	const onSubmit = (data) => {
-		console.log(data);
+		data = data.rememberMe ? data : { email: data.email, password: data.password }
+		plane.request({ name: 'logIn', body: data }).then(data => data.status === false ? toaster({ type: 'error', message: data.message }) :
+			navigate("/home"))
 		reset();
 	};
 
@@ -65,8 +70,8 @@ const Login = () => {
 											type='checkbox'
 											name='remember'
 											id='remember'
-											{...register('remember', { required: true })}
-											// className=''
+											{...register('rememberMe')}
+										// className=''
 										/>
 										<label htmlFor='remember' className='ml-1'>
 											Remember me
@@ -107,7 +112,7 @@ const Login = () => {
 							products from any USA website.
 						</p>
 						<p className='text-base font-normal mt-5'>
-							Don’t have an account yet?
+							Don't have an account yet?
 							<Link className='text-[#F2C852]' to='/authentication/signup'>
 								Sign up
 							</Link>

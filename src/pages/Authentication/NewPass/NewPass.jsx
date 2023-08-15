@@ -1,24 +1,29 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '../../../components/Button/Button';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import InputField from '../../../components/InputField/InputField';
 
 import img1 from '../../../assets/verifications/5.png';
+import { plane } from '../../../contexts/terminal/Terminal';
 
 const NewPass = () => {
 	const {
 		register,
 		handleSubmit,
-		watch,
 		reset,
-
 		formState: { errors },
-		setFocus,
 	} = useForm();
-
+	let error = null;
+	const navigate = useNavigate()
+	const location = useLocation()
 	const onSubmit = (data) => {
-		console.log(data);
+		if (data.newPassword !== data.confirmPassword) {
+			return error = <p className='text-red-500 font-semibold'>Password does not match</p>
+		}
+		plane.request({ name: 'resetPassword', body: data }).then(data => data.status === false ? toaster({ type: 'error', message: data.message }) :
+			navigate("/authentication/login"))
+		error = null
 		reset();
 	};
 
@@ -50,7 +55,7 @@ const NewPass = () => {
 								required={true}
 								className='border-none focus:shadow-none '
 							/>
-
+							{error && error}
 							<Button
 								buttonType='secondaryButton'
 								name='Save Password'
