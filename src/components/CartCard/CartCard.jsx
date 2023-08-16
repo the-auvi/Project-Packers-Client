@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi';
 
@@ -24,34 +24,31 @@ const CartCard = ({
 	 *
 	 */
 	const [quantity, setQuantity] = useState(ProductQuantity);
-	const [newPrice, setNewPrice] = useState(price);
 
-	useEffect(() => {
-		const p = price * quantity;
-		setNewPrice(p);
+	// useEffect(() => {
+	// 	const p = price * quantity;
+	// 	setNewPrice(p);
 
-		const updatedProduct = {
-			productname: productName,
-			productPrice: p,
-		};
+	// 	const updatedProduct = {
+	// 		productname: productName,
+	// 		productPrice: p,
+	// 	};
 
-		//For check if the product is already in the updatePrice array
-		const productIndex = updatePrice.findIndex(
-			(item) => item.productname === productName,
-		);
+	// 	//For check if the product is already in the updatePrice array
+	// 	const productIndex = updatePrice.findIndex(
+	// 		(item) => item.productname === productName,
+	// 	);
 
-		console.log(productIndex);
-
-		// If the product is already in the updatePrice array, update it; otherwise, add it
-		if (productIndex !== -1) {
-			const updatedPriceArray = [...updatePrice];
-			console.log('up', updatedPriceArray);
-			updatedPriceArray[productIndex] = updatedProduct;
-			setUpdatePrice(updatedPriceArray);
-		} else {
-			setUpdatePrice((prevPriceArray) => [...prevPriceArray, updatedProduct]);
-		}
-	}, [quantity, price]);
+	// 	// If the product is already in the updatePrice array, update it; otherwise, add it
+	// 	if (productIndex !== -1) {
+	// 		const updatedPriceArray = [...updatePrice];
+	// 		console.log('up', updatedPriceArray);
+	// 		updatedPriceArray[productIndex] = updatedProduct;
+	// 		setUpdatePrice(updatedPriceArray);
+	// 	} else {
+	// 		setUpdatePrice((prevPriceArray) => [...prevPriceArray, updatedProduct]);
+	// 	}
+	// }, [quantity, price]);
 
 	/**
 	 *
@@ -68,11 +65,11 @@ const CartCard = ({
 	};
 
 	return (
-		<tr className='border-b'>
+		<tr className='border-b w-full'>
 			{/* 1st col */}
 			<td className='col min-h-[64px]  '>
 				<div className='flex items-center gap-1 '>
-					<img src={productImg} alt='' />
+					<img src={import.meta.env.VITE_SERVER_URL + `/${productImg}`} alt='' className='w-16 h-16' />
 					<div>
 						{/* for page */}
 						{isNavbar || (
@@ -89,7 +86,7 @@ const CartCard = ({
 									{productName.slice(0, 40)}...
 								</p>
 								<div className='col mt-1 text-xs font-semibold sm:hidden '>
-									৳ {newPrice && newPrice} tk
+									৳ {price} tk
 								</div>
 							</>
 						)}
@@ -101,7 +98,7 @@ const CartCard = ({
 									{productName.slice(0, 40)}...
 								</p>
 								<div className='col mt-1 text-xs font-semibold  '>
-									৳ {newPrice && newPrice} tk
+									৳ {price * ProductQuantity} tk
 								</div>
 							</>
 						)}
@@ -114,7 +111,8 @@ const CartCard = ({
 				{/* for dropdown */}
 				{isNavbar && (
 					<div className='flex items-center justify-center'>
-						<input
+						<p className='cursor-default'>{quantity}</p>
+						{/* <input
 							value={quantity}
 							readOnly
 							type='number'
@@ -129,7 +127,7 @@ const CartCard = ({
 							<button>
 								<BiSolidDownArrow />
 							</button>
-						</div>
+						</div> */}
 					</div>
 				)}
 
@@ -176,7 +174,7 @@ const CartCard = ({
 			{isNavbar || (
 				<td className='col min-h-[64px] text-xs font-semibold hidden md:flex items-center '>
 					<div className='min-h-[64px] flex items-center justify-center'>
-						৳ <span>{newPrice && newPrice}</span> tk
+						৳ <span>{price}</span> tk
 					</div>
 				</td>
 			)}
@@ -190,59 +188,59 @@ export default CartCard;
 	/* <tbody>
 <tr className="">
   <td className="col min-h-[64px]">
-    <div className="flex items-center gap-2">
-      <img src={productImg} alt="" />
-      <div>
-        <p className="text-base font-normal hidden md:block">
-          {productName.slice(0, 40)}
-          <br />
-          {productName.slice(41, productName.length)}
-        </p>
-        <p className="text-sm text-black/40 font-normal sm:hidden text-">
-          {productName.slice(0, 40)}...
-           
-        </p>
-        <div className="col mt-1 text-xs font-semibold sm:hidden">
-          ৳ {price} tk
-        </div>
-      </div>
-    </div>
+	<div className="flex items-center gap-2">
+	  <img src={productImg} alt="" />
+	  <div>
+		<p className="text-base font-normal hidden md:block">
+		  {productName.slice(0, 40)}
+		  <br />
+		  {productName.slice(41, productName.length)}
+		</p>
+		<p className="text-sm text-black/40 font-normal sm:hidden text-">
+		  {productName.slice(0, 40)}...
+		   
+		</p>
+		<div className="col mt-1 text-xs font-semibold sm:hidden">
+		  ৳ {price} tk
+		</div>
+	  </div>
+	</div>
   </td>
 
   <td className="col min-h-[64px]">
-    <div className="flex items-center gap-5">
-      <div className="flex items-center justify-center gap-2 border w-[86px] px-2 py-[11px] rounded bg-white">
-        <button
-          className="text-black/30"
-          onClick={(e) => {
-            e.preventDefault();
-            handleQuantity("minus");
-          }}
-        >
-          <AiOutlineMinus />
-        </button>
-        <input
-          value={quantity}
-          readOnly
-          type="number"
-          id="productLink"
-          className="bg-transparent text-center text-[#3E949A] text-sm outline-none font-normal w-[30px] [&::-webkit-inner-spin-button]:appearance-none "
-        />
-        <button
-          className="text-black/30"
-          onClick={(e) => {
-            e.preventDefault();
-            handleQuantity("plus");
-          }}
-        >
-          <AiOutlinePlus />
-        </button>
-      </div>
-    </div>
+	<div className="flex items-center gap-5">
+	  <div className="flex items-center justify-center gap-2 border w-[86px] px-2 py-[11px] rounded bg-white">
+		<button
+		  className="text-black/30"
+		  onClick={(e) => {
+			e.preventDefault();
+			handleQuantity("minus");
+		  }}
+		>
+		  <AiOutlineMinus />
+		</button>
+		<input
+		  value={quantity}
+		  readOnly
+		  type="number"
+		  id="productLink"
+		  className="bg-transparent text-center text-[#3E949A] text-sm outline-none font-normal w-[30px] [&::-webkit-inner-spin-button]:appearance-none "
+		/>
+		<button
+		  className="text-black/30"
+		  onClick={(e) => {
+			e.preventDefault();
+			handleQuantity("plus");
+		  }}
+		>
+		  <AiOutlinePlus />
+		</button>
+	  </div>
+	</div>
   </td>
 
   <td className="col min-h-[64px] text-xs font-semibold hidden md:flex items-center">
-    ৳ {price} tk
+	৳ {price} tk
   </td>
 </tr>
 </tbody> */

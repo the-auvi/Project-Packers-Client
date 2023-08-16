@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CartCard from '../../components/CartCard/CartCard';
 import cart11 from '../../assets/cart1.png';
 
 import './Cart.css';
 import Button from '../../components/Button/Button';
 import { Link } from 'react-router-dom';
+import { plane } from '../../contexts/terminal/Terminal';
 
 /**
  *
@@ -14,22 +15,20 @@ import { Link } from 'react-router-dom';
 const Cart = ({ isNavbar }) => {
 	const [updatePrice, setUpdatePrice] = useState([]);
 
-	const totalPackagePrice = updatePrice.reduce(
-		(total, item) => total + item.productPrice,
-		0,
-	);
-
-	const sellerTakes = 22993;
-	const USsalesTax = 234;
-	const totalPrice = sellerTakes + USsalesTax + totalPackagePrice;
-
+	let sellerTakes = 0;
+	let tax = 0;
+	let fee = 0
+	const [cart, setCart] = useState()
+	useEffect(() => {
+		plane.request({ name: 'getCart' }).then(data => data.id && setCart(data))
+	}, [])
 	return (
 		<div
-			className={`wrapper flex gap-[30px] ${isNavbar || 'mt-[96px] h-screen'}`}
+			className={`wrapper flex flex-col xl:flex-row gap-[30px] ${isNavbar || 'mt-[96px] min-h-screen mb-20'}`}
 		>
-			<div className=' '>
+			<div className={isNavbar ? 'w-full' : 'w-full xl:w-[70%]'}>
 				{/* table */}
-				<table className={`${isNavbar || 'w-[803px] '}`}>
+				<table className={`w-full`}>
 					{/* for page */}
 					{!isNavbar && (
 						// table head
@@ -44,7 +43,37 @@ const Cart = ({ isNavbar }) => {
 
 					{/* table body */}
 					<tbody>
-						<CartCard
+						{cart?.products?.length > 0 && cart?.products?.map((product) => {
+							sellerTakes += product?.product?.price
+							tax += product?.product?.tax
+							fee += product?.product?.fee
+							return <CartCard
+								key={product?.product?.id}
+								setUpdatePrice={setUpdatePrice}
+								updatePrice={updatePrice}
+								isNavbar={isNavbar}
+								ProductQuantity={product?.productQuantity}
+								productImg={product?.product?.images[0]}
+								price={product?.product?.price + product?.product?.tax + product?.product?.fee}
+								productName={product?.product?.name}
+							/>
+						})}
+						{cart?.requests?.length > 0 && cart?.requests?.map((product) => {
+							sellerTakes += product?.request?.price
+							tax += request?.request?.tax
+							fee += request?.request?.fee
+							return <CartCard
+								key={request?.product?.id}
+								setUpdatePrice={setUpdatePrice}
+								updatePrice={updatePrice}
+								isNavbar={isNavbar}
+								ProductQuantity={request?.requestQuantity}
+								productImg={request?.request?.images[0]}
+								price={request?.request?.price + request?.request?.tax + request?.request?.fee}
+								productName={request?.request?.name}
+							/>
+						})}
+						{/* <CartCard
 							setUpdatePrice={setUpdatePrice}
 							updatePrice={updatePrice}
 							isNavbar={isNavbar}
@@ -70,11 +99,11 @@ const Cart = ({ isNavbar }) => {
 							productImg={cart11}
 							price={4}
 							productName='3 OUTERBOX COMPUTER SERIES Case for iPhone 12 & iPhone 12 pro'
-						/>
+						/> */}
 					</tbody>
 				</table>
 				{isNavbar || (
-					<div className='flex items-center justify-between mt-[26px]'>
+					<div className='flex items-center justify-between mt-[26px] w-full lg:w-[70%]'>
 						<div>
 							<input
 								type='text'
@@ -92,7 +121,7 @@ const Cart = ({ isNavbar }) => {
 				)}
 			</div>
 			{isNavbar || (
-				<div className='flex-1 p-[30px] border rounded-[8px] h-[372px] w-[387px]'>
+				<div className='xl:flex-1 p-[30px] border rounded-[8px] xl:h-[372px]'>
 					<div className=''>
 						{/* title */}
 						<div className='border-b py-4 text-lg font-medium '>
@@ -105,17 +134,17 @@ const Cart = ({ isNavbar }) => {
 							</div>
 							<div className='flex justify-between items-center py-4'>
 								<span className='text-start'>Seller Takes</span>
-								<span className='text-end'>৳ {USsalesTax} k</span>
+								<span className='text-end'>৳ {tax} k</span>
 							</div>{' '}
 							<div className='flex justify-between items-center py-4'>
 								<span className='text-start'>Packers Fee</span>
-								<span className='text-end'>৳ {totalPackagePrice} k</span>
+								<span className='text-end'>৳ {fee} k</span>
 							</div>
 						</div>
 					</div>
 					<div className='flex justify-between items-center py-4'>
 						<span className='text-start'>Total Price</span>
-						<span className='text-end'>৳ {totalPrice} k</span>
+						<span className='text-end'>৳ {sellerTakes + tax + fee} k</span>
 					</div>
 					<Link to='/home/checkout'>
 						<Button

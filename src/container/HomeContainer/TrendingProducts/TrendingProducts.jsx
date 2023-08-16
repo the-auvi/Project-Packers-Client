@@ -21,7 +21,7 @@ const TrendingProducts = () => {
 					subTitle='Get inspired by what people in your city are buying from abroad with the biggest savings'
 				/>
 
-				<div className='grid py-[1px] justify-items-center px-0 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 bg-gray-500 gap-[1px]'>
+				<div className='grid py-[1px] justify-items-center px-0 grid-cols-1 md:grid-cols-2 lg:grid-cols-4'>
 					{tProducts &&
 						tProducts.map((product, index) => {
 							const { id, images, price, tax, fee, description } = product;

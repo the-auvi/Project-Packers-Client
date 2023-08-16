@@ -7,7 +7,7 @@ import { BiSupport } from "react-icons/bi";
 import { CiLocationOn, CiFacebook, CiTwitter, CiInstagram } from "react-icons/ci";
 const Footer = () => {
   return (
-    <footer className="bg-primary text-white">
+    <footer className="bg-primary text-white z-[9999] relative">
       <div className="wrapper grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-8">
         <div>
           <img className="mb-5" src={logo} alt="" />
@@ -73,12 +73,12 @@ const Footer = () => {
         <p>&copy; Copyright 2023 Project Packers</p>
         <p className="flex gap-2">
           <span className="text-[#6BCCCB] font-semibold   text-3xl">
-            <CiFacebook/>
+            <CiFacebook />
           </span> <span className="text-[#6BCCCB] font-semibold  text-3xl">
-            <CiInstagram/>
+            <CiInstagram />
           </span>
           <span className="text-[#6BCCCB] font-semibold  text-3xl">
-            <CiTwitter/>
+            <CiTwitter />
           </span>
         </p>
       </div>

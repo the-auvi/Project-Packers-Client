@@ -1,3 +1,5 @@
+import toaster from "../../../utils/toaster";
+
 export default function prepareReq(serverUrl) {
     /**
  * A dynamic fetch function that can be used to make HTTP requests.
@@ -22,7 +24,8 @@ export default function prepareReq(serverUrl) {
             return await response.json();
         }
         catch (err) {
-            throw new Error(err)
+            if (err.message == 'Bad Request') toaster({ type: 'error', message: err.message })
+            throw new Error(err.message)
         }
     }
 }

@@ -37,7 +37,6 @@ const Shop = () => {
 								return (
 									<Link
 										to={`/home/items/${product.id}`}
-										className='border'
 										key={id}
 									>
 										<ProductsCard

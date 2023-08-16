@@ -1,4 +1,6 @@
 import React from "react";
+import Cart1 from '../../assets/cd-products.svg';
+import myAcct from '../../assets/Avatar.png';
 
 
 /**
@@ -17,19 +19,18 @@ const NotificationCard = ({ icon, message, time, type, className, isNavbar }) =>
   const NotificationTime = date.getMinutes() - time;
 
   return (
-    <div   className="flex items-start max-w-[764px]  gap-1 border-t p-1">
+    <div className="flex items-start max-w-[764px]  gap-1 border-t p-1">
       <div>
         <img
-          src={icon}
+          src={type.toLowerCase() !== "user" ? myAcct : Cart1}
           alt=""
-          className={`${
-            type.toLowerCase() !== "user" ? "bg-[#CFF6EF]" : "bg-[#FEF9DC]"
-          } min-w-[24px] max-w-[24px] min-h-[24px] rounded-lg p-1`}
+          className={`${type.toLowerCase() !== "user" ? "bg-transparent" : "bg-[#CFF6EF]"
+            } min-w-[24px] max-w-[24px] min-h-[24px] rounded-lg p-1`}
         />
       </div>
-      <div className={`flex flex-col gap-2 text-base font-normal ${isNavbar && "text-sm"} ${className}` }>
+      <div className={`flex flex-col gap-2 text-base font-normal ${isNavbar && "text-sm"} ${className}`}>
         <p className="">{
-          isNavbar ? message.slice(0,20)+"...":message
+          isNavbar ? message.slice(0, 20) + "..." : message
         }</p>
         <p className={`text-black/40 ${isNavbar && "text-xs"}`}>
           {NotificationTime}min ago

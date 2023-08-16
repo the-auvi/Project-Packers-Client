@@ -5,6 +5,7 @@ import moneyBack from '../../assets/icons/money-back.svg';
 import Headings from '../../components/Headings/Headings';
 import ProductsCard from '../../components/ProductsCard/ProductsCard';
 import { plane } from '../../contexts/terminal/Terminal';
+import toaster from '../../utils/toaster';
 
 const Item = () => {
 	const { id } = useParams();
@@ -12,12 +13,16 @@ const Item = () => {
 	const [RelatedProducts, setRelatedProducts] = useState([]);
 	const [product, setProduct] = useState({});
 	useEffect(() => {
-		plane.request({ name: 'allProduct', query: { limit: 8 } }).then(data => data.docs && setRelatedProducts(data.docs))
+		plane.request({ name: 'allProduct', query: { limit: 8 } }).then(data => {
+			data.docs && setRelatedProducts(data.docs.filter(d => d.id !== id))
+		})
 		plane.request({ name: 'singleProduct', params: { id: id } }).then(data => {
 			if (data.id) setProduct(data); setFullImage(data?.images[0])
 		});
 	}, [id]);
-
+	const handleRequest = () => {
+		plane.request({ name: 'updateCart', body: { products: [{ product: id, productQuantity: 1 }] } }).then(data => data.id ? toaster({ type: 'success', message: 'Added to cart' }) : toaster({ type: 'error', message: data.message || 'An error occured. Please try again later' }))
+	}
 	return (
 		<>
 			<div className='wrapper mt-12'>
@@ -87,6 +92,7 @@ const Item = () => {
 
 						{/* button */}
 						<Button
+							onClick={handleRequest}
 							buttonType='secondaryButton'
 							name='Request this item'
 							className={`p-[12px_10px] w-full mt-5 mb-12`}
@@ -121,7 +127,7 @@ const Item = () => {
 						title='Related Items'
 						subTitle='Get inspired by what people in your city are buying from abroad with the biggest savings'
 					/>
-					<div className='flex items-center overflow-x-scroll gap-[1px] border-y bg-gray-400 '>
+					<div className='flex items-center overflow-x-scroll'>
 						{RelatedProducts?.map((product) => (
 							<Link to={`/home/items/${product.id}`}
 								key={product.id}>

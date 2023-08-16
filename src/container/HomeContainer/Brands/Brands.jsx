@@ -11,7 +11,7 @@ const Brands = () => {
 		<div className='w-full  py-[48px]'>
 			<div className='wrapper'>
 				{/* headings */}
-				<div className='text-center text-lg md:text-2xl w-[335px] md:w-[597px] mx-auto font-semibold text-[#0d3d4b]  '>
+				<div className='text-center text-lg md:text-2xl sm:w-[335px] md:w-[597px] mx-auto font-semibold text-[#0d3d4b]  '>
 					Buy Real USA product from any band through our Project Packers
 					platform
 				</div>

@@ -33,7 +33,7 @@ const Header = () => {
 
 					{/* search */}
 					<div className='flex flex-col gap-2 md:gap-0 md:flex-row'>
-						<div className='w-auto md:w-2/3 flex px-[20px] py-[15px] items-center text-ellipsis truncate border rounded-50 bg-white'>
+						<div className='w-auto md:w-2/3 flex px-[5px] sm:px-[20px] py-[5px] sm:py-[15px] items-center text-ellipsis truncate border rounded-50 bg-white'>
 							<span>
 								<svg
 									xmlns='http://www.w3.org/2000/svg'
@@ -52,7 +52,7 @@ const Header = () => {
 							<input
 								type='search'
 								onChange={handleChangeRequestURL}
-								className='relative m-0 block flex-auto bg-transparent bg-clip-padding ps-3 py-[0.25rem] text-base font-normal leading-[1.6] text-[#124E58] outline-none placeholder:text-[#124E58]'
+								className='relative m-0 block flex-auto bg-transparent bg-clip-padding ps-3 py-[0.25rem] text-base font-normal leading-[1.6] text-[#124E58] outline-none placeholder:text-[#d0d3d3]'
 								placeholder='Paste the URL of the product'
 							/>
 						</div>
@@ -64,7 +64,7 @@ const Header = () => {
 							onClick={() => {
 								setShowModal(true);
 							}}
-							className='px-xl py-[17px]'
+							className='py-[10px] sm:py-[17px]'
 						/>
 						{/* modal */}
 						<Modal showModal={showModal} setShowModal={setShowModal}>
@@ -89,7 +89,7 @@ const Header = () => {
 				</div>
 
 				{/* header image */}
-				<img src={headerImg} className='mb-20 md:max-w-[668px] max-w-[338px]' />
+				<img src={headerImg} className='mb-20 md:max-w-[668px] w-full sm:max-w-[338px]' />
 
 				{/* slider for youtube video */}
 				<div className='wrapper absolute left-0 right-0 md:-bottom-[17.5rem] -bottom-[20rem]  overflow-x-scroll'>

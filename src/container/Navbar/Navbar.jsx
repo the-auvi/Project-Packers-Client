@@ -204,7 +204,7 @@ const Navbar = () => {
 							{/* Notification */}
 							<li className='relative'>
 								<button
-									onClick={() => setIsOpen(!isOpen)}
+									onClick={() => { setIsOpen(!isOpen)}}
 									className='flex items-center gap-2'
 								>
 									<img
@@ -215,9 +215,8 @@ const Navbar = () => {
 								</button>
 
 								<div>
-									<DropDownNotification isOpen={isOpen} isNotification={true}>
-										{' '}
-										<Notification isNavbar={true} />{' '}
+									<DropDownNotification setIsOpen={setIsOpen} isOpen={isOpen} isNotification={true}>
+										<Notification isNavbar={true} />
 									</DropDownNotification>
 								</div>
 							</li>
@@ -225,7 +224,7 @@ const Navbar = () => {
 							{/* Cart */}
 							<li className='relative'>
 								<button
-									onClick={() => setIsCartOpen(!isCartOpen)}
+									onClick={() => { setIsCartOpen(!isCartOpen) }}
 									className='flex items-center gap-2'
 								>
 									<img
@@ -237,11 +236,11 @@ const Navbar = () => {
 
 								<div>
 									<DropDownNotification
+										setIsOpen={setIsCartOpen}
 										isOpen={isCartOpen}
 										isNotification={false}
 									>
-										{' '}
-										<Cart isNavbar={true} />{' '}
+										<Cart isNavbar={true} />
 									</DropDownNotification>
 								</div>
 							</li>
@@ -271,8 +270,8 @@ const Navbar = () => {
 						</div>
 					)}
 				</div>
-			</nav>
-		</div>
+			</nav >
+		</div >
 	);
 };
 

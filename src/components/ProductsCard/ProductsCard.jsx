@@ -12,7 +12,7 @@ import Image from '../../assets/card1.png';
 const ProductsCard = ({ img, title, price, className }) => {
 	return (
 		<div
-			className={`min-w-[284px] man-w-[284px] h-[402px} bg-white ${className}`}
+			className={`w-full sm:min-w-[284px] h-[402px} bg-white ${className} border-[1px] border-[#124d5844]`}
 		>
 			<div className='flex flex-col justify-center p-3'>
 				<img
