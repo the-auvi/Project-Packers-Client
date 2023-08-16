@@ -82,7 +82,6 @@ const AddOrUpdateProducts = () => {
 		// } catch (error) {
 		// 	console.error('Error uploading image:', error);
 		// }
-		console.log({ data: JSON.stringify(rest), images: images });
 		plane
 			.request({
 				name: `${newProducts ? 'updateProduct' : 'registerProduct'}`,

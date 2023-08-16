@@ -1,18 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { plane } from '../../../contexts/terminal/Terminal';
 
 const Support = () => {
-	const formData = new FormData();
+	const [selectedImages, setSelectedImages] = useState([]);
+
 	const onSubmit = async (e) => {
-		e.preventDefault()
-		console.log('click');
-		console.log(e.target.images.files);
-		console.log(e.target.images2.files);
-		// plane.request({name:'registerProduct',body:{data:JSON.stringify({name:'hello'},{images:})}})
-		// formData.append('images', JSON.stringify(data.images));
+		e.preventDefault();
+
+		const formData = new FormData();
+
+		// selectedImages.forEach((file) => {
+		// 	formData.append('images', file);
+		// });
+		// formData.append('data', JSON.stringify({ name: 'Yeasir' }))
+		// // for (const pair of formData.entries()) {
+		// // 	console.log('support', pair);
+		// }
+		plane.request({ name: 'imagetest', body: { data: { name: 'Yeasir' }, images: selectedImages } })
 		// try {
-		// 	const response = await axios.patch(
-		// 		'http://localhost:4000/api/request/64d32151ff0abe43d9cbb5ab',
+		// 	const response = await fetch('http://localhost:4000/api/imagetest', {
+		// 		method: 'POST',
+		// 		credentials: 'include',
+		// 		body: formData,
+		// 	});
+
+		// 	const responseData = await response.json();
+
+		// 	console.log('API Response:', responseData);
+		// } catch (error) {
+		// 	console.error('Error uploading image:', error);
+		// }
+		// try {
+		// 	const response = await axios.post(
+		// 		'http://localhost:4000/api/imagetest',
 		// 		formData,
 		// 		{
 		// 			withCredentials: true,
@@ -21,20 +41,25 @@ const Support = () => {
 		// 				'Content-Type': 'multipart/form-data',
 		// 				'Access-Control-Allow-Credentials': true,
 		// 			},
-		// 		},
+		// 		}
 		// 	);
-		// 	console.log('Image uploaded:', response.data);
+
+		// 	console.log('API Response:', response.data);
 		// } catch (error) {
 		// 	console.error('Error uploading image:', error);
 		// }
-		// reset();
+	};
+	// console.log(selectedImages);
+
+	const handleImageChange = (e) => {
+		setSelectedImages([...selectedImages, ...e.target.files]);
 	};
 
 	return (
 		<div>
 			<form onSubmit={onSubmit}>
-				<input type='file' name='images' id='' />
-				<input type='file' name='images2' id='' />
+				<input type='file' name='images' id='' onChange={handleImageChange} />
+				<input type='file' name='images2' id='' onChange={handleImageChange} />
 				<input type='submit' />
 			</form>
 		</div>

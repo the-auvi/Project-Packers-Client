@@ -30,8 +30,13 @@ export default function prepareData(api, type = 'params') {
         case 'body': {
             if (api.formData) {
                 let formBody = new FormData();
-                Object.keys(api.body).forEach(k => formBody.append(k, api.body[k]));
-                return api = { ...api, body: formBody, headers: { "Content-type": "undefined" } }
+                const { data, ...rest } = api.body;
+                formBody.append('data', JSON.stringify(data))
+                Object.entries(rest).forEach(([k, v]) => {
+                    const values = Array.isArray(v) ? v : [v];
+                    values.forEach(v => formBody.append(k, v))
+                })
+                return api = { ...api, body: formBody }
             }
             return api = { ...api, body: JSON.stringify(api.body), headers: { Accept: "application/json", "Content-Type": "application/json" } };
         }

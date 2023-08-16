@@ -25,7 +25,7 @@ const Navbar = () => {
 	const isAdmin = useLocation().pathname.includes('admin');
 	useEffect(() => {
 		plane.request({ name: 'fetchUser' }).then(data => {
-			if (data.id) dispatch({ type: "SAVE_USER", payload: data }); setIsLoggedIn(true)
+			if (data.id) { dispatch({ type: "SAVE_USER", payload: data }); setIsLoggedIn(true) }
 		})
 	}, [])
 	return (
