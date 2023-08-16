@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../../components/Button/Button';
 import TableFunctions1 from '../../../components/TableFunctions1/TableFunctions1';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
@@ -28,6 +28,7 @@ const Discount = () => {
 	const [searchId, setSearchId] = useState(null);
 	const [discount, setDiscount] = useState();
 	const [page, setPage] = useState(1);
+	const navigate = useNavigate();
 
 	const [axiosSecure] = useAxiosSecure();
 	const baseURL = axiosSecure.getUri();
@@ -67,7 +68,7 @@ const Discount = () => {
 				<h2 className='p-[20px_0]   w-full text-[#0D3D4B] text-xl font-semibold'>
 					Discount
 				</h2>
-				<Link>
+				<Link to='/admin/addDiscount'>
 					<Button
 						buttonType='secondaryButton'
 						name='Add Coupon'
@@ -104,16 +105,33 @@ const Discount = () => {
 						{discount &&
 							discount.map((d) => (
 								<tr key={d.id} className='border-b py-[180px] '>
+									{/* check box */}
 									<td className='p-[18px_16px]'>
 										<input type='checkbox' name='' id='' />
 									</td>
-									<td className='p-[18px_16px]'>{d.code}</td>
+									{/* code */}
+									<td
+										onClick={(e) => {
+											e.preventDefault();
+											navigate(`/admin/updateDiscount/${d.id}`,
+											{state: { discount: d }}
+											);
+										}}
+										className='p-[18px_16px] cursor-pointer '
+									>
+										{d.code}
+									</td>
+									{/* coupon type */}
 									<td className='p-[18px_16px]'></td>
 									{/* <td className='p-[18px_16px]'>{product.quantity}</td> */}
-									<td className='p-[18px_16px]'>{d.amount}</td>
-									<td className='p-[18px_16px]'></td>
 
+									{/* coupon amount */}
+									<td className='p-[18px_16px]'>{d.amount}</td>
+									{/* description */}
+									<td className='p-[18px_16px]'></td>
+									{/* limit */}
 									<td className='p-[18px_16px]'>/{d.limit}</td>
+									{/* expire date */}
 									<td className='p-[18px_16px]'>{d.expiry_date}</td>
 								</tr>
 							))}

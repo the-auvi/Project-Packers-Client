@@ -34,6 +34,7 @@ import Staff from '../pages/Admin/Staff/Staff';
 import ItemRequestUpdate from '../pages/Admin/ItemRequestUpdate/ItemRequestUpdate';
 import OrderDetails from '../pages/Admin/OrderDetails/OrderDetails';
 import AddOrUpdateProducts from '../pages/Admin/AddOrUpdateProducts/AddOrUpdateProducts';
+import AddOrUpdateDiscount from '../pages/Admin/AddOrUpdateDiscount/AddOrUpdateDiscount';
 
 export const router = createBrowserRouter([
 	{
@@ -167,6 +168,14 @@ export const router = createBrowserRouter([
 			{
 				path: 'discount',
 				element: <Discount />,
+			},
+			{
+				path: 'addDiscount',
+				element: <AddOrUpdateDiscount />,
+			},
+			{
+				path: 'updateDiscount/:id',
+				element: <AddOrUpdateDiscount />,
 			},
 			{
 				path: 'categories',
