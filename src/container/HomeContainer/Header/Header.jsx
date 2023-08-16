@@ -69,6 +69,8 @@ const Header = () => {
 						{/* modal */}
 						<Modal showModal={showModal} setShowModal={setShowModal}>
 							<CreateReqModal
+								reqURL={reqURL}
+								setReqURL={setReqURL}
 								setShowModal={setShowModal}
 								setShowModal2={setShowModal2}
 							/>

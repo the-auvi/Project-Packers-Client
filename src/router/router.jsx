@@ -35,6 +35,9 @@ import ItemRequestUpdate from '../pages/Admin/ItemRequestUpdate/ItemRequestUpdat
 import OrderDetails from '../pages/Admin/OrderDetails/OrderDetails';
 import AddOrUpdateProducts from '../pages/Admin/AddOrUpdateProducts/AddOrUpdateProducts';
 import AddOrUpdateDiscount from '../pages/Admin/AddOrUpdateDiscount/AddOrUpdateDiscount';
+import NewCustomer from '../pages/Admin/NewCustomer/NewCustomer';
+import CustomerUpdate from '../container/AdminContainer/Customers/CustomerUpdate';
+import ProtectedRouter from './ProtectedRouter';
 
 export const router = createBrowserRouter([
 	{
@@ -51,7 +54,11 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'shop',
-				element: <Shop />,
+				element: (
+					<ProtectedRouter>
+						<Shop />
+					</ProtectedRouter>
+				),
 			},
 			{
 				path: 'notification',
@@ -184,6 +191,14 @@ export const router = createBrowserRouter([
 			{
 				path: 'customers',
 				element: <Customers />,
+			},
+			{
+				path: 'newCustomer',
+				element: <NewCustomer />,
+			},
+			{
+				path: 'customerUpdate/:id',
+				element: <CustomerUpdate />,
 			},
 			{
 				path: 'support',

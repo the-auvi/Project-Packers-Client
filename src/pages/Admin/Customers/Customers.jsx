@@ -1,468 +1,151 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Button from '../../../components/Button/Button';
+import TableFunctions1 from '../../../components/TableFunctions1/TableFunctions1';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 
+const buttons = [
+	{
+		name: 'All',
+		value: 'all',
+	},
+	{
+		name: 'New',
+		value: 'new',
+	},
+	{
+		name: 'Returning',
+		value: 'returning',
+	},
+	{
+		name: 'Abandoned Checkouts',
+		value: 'abandonedCheckouts',
+	},
+];
+
 const Customers = () => {
-	const [users, setUser] = useState();
-	const [orders, setOrders] = useState();
-	const [customers, setCustomers] = useState();
+	const [selectedButton, setSelectedButton] = useState('all');
+	const [searchId, setSearchId] = useState(null);
+	const [products, setProducts] = useState();
+	const [page, setPage] = useState(1);
+
+	const navigate = useNavigate();
 
 	const [axiosSecure] = useAxiosSecure();
+	const baseURL = axiosSecure.getUri();
+
+	const handleChangeSearch = (e) => {
+		setSearchId(e.target.value);
+	};
+
+	const handleClick = (e) => {
+		console.log(e.target.value);
+		setSelectedButton(e.target.value);
+	};
+
+	let url;
+
+	if (selectedButton === 'all' && !searchId) {
+		url = `products?`;
+	} else if (selectedButton !== 'all' && !searchId) {
+		url = `products?status=${selectedButton}`;
+	} else if (selectedButton !== 'all' && searchId) {
+		url = `products?status=${selectedButton}&id=${searchId}`;
+	} else if (selectedButton === 'all' && searchId) {
+		url = `products?id=${searchId}`;
+	}
 
 	useEffect(() => {
-		axiosSecure.get('user').then((res) => {
-			// console.log('users', res.data);
-			setUser(res.data);
+		axiosSecure.get(`${url}&page=${page}`).then((res) => {
+			setProducts(res.data.docs);
 		});
-	}, []);
-
-	console.log(users);
-
-	// useEffect(() => {
-	// 	axiosSecure.get('order').then((res) => {
-	// 		// console.log('users', res.data);
-
-	// 		// console.log(totalOrder);
-
-	// 		res.data?.docs?.map((doc) => {
-	// 			const customer = {
-	// 				name: doc.user.name,
-	// 				id: doc.user.id,
-	// 				email: doc.user.email,
-	// 			};
-	// 		});
-
-	// 		setOrders(res.data);
-	// 	});
-	// }, []);
-
-	// useEffect(() => {
-	// 	axiosSecure.get('order').then((res) => {
-	// 		const orderMap = new Map();
-
-	// 		// Populate the orderMap with users and their orders
-	// 		res.data?.docs?.forEach((doc) => {
-	// 			const userId = doc.user.id;
-
-	// 			if (!orderMap.has(userId)) {
-	// 				orderMap.set(userId, {
-	// 					name: doc.user.fullName,
-	// 					id: userId,
-	// 					email: doc.user.email,
-	// 					location: doc.shippingaddress.address,
-	// 					totalOrders: 0,
-	// 				});
-	// 			}
-
-	// 			const customer = orderMap.get(userId);
-	// 			customer.totalOrders++;
-	// 			orderMap.set(userId, customer);
-	// 		});
-
-	// 		// Convert the orderMap values to an array of customers
-	// 		const customersArray = Array.from(orderMap.values());
-
-	// 		// Include users who haven't placed orders
-	// 		users.forEach((user) => {
-	// 			if (!orderMap.has(user.id)) {
-	// 				customersArray.push({
-	// 					name: user.name,
-	// 					id: user.id,
-	// 					email: user.email,
-	// 					totalOrders: 0,
-	// 				});
-	// 			}
-	// 		});
-
-	// 		setCustomers(customersArray);
-	// 		setOrders(res.data);
-	// 	});
-	// }, [users]);
-
-	// useEffect(() => {
-	// 	axiosSecure.get('order').then((res) => {
-	// 		const orderMap = new Map();
-
-	// 		// Populate the orderMap with users and their orders
-	// 		res.data?.docs?.forEach((doc) => {
-	// 			const userId = doc.user.id;
-
-	// 			if (!orderMap.has(userId)) {
-	// 				orderMap.set(userId, {
-	// 					name: doc.user.name,
-	// 					id: userId,
-	// 					email: doc.user.email,
-	// 					totalOrders: 0,
-	// 					lastOrderDate: doc.date,
-	// 					status: '',
-	// 				});
-	// 			}
-
-	// 			const customer = orderMap.get(userId);
-	// 			customer.totalOrders++;
-	// 			customer.lastOrderDate = new Date(doc.orderDate); // Assuming orderDate field exists
-	// 			orderMap.set(userId, customer);
-	// 		});
-
-	// 		// Convert the orderMap values to an array of customers
-	// 		const customersArray = Array.from(orderMap.values());
-
-	// 		// Include users who haven't placed orders
-	// 		users.forEach((user) => {
-	// 			if (!orderMap.has(user.id)) {
-	// 				customersArray.push({
-	// 					name: user.name,
-	// 					id: user.id,
-	// 					email: user.email,
-	// 					totalOrders: 0,
-	// 					lastOrderDate: null,
-	// 					status: '',
-	// 				});
-	// 			}
-	// 		});
-
-	// 		// Determine status for each customer
-	// 		const currentDate = new Date();
-	// 		customersArray.forEach((customer) => {
-	// 			if (customer.lastOrderDate) {
-	// 				const daysSinceLastOrder = Math.floor(
-	// 					(currentDate - customer.lastOrderDate) / (1000 * 60 * 60 * 24),
-	// 				);
-	// 				if (daysSinceLastOrder <= 7) {
-	// 					customer.status = 'New';
-	// 				} else if (daysSinceLastOrder >= 30) {
-	// 					customer.status = 'Returning';
-	// 				}
-	// 			}
-	// 		});
-
-	// 		setCustomers(customersArray);
-	// 		setOrders(res.data);
-	// 	});
-	// }, [users]); // Depend on users state to ensure proper customer creation
-
-	// useEffect(() => {
-	// 	axiosSecure.get('order').then((res) => {
-	// 		const ordersData = res.data.docs || [];
-
-	// 		// Map orders and create customers array
-	// 		const customersMap = new Map(); // To store customers based on userId
-
-	// 		ordersData.forEach((order) => {
-	// 			const userId = order.user.id;
-
-	// 			// Calculate order status based on date
-	// 			const currentDate = new Date();
-	// 			const orderDate = new Date(order.date);
-	// 			const daysDifference =
-	// 				(currentDate - orderDate) / (1000 * 60 * 60 * 24);
-
-	// 			let orderStatus = 'Returning';
-	// 			if (daysDifference <= 7) {
-	// 				orderStatus = 'New';
-	// 			}
-
-	// 			// Check if customer already exists in the map
-	// 			if (customersMap.has(userId)) {
-	// 				const existingCustomer = customersMap.get(userId);
-	// 				existingCustomer.totalOrders += 1;
-	// 				existingCustomer.status = orderStatus;
-	// 			} else {
-	// 				const user = users.find((user) => user.id === userId);
-	// 				if (user) {
-	// 					customersMap.set(userId, {
-	// 						id: userId,
-	// 						name: user.name,
-	// 						email: user.email,
-	// 						totalOrders: 1,
-	// 						status: orderStatus,
-	// 					});
-	// 				}
-	// 			}
-	// 		});
-
-	// 		// Convert map values to array and set customers state
-	// 		setCustomers(Array.from(customersMap.values()));
-
-	// 		setOrders(ordersData);
-	// 	});
-	// }, [users]);
-
-	// useEffect(() => {
-	// 	axiosSecure.get('order').then((res) => {
-	// 		const ordersData = res.data.docs || [];
-
-	// 		// Map users to an object for easier lookup
-	// 		const usersMap = new Map();
-	// 		users.forEach((user) => {
-	// 			usersMap.set(user.id, user);
-	// 		});
-
-	// 		// Map orders and create customers array
-	// 		const customersMap = new Map(); // To store customers based on userId
-
-	// 		ordersData.forEach((order) => {
-	// 			const userId = order.user.id;
-
-	// 			// Calculate order status based on date
-	// 			const currentDate = new Date();
-	// 			const orderDate = new Date(order.date);
-	// 			const daysDifference =
-	// 				(currentDate - orderDate) / (1000 * 60 * 60 * 24);
-
-	// 			let orderStatus = 'Returning';
-	// 			if (daysDifference <= 7) {
-	// 				orderStatus = 'New';
-	// 			}
-
-	// 			// Check if customer already exists in the map
-	// 			if (customersMap.has(userId)) {
-	// 				const existingCustomer = customersMap.get(userId);
-	// 				existingCustomer.totalOrders += 1;
-	// 				existingCustomer.status = orderStatus;
-	// 			} else {
-	// 				const user = usersMap.get(userId);
-	// 				if (user) {
-	// 					customersMap.set(userId, {
-	// 						id: userId,
-	// 						name: user.name,
-	// 						email: user.email,
-	// 						totalOrders: 1,
-	// 						status: orderStatus,
-	// 					});
-	// 				}
-	// 			}
-	// 		});
-
-	// 		// Convert map values to array and set customers state
-	// 		setCustomers(Array.from(customersMap.values()));
-
-	// 		setOrders(ordersData);
-	// 	});
-	// }, [users]);
-
-	// useEffect(() => {
-	// 	axiosSecure.get('order').then((res) => {
-	// 		const ordersData = res.data.docs || [];
-
-	// 		// Map users to an object for easier lookup
-	// 		const usersMap = new Map();
-	// 		users.forEach((user) => {
-	// 			usersMap.set(user.id, user);
-	// 		});
-
-	// 		// Map orders and create customers array
-	// 		const customersMap = new Map(); // To store customers based on userId
-
-	// 		ordersData.forEach((order) => {
-	// 			const userId = order.user.id;
-
-	// 			// Calculate order status based on date
-	// 			const currentDate = new Date();
-	// 			const orderDate = new Date(order.date);
-	// 			const daysDifference =
-	// 				(currentDate - orderDate) / (1000 * 60 * 60 * 24);
-
-	// 			let orderStatus = 'Returning';
-	// 			if (daysDifference <= 7) {
-	// 				orderStatus = 'New';
-	// 			}
-
-	// 			// Check if customer already exists in the map
-	// 			if (customersMap.has(userId)) {
-	// 				const existingCustomer = customersMap.get(userId);
-	// 				existingCustomer.totalOrders += 1;
-	// 				existingCustomer.status = orderStatus;
-	// 			} else {
-	// 				const user = usersMap.get(userId);
-	// 				if (user) {
-	// 					customersMap.set(userId, {
-	// 						id: userId,
-	// 						name: user.name,
-	// 						email: user.email,
-	// 						totalOrders: 1,
-	// 						status: orderStatus,
-	// 					});
-	// 				}
-	// 			}
-	// 		});
-
-	// 		// Add users who haven't placed orders as customers
-	// 		users.forEach((user) => {
-	// 			if (!customersMap.has(user.id)) {
-	// 				customersMap.set(user.id, {
-	// 					id: user.id,
-	// 					name: user.name,
-	// 					email: user.email,
-	// 					totalOrders: 0,
-	// 					status: 'No Orders',
-	// 				});
-	// 			}
-	// 		});
-
-	// 		// Convert map values to array and set customers state
-	// 		setCustomers(Array.from(customersMap.values()));
-
-	// 		setOrders(ordersData);
-	// 	});
-	// }, [users]);
-
-	// useEffect(() => {
-	// 	axiosSecure.get('order').then((res) => {
-	// 		const ordersData = res.data.docs || [];
-
-	// 		// Map users to an object for easier lookup
-	// 		const usersMap = new Map();
-	// 		users.forEach((user) => {
-	// 			usersMap.set(user.id, user);
-	// 		});
-
-	// 		// Map orders and create customers array
-	// 		const customersMap = new Map(); // To store customers based on userId
-
-	// 		ordersData.forEach((order) => {
-	// 			const userId = order.user.id;
-
-	// 			// Calculate order status based on date
-	// 			const currentDate = new Date();
-	// 			const orderDate = new Date(order.date);
-	// 			const daysDifference =
-	// 				(currentDate - orderDate) / (1000 * 60 * 60 * 24);
-
-	// 			let orderStatus = 'Returning';
-	// 			if (daysDifference <= 7) {
-	// 				orderStatus = 'New';
-	// 			}
-
-	// 			// Check if customer already exists in the map
-	// 			if (customersMap.has(userId)) {
-	// 				const existingCustomer = customersMap.get(userId);
-	// 				existingCustomer.totalOrders += 1;
-	// 				if (orderStatus === 'New') {
-	// 					existingCustomer.status = 'New';
-	// 				}
-	// 			} else {
-	// 				const user = usersMap.get(userId);
-	// 				if (user) {
-	// 					customersMap.set(userId, {
-	// 						id: userId,
-	// 						name: user.name,
-	// 						email: user.email,
-	// 						totalOrders: 1,
-	// 						status: orderStatus,
-	// 					});
-	// 				}
-	// 			}
-	// 		});
-
-	// 		// Add users who haven't placed orders as customers
-	// 		users.forEach((user) => {
-	// 			if (!customersMap.has(user.id)) {
-	// 				customersMap.set(user.id, {
-	// 					id: user.id,
-	// 					name: user.name,
-	// 					email: user.email,
-	// 					totalOrders: 0,
-	// 					status: 'New',
-	// 				});
-	// 			}
-	// 		});
-
-	// 		// Convert map values to array and set customers state
-	// 		setCustomers(Array.from(customersMap.values()));
-
-	// 		setOrders(ordersData);
-	// 	});
-	// }, [users]);
-
-	useEffect(() => {
-		axiosSecure.get('order').then((res) => {
-			const ordersData = res.data.docs || [];
-
-			// Map users to an object for easier lookup
-			const usersMap = new Map();
-			console.log('11', usersMap);
-			users.forEach((user) => {
-				usersMap.set(user.id, user);
-			});
-			console.log('12', usersMap);
-			const t = new Map();
-			console.log('t', t);
-			// Map orders and create customers array
-			const customersMap = new Map(); // To store customers based on userId
-			console.log('13', customersMap);
-
-			ordersData.forEach((order) => {
-				const userId = order.user.id;
-
-				// Calculate order status based on date
-				const currentDate = new Date();
-				const orderDate = new Date(order.date);
-				const daysDifference =
-					(currentDate - orderDate) / (1000 * 60 * 60 * 24);
-
-				let orderStatus = 'Returning';
-				if (daysDifference <= 7) {
-					orderStatus = 'New';
-				}
-
-				const orderAmount = order.total; // Assuming the order object has a 'totalAmount' field
-
-				// Check if customer already exists in the map
-				if (customersMap.has(userId)) {
-					const existingCustomer = customersMap.get(userId);
-
-					console.log();
-					existingCustomer.totalOrders += 1;
-					existingCustomer.totalAmountSpent += orderAmount;
-					if (orderStatus === 'New') {
-						existingCustomer.status = 'New';
-					}
-				} else {
-					const user = usersMap.get(userId);
-					if (user) {
-						customersMap.set(userId, {
-							id: userId,
-							name: user.fullName,
-							email: user.email,
-							totalOrders: 1,
-							totalAmountSpent: orderAmount,
-							status: orderStatus,
-							phone: order.phone,
-						});
-					}
-				}
-			});
-
-			// Add users who haven't placed orders as customers
-			users.forEach((user) => {
-				if (!customersMap.has(user.id)) {
-					customersMap.set(user.id, {
-						id: user.id,
-						name: user.fullName,
-						email: user.email,
-						totalOrders: 0,
-						totalAmountSpent: 0,
-						status: 'New',
-						phone: null,
-					});
-				}
-			});
-
-			// Convert map values to array and set customers state
-			setCustomers(Array.from(customersMap.values()));
-
-			setOrders(ordersData);
-		});
-	}, [users]);
-
-	console.log('users', users);
-	console.log('orders', orders);
-	console.log('customers', customers);
-
-	// console.log(orders);
-
-	return <div>Customers</div>;
+	}, [url]);
+
+	return (
+		<div>
+			{/* title */}
+			<div className='flex items-center justify-between border-b'>
+				<h2 className='p-[20px_0]   w-full text-[#0D3D4B] text-xl font-semibold'>
+					Customers
+				</h2>
+
+				<>
+					<button className='p-[8px_16px]'> Export</button>
+
+					<Link to='/admin/newCustomer'>
+						<Button
+							buttonType='secondaryButton'
+							name='Add Customers'
+							className='rounded-[5px] w-[150px] '
+						/>
+					</Link>
+				</>
+			</div>
+
+			{/* table function */}
+			<TableFunctions1
+				buttons={buttons}
+				onClick={handleClick}
+				onChange={handleChangeSearch}
+				selectedButton={selectedButton}
+			/>
+
+			{/* Table */}
+			<div>
+				<table className='w-full'>
+					<thead>
+						<tr className=' border-y bg-slate-50 text-slate-600'>
+							<th className='text-start p-[10px_16px]'>
+								<input type='checkbox' name='' id='' />
+							</th>
+							<th className='text-start p-[10px_16px]'>Customers name</th>
+							<th className='text-start p-[10px_16px]'>Phone number</th>
+							<th className='text-start p-[10px_16px]'>Location</th>
+							<th className='text-start p-[10px_16px]'>Orders</th>
+							<th className='text-start p-[10px_16px]'>Amount Spent</th>
+						</tr>
+					</thead>
+					<tbody>
+						{products &&
+							products.map((product) => (
+								<tr
+									key={product.id}
+									className='border-b py-[180px] hover:bg-[#FEF9DC]'
+								>
+									<td className='p-[18px_16px] flex gap-2 '>
+										<input type='checkbox' name='' id='' />
+										<img
+											src={`${baseURL + product.images[0]}`}
+											alt=''
+											className='w-12 h-12 rounded'
+										/>
+										{/* <img
+											src={`http://localhost:4000/api/images/0a8637dfbdc44744e72e7f9de3087bed.jpg`}
+											alt=''
+										/> */}
+									</td>
+									<td
+										onClick={(e) => {
+											e.preventDefault();
+											navigate(`/admin/customerUpdate/${product.id}`, {
+												state: { product: product },
+											});
+										}}
+										className='p-[18px_16px] cursor-pointer'
+									>
+										{product.name}
+									</td>
+									<td className='p-[18px_16px]'>{product.quantity}</td>
+									<td className='p-[18px_16px]'>{product.price}</td>
+									<td className='p-[18px_16px]'>{product.category.name}</td>
+									<td className='p-[18px_16px]'>{product.origin}</td>
+								</tr>
+							))}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	);
 };
 
 export default Customers;

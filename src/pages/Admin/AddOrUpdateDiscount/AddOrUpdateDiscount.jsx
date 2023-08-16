@@ -16,8 +16,8 @@ const AddOrUpdateDiscount = () => {
 	const newDiscount = location.pathname.includes(id);
 	const prevDiscount = location?.state?.discount;
 
-	console.log(newDiscount);
-	console.log(prevDiscount);
+	// console.log(newDiscount);
+	// console.log(prevDiscount);
 
 	useEffect(() => {
 		plane
@@ -25,18 +25,22 @@ const AddOrUpdateDiscount = () => {
 				name: 'allCategory',
 			})
 			.then((data) => {
-				console.log(data);
+				// console.log(data);
 				setCategory(data);
 			});
 	}, []);
 
-	console.log(category);
+	// console.log(category);
 
 	const handleChange = (e) => {
 		const id = e.target.value;
 		// console.log(e.target.value);
 		setCategoryID(id);
 		register('category', { value: id });
+	};
+
+	const onSubmit = (data) => {
+		console.log(data);
 	};
 
 	return (
@@ -48,7 +52,7 @@ const AddOrUpdateDiscount = () => {
 				/>
 			</div>
 
-			<form className='w-1/2'>
+			<form onSubmit={handleSubmit(onSubmit)} className='w-1/2'>
 				{/* Coupon details */}
 				<>
 					<h2 className='text-[#0D3D4B] text-base font-semibold mb-3'>

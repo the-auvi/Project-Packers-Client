@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import graph from '../../../assets/Thrash/Assets.png';
 import heatmap from '../../../assets/Thrash/Row.png';
 import ItemRequestTable from '../../../components/ItemRequestTable/ItemRequestTable';
-import OrdersTable from '../../../components/OrdersTable/OrdersTable';
+import OrdersTable from '../../../container/AdminContainer/Orders/OrdersTable/OrdersTable';
+
 import Overview from '../../../container/AdminContainer/Overview/Overview';
 
 const DashBoard = () => {

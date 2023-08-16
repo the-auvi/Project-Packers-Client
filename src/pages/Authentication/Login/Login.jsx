@@ -3,12 +3,11 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '../../../components/Button/Button';
 
-
 // socialMedia
 import facebook from '../../../assets/SocialMedia/facebook.png';
 import apple from '../../../assets/SocialMedia/apple.png';
 import google from '../../../assets/SocialMedia/google.png';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import InputField from '../../../components/InputField/InputField';
 import { plane } from '../../../contexts/terminal/Terminal';
 
@@ -22,14 +21,25 @@ const Login = () => {
 		formState: { errors },
 	} = useForm();
 
+	const path = useLocation()?.state;
+	console.log(path);
+
 	const name = 'text';
 
 	// console.log("in home", errors[name])
 
 	const onSubmit = (data) => {
-		data = data.rememberMe ? data : { email: data.email, password: data.password }
-		plane.request({ name: 'logIn', body: data }).then(data => data.status === false ? toaster({ type: 'error', message: data.message }) :
-			navigate("/home"))
+		data = data.rememberMe
+			? data
+			: { email: data.email, password: data.password };
+		plane
+			.request({ name: 'logIn', body: data })
+			.then((data) =>
+				data.status === false
+					? toaster({ type: 'error', message: data.message })
+					: navigate('/home'),
+			);
+
 		reset();
 	};
 
@@ -71,7 +81,7 @@ const Login = () => {
 											name='remember'
 											id='remember'
 											{...register('rememberMe')}
-										// className=''
+											// className=''
 										/>
 										<label htmlFor='remember' className='ml-1'>
 											Remember me
