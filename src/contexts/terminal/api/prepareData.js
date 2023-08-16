@@ -31,7 +31,7 @@ export default function prepareData(api, type = 'params') {
             if (api.formData) {
                 let formBody = new FormData();
                 Object.keys(api.body).forEach(k => formBody.append(k, api.body[k]));
-                return api = { ...api, body: formBody }
+                return api = { ...api, body: formBody, headers: { "Content-type": "undefined" } }
             }
             return api = { ...api, body: JSON.stringify(api.body), headers: { Accept: "application/json", "Content-Type": "application/json" } };
         }

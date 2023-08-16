@@ -37,7 +37,7 @@ const AddOrUpdateProducts = () => {
 
 		// const images = data.images;
 		// console.log(data.images);
-		// const { images, ...rest } = data;
+		const { images, ...rest } = data;
 		// console.log(
 		// 	'dfsdsdfsd',
 		// 	JSON.stringify(rest),
@@ -62,36 +62,36 @@ const AddOrUpdateProducts = () => {
 		// 	.then((data) => console.log(data))
 		// 	.catch((e) => console.log(e));
 
-		const formData = new FormData();
+		// const formData = new FormData();
 
-		formData.append('images', JSON.stringify(data.images));
-		try {
-			const response = await axios.post(
-				'http://localhost:4000/api/products',
-				formData,
-				{
-					withCredentials: true,
-					headers: {
-						Accept: 'application/json',
-						'Content-Type': 'multipart/form-data',
-						'Access-Control-Allow-Credentials': true,
-					},
-				},
-			);
-			console.log('Image uploaded:', response.data);
-		} catch (error) {
-			console.error('Error uploading image:', error);
-		}
-
-		// plane
-		// 	.request({
-		// 		name: `${newProducts ? 'updateProduct' : 'registerProduct'}`,
-		// 		body: { data: JSON.stringify(rest), images: images[0] },
-		// 	})
-		// 	.then((data) => {
-		// 		console.log(data);
-		// 		// setCategory(data);
-		// 	});
+		// formData.append('images', JSON.stringify(data.images));
+		// try {
+		// 	const response = await axios.post(
+		// 		'http://localhost:4000/api/products',
+		// 		formData,
+		// 		{
+		// 			withCredentials: true,
+		// 			headers: {
+		// 				Accept: 'application/json',
+		// 				'Content-Type': 'multipart/form-data',
+		// 				'Access-Control-Allow-Credentials': true,
+		// 			},
+		// 		},
+		// 	);
+		// 	console.log('Image uploaded:', response.data);
+		// } catch (error) {
+		// 	console.error('Error uploading image:', error);
+		// }
+		console.log({ data: JSON.stringify(rest), images: images });
+		plane
+			.request({
+				name: `${newProducts ? 'updateProduct' : 'registerProduct'}`,
+				body: { data: JSON.stringify(rest), images: images },
+			})
+			.then((data) => {
+				console.log(data);
+				// setCategory(data);
+			});
 	};
 
 	return (
@@ -125,7 +125,7 @@ const AddOrUpdateProducts = () => {
 						<h2 className='text-[#0D3D4B] text-base font-semibold my-3'>
 							Category
 						</h2>
-						<ProductCategory register={register} prevProducts={prevProducts} />
+						{/* <ProductCategory register={register} prevProducts={prevProducts} /> */}
 					</>
 				</div>
 

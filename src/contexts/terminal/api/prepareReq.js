@@ -17,6 +17,7 @@ export default function prepareReq(serverUrl) {
                 credentials: 'include'
             }
             if (headers && method !== 'GET') payload = { ...payload, headers, body };
+            console.log(payload);
             const response = await fetch(url, payload)
             return await response.json();
         }
