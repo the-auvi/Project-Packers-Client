@@ -47,7 +47,7 @@ const DropDownNotification = ({
 		>
 			<div className='sticky top-0 pt-5 pb-3 bg-white flex items-center justify-between text-sm font-semibold text-[#124E58]'>
 				<p>Notification</p>
-				<Link to={isNotification ? '/home/notification' : '/home/cart'}>
+				<Link onClick={() => { setIsOpen(false) }} to={isNotification ? '/home/notification' : '/home/cart'}>
 					<HiLogout />
 				</Link>
 			</div>

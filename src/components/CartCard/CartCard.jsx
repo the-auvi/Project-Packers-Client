@@ -11,59 +11,14 @@ import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi';
  * @param {boolean} isNavbar - receive from where this component is called from navBar or not
  */
 const CartCard = ({
+	id,
 	productImg,
 	productName,
 	ProductQuantity,
 	price,
 	isNavbar,
-	setUpdatePrice,
-	updatePrice,
+	updateQuantity
 }) => {
-	/**
-	 * @description for storing updated quantities
-	 *
-	 */
-	const [quantity, setQuantity] = useState(ProductQuantity);
-
-	// useEffect(() => {
-	// 	const p = price * quantity;
-	// 	setNewPrice(p);
-
-	// 	const updatedProduct = {
-	// 		productname: productName,
-	// 		productPrice: p,
-	// 	};
-
-	// 	//For check if the product is already in the updatePrice array
-	// 	const productIndex = updatePrice.findIndex(
-	// 		(item) => item.productname === productName,
-	// 	);
-
-	// 	// If the product is already in the updatePrice array, update it; otherwise, add it
-	// 	if (productIndex !== -1) {
-	// 		const updatedPriceArray = [...updatePrice];
-	// 		console.log('up', updatedPriceArray);
-	// 		updatedPriceArray[productIndex] = updatedProduct;
-	// 		setUpdatePrice(updatedPriceArray);
-	// 	} else {
-	// 		setUpdatePrice((prevPriceArray) => [...prevPriceArray, updatedProduct]);
-	// 	}
-	// }, [quantity, price]);
-
-	/**
-	 *
-	 * @param {string} type - received for what reason the button was clicked. "minus" or "plus"
-	 * @returns - updated quantity
-	 */
-	const handleQuantity = (type) => {
-		if (type === 'minus' && quantity > 0) {
-			setQuantity(quantity - 1);
-		}
-		if (type === 'plus') {
-			setQuantity(quantity + 1);
-		}
-	};
-
 	return (
 		<tr className='border-b w-full'>
 			{/* 1st col */}
@@ -98,7 +53,7 @@ const CartCard = ({
 									{productName.slice(0, 40)}...
 								</p>
 								<div className='col mt-1 text-xs font-semibold  '>
-									৳ {price * ProductQuantity} tk
+									৳ {price} tk
 								</div>
 							</>
 						)}
@@ -111,7 +66,7 @@ const CartCard = ({
 				{/* for dropdown */}
 				{isNavbar && (
 					<div className='flex items-center justify-center'>
-						<p className='cursor-default'>{quantity}</p>
+						<p className='cursor-default'>{ProductQuantity}</p>
 						{/* <input
 							value={quantity}
 							readOnly
@@ -140,13 +95,13 @@ const CartCard = ({
 								className='text-black/30'
 								onClick={(e) => {
 									e.preventDefault();
-									handleQuantity('minus');
+									ProductQuantity > 0 && updateQuantity(id, ProductQuantity - 1);
 								}}
 							>
 								<AiOutlineMinus />
 							</button>
 							<input
-								value={quantity}
+								value={ProductQuantity}
 								readOnly
 								type='number'
 								id='productLink'
@@ -157,7 +112,7 @@ const CartCard = ({
 								className='text-black/30'
 								onClick={(e) => {
 									e.preventDefault();
-									handleQuantity('plus');
+									updateQuantity(id, ProductQuantity + 1);
 								}}
 							>
 								<AiOutlinePlus />

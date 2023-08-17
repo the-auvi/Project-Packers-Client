@@ -24,8 +24,7 @@ export default function prepareReq(serverUrl) {
             return await response.json();
         }
         catch (err) {
-            if (err.message == 'Bad Request') toaster({ type: 'error', message: err.message })
-            throw new Error(err.message)
+            throw new Error(err)
         }
     }
 }
