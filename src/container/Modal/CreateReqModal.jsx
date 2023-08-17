@@ -1,72 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import ReloadImg from '../../assets/cd-reload.svg';
-import camera from '../../assets/cd-camera.png';
-import { AiOutlineMinus, AiOutlinePlus, AiOutlineSearch } from 'react-icons/ai';
-import { MdOutlineClose } from 'react-icons/md';
 import Button from '../../components/Button/Button';
-import Modal from '../../components/Modal/Modal';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import internet from '../../assets/icons/cd-internet.svg';
+import { useForm } from 'react-hook-form';
+import UploadImages from '../../components/UploadImages/UploadImages';
+import QuantityUpdate from '../../components/QuantityUpdate/QuantityUpdate';
+import { UserContext } from '../../contexts/user/UserContext';
 
-const CreateReqModal = ({ setShowModal, setShowModal2 }) => {
-	const [reqURL, setReqURL] = useState('');
-	const [quantity, setQuantity] = useState(0);
+const CreateReqModal = ({ setShowModal, setShowModal2, reqURL, setReqURL }) => {
 	const [productImage, setProductImage] = useState(false);
-	const [loggedIn, setLoggedIn] = useState(true);
-	const [selectedImage, setSelectedImage] = useState();
-	const [previewImage, setPreviewImage] = useState([]);
-	const [imagePath, setImagePath] = useState();
-	let reader = new FileReader();
+	const navigate = useNavigate();
 
-	let imageForm = new FormData();
+	const { data: loggedIn } = useContext(UserContext);
+	console.log(loggedIn?.user?.id);
 
-	// for preview images
-	useEffect(() => {
-		if (!selectedImage) {
-			setPreviewImage([]);
-			return;
-		}
+	const { handleSubmit, register } = useForm();
 
-		const objectUrl = URL.createObjectURL(selectedImage);
-		setPreviewImage((prev) => [...prev, objectUrl]);
-
-		return () => URL.revokeObjectURL(objectUrl);
-	}, [selectedImage]);
-
-	// quantity changes
-	const handleQuantity = (type) => {
-		if (type === 'minus' && quantity > 0) {
-			setQuantity(quantity - 1);
-		}
-		if (type === 'plus') {
-			setQuantity(quantity + 1);
-		}
-	};
-
-	// store url
-	const handleChangeRequestURL = (e) => {
-		setReqURL(e.target.value);
-	};
-
-	// for take file
-	const handleFile = (e) => {
-		const file = e.target.files[0];
-
-		setSelectedImage(e.target.files[0]);
-		e.target.value = '';
-	};
-
-	console.log(imageForm);
-
-	/**
-	 *
-	 * @description - for handling modals
-	 */
-	const handleSubmit = (e) => {
-		e.preventDefault();
+	const onSubmit = (data) => {
+		console.log('outSide', data);
 		setShowModal(false);
-		if (loggedIn) {
+		if (loggedIn?.user?.id) {
+			console.log('inSide', data);
 			setShowModal2(true);
+		} else {
+			navigate('/authentication/login', { state: { requestItem: data } });
 		}
 	};
 
@@ -95,55 +53,14 @@ const CreateReqModal = ({ setShowModal, setShowModal2 }) => {
 				</div>
 				<hr className='my-2' />
 
-				<form className='space-y-[10px]' onSubmit={handleSubmit}>
+				<form className='space-y-[10px]' onSubmit={handleSubmit(onSubmit)}>
 					{/* Product Images */}
 					<div
 						className={`flex ${
 							productImage ? 'opacity-100' : 'opacity-0  h-0  '
 						} transition-all duration-1000 ease-in-out`}
 					>
-						<div className='flex max-w-[300]  overflow-x-scroll'>
-							{previewImage.map((image, index) => (
-								<div
-									key={index}
-									className={`w-[134px] h-[133px] border rounded-lg flex items-center justify-center relative p-3	`}
-								>
-									<img
-										src={image}
-										alt=''
-										className='max-w-[123px] min-w-[123px] '
-									/>
-									<button
-										className='p-1 bg-[#CFF6EF] rounded-50 absolute right-2 top-2'
-										onClick={(e) => {
-											e.preventDefault();
-											setPreviewImage(
-												previewImage.filter((image, i) => i !== index),
-											);
-										}}
-									>
-										<MdOutlineClose />{' '}
-									</button>
-								</div>
-							))}
-						</div>
-
-						<div>
-							<label
-								htmlFor='file'
-								className={`cursor-pointer w-[134px] h-[133px] border rounded-lg flex flex-col items-center justify-center`}
-							>
-								<img src={camera} alt='' />
-								<span>Upload Iamage</span>
-							</label>
-							<input
-								type='file'
-								name='file'
-								id='file'
-								onChange={handleFile}
-								className={`hidden`}
-							/>
-						</div>
+						<UploadImages register={register} />
 					</div>
 
 					{/* details */}
@@ -165,13 +82,21 @@ const CreateReqModal = ({ setShowModal, setShowModal2 }) => {
 										defaultValue={reqURL}
 										id='productLink'
 										name='productLink'
-										onChange={handleChangeRequestURL}
+										onChange={(e) => {
+											setReqURL(e.target.value);
+											register('reqURL', { value: e.target.value });
+										}}
 										className='relative m-0 block flex-auto bg-transparent bg-clip-padding text-base font-normal   outline-none placeholder:text-[#000]'
 										placeholder='Paste the URL of the product'
 									/>
 								</div>
 
-								<button>
+								<button
+									onClick={(e) => {
+										e.preventDefault();
+										setReqURL('');
+									}}
+								>
 									<img
 										src={ReloadImg}
 										alt=''
@@ -190,6 +115,7 @@ const CreateReqModal = ({ setShowModal, setShowModal2 }) => {
 										type='text'
 										id='productName'
 										name='productName'
+										{...register('productName')}
 										className='relative m-0 block flex-auto bg-transparent bg-clip-padding  text-base font-normal outline-none placeholder:text-[#000]'
 										placeholder='Paste the URL of the product'
 									/>
@@ -201,45 +127,7 @@ const CreateReqModal = ({ setShowModal, setShowModal2 }) => {
 					{/* quantity */}
 					<div className='space-y-[10px]'>
 						<label htmlFor='quantity'>Quantity </label>
-
-						<div className='flex items-center gap-5'>
-							<div className='flex items-center justify-center gap-2 border py-3 px-5 rounded-50 bg-white w-[182px]'>
-								<button
-									className='text-base'
-									onClick={(e) => {
-										e.preventDefault();
-										handleQuantity('minus');
-									}}
-								>
-									<AiOutlineMinus />
-								</button>
-								<input
-									type='number'
-									readOnly
-									value={quantity}
-									id='productQuantity'
-									name='productQuantity'
-									onChange={handleChangeRequestURL}
-									className='bg-transparent  text-center text-black text-sm outline-none  font-normal w-24'
-								/>
-								<button
-									className='text-base'
-									onClick={(e) => {
-										e.preventDefault();
-										handleQuantity('plus');
-									}}
-								>
-									<AiOutlinePlus />
-								</button>
-							</div>
-
-							<p className='font-medium text-base text-gray-400'>
-								By{' '}
-								<a href='amazon.com' className='underline text-[#6EAFB3]'>
-									amazon.com
-								</a>
-							</p>
-						</div>
+						<QuantityUpdate register={register} />
 					</div>
 
 					{/* add a note */}
@@ -252,29 +140,25 @@ const CreateReqModal = ({ setShowModal, setShowModal2 }) => {
 							id='addNote'
 							cols='30'
 							rows='5'
+							{...register('note')}
 							className='border outline-none py-3 px-5 rounded-lg'
 							placeholder='Specify size, color, model or any instructions here...'
 						></textarea>
 					</div>
 
-					{/* send requste button */}
-					{loggedIn ? (
-						<Button
-							buttonType='secondaryButton'
-							name='Create Request'
-							className=' w-full px-xl py-[17px]'
-						>
-							<input type='submit' />
-						</Button>
-					) : (
-						<Link to='/authentication/login'>
-							<Button
-								buttonType='secondaryButton'
-								name='Login and Request your Item'
-								className='w-full py-[17px] px-5'
-							/>
-						</Link>
-					)}
+					{/* send request button */}
+
+					<Button
+						buttonType='secondaryButton'
+						name={`${
+							loggedIn?.user?.id
+								? 'Create Request'
+								: 'Login and Request your item'
+						}`}
+						className=' w-full px-xl py-[17px]'
+					>
+						<input type='submit' />
+					</Button>
 				</form>
 			</div>
 		</>

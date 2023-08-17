@@ -21,7 +21,7 @@ const Navbar = () => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 	const [isCartOpen, setIsCartOpen] = useState(false);
-	const { dispatch, data } = useContext(UserContext)
+	const { dispatch, data } = useContext(UserContext);
 	const isAdmin = useLocation().pathname.includes('admin');
 	useEffect(() => {
 		plane.request({ name: 'fetchUser' }).then(data => {
@@ -47,17 +47,15 @@ const Navbar = () => {
 				{/* NavMenu in Mobile responsive navmenu*/}
 				{isLoggedIn && (
 					<div
-						className={` absolute z-50 bg-white h-screen w-3/4 top-0 md:hidden transition-all duration-1000 ${openMenu ? ' left-0 opacity-100' : 'h-0 opacity-0 -left-[40rem]'
-							}`}
+						className={` absolute z-50 bg-white h-screen w-3/4 top-0 md:hidden transition-all duration-1000 ${
+							openMenu ? ' left-0 opacity-100' : 'h-0 opacity-0 -left-[40rem]'
+						}`}
 					>
 						<div className='px-4 py-10'>
 							{/* Logo and button */}
 							<div className='flex items-center'>
 								<img src={logo2} alt='' className='w-20 md:w-full md:hidden' />
-								<Button
-									buttonType='outlineButton'
-									name='Login or Sign up'
-								/>
+								<Button buttonType='outlineButton' name='Login or Sign up' />
 							</div>
 							{/*  */}
 							<hr className='my-3' />
@@ -123,7 +121,7 @@ const Navbar = () => {
 
 				{/* logo for mobile responsive with out opening navmenu */}
 				<div>
-					<Link to={"/home"}>
+					<Link to={'/home'}>
 						<img
 							src={logo2}
 							alt=''
@@ -134,17 +132,18 @@ const Navbar = () => {
 
 				{/* for desktop */}
 				<div>
-					<Link to={"/home"}>
+					<Link to={'/home'}>
 						<img src={logo} alt='' className='w-20 md:w-full hidden md:block' />
 					</Link>
 				</div>
 
 				{/* search */}
 				<div
-					className={`w-auto md:w-2/4 lg:w-3/5 flex px-3 items-center text-ellipsis truncate   ${isAdmin
-						? 'rounded-none border-none bg-slate-50'
-						: 'border rounded-3xl'
-						} `}
+					className={`w-auto md:w-2/4 lg:w-3/5 flex px-3 items-center text-ellipsis truncate   ${
+						isAdmin
+							? 'rounded-none border-none bg-slate-50'
+							: 'border rounded-3xl'
+					} `}
 				>
 					{/* search Icon */}
 					<span>
@@ -152,8 +151,9 @@ const Navbar = () => {
 							xmlns='http://www.w3.org/2000/svg'
 							viewBox='0 0 20 20'
 							fill='currentColor'
-							className={`h-5 w-5 ${isAdmin ? 'text-[#5C5F62]' : ' text-[#F2C852]'
-								}`}
+							className={`h-5 w-5 ${
+								isAdmin ? 'text-[#5C5F62]' : ' text-[#F2C852]'
+							}`}
 						>
 							<path
 								fillRule='evenodd'
@@ -167,8 +167,9 @@ const Navbar = () => {
 					<input
 						type='search'
 						className='relative m-0 block flex-auto bg-transparent bg-clip-padding ps-3 py-[0.25rem] text-base font-normal leading-[1.6] text-[#124E58] outline-none placeholder:text-[#124E58]'
-						placeholder={`${isAdmin ? 'Search' : 'Paste the URL of the product'
-							}`}
+						placeholder={`${
+							isAdmin ? 'Search' : 'Paste the URL of the product'
+						}`}
 					/>
 				</div>
 
@@ -190,7 +191,6 @@ const Navbar = () => {
 							buttonType='secondaryButton'
 							name='Login'
 							className={'block md:hidden'}
-
 						/>
 					)}
 				</>
@@ -251,18 +251,15 @@ const Navbar = () => {
 									to='/home/myAccount/orders'
 									className='flex items-center gap-2'
 								>
-									<img src={myAcct || data?.avatar} alt='' />
+									<img src={myAcct || data?.user?.avatar} alt='' />
 								</NavLink>
 							</li>
-							<li>{data?.fullName}</li>
+							<li>{data?.user?.fullName}</li>
 						</ul>
 					) : (
 						<div className='flex items-center gap-2'>
 							<Link to='/authentication/login'>
-								<Button
-									buttonType='outlineButton'
-									name='Login'
-								/>
+								<Button buttonType='outlineButton' name='Login' />
 							</Link>
 							<Link to='/authentication/signup'>
 								<Button name='Sign Up' />

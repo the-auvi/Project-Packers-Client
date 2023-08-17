@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useAxiosSecure from '../../Hooks/useAxiosSecure';
-import Status from '../Status/Status';
+import Status from '../../../../components/Status/Status';
+import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
+// import useAxiosSecure from '../../Hooks/useAxiosSecure';
+// import Status from '../Status/Status';
 
 const OrdersTable = ({ filterStatus, filterSearch }) => {
 	const [allOrders, setAllOrders] = useState();

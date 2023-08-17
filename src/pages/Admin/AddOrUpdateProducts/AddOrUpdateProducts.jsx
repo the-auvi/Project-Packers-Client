@@ -124,7 +124,7 @@ const AddOrUpdateProducts = () => {
 						<h2 className='text-[#0D3D4B] text-base font-semibold my-3'>
 							Category
 						</h2>
-						{/* <ProductCategory register={register} prevProducts={prevProducts} /> */}
+						<ProductCategory register={register} prevProducts={prevProducts} />
 					</>
 				</div>
 

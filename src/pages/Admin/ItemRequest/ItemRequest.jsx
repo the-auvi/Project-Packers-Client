@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import OrdersTable from '../../../components/OrdersTable/OrdersTable';
-import Overview from '../../../container/AdminContainer/Overview/Overview';
 
 import TableFunctions1 from '../../../components/TableFunctions1/TableFunctions1';
 import ItemRequestTable from '../../../components/ItemRequestTable/ItemRequestTable';
