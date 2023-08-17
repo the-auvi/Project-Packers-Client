@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 // import InputField from '../../components/InputField/InputField';
 import { useForm } from 'react-hook-form';
 import Button from '../../../components/Button/Button';
@@ -7,9 +7,11 @@ import Button from '../../../components/Button/Button';
 import facebook from '../../../assets/SocialMedia/facebook.png';
 import apple from '../../../assets/SocialMedia/apple.png';
 import google from '../../../assets/SocialMedia/google.png';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import InputField from '../../../components/InputField/InputField';
 import { plane } from '../../../contexts/terminal/Terminal';
+import toaster from '../../../utils/toaster';
+import { UserContext } from '../../../contexts/user/UserContext';
 
 const Login = () => {
 	const navigate = useNavigate();
@@ -20,25 +22,54 @@ const Login = () => {
 		reset,
 		formState: { errors },
 	} = useForm();
+	const location1 = useLocation();
+	const requestItemData = location1.state?.requestItem;
+	const sendRequest = location1.state?.sendRequest;
+	console.log(location1);
 
-	const path = useLocation()?.state;
-	console.log(path);
+	// userContext
+	const { Login, setUserId } = useContext(UserContext);
 
-	const name = 'text';
+	// check path where user want to go after login
+	const path = location1?.state?.location
+		? location1?.state?.location
+		: '/home';
 
-	// console.log("in home", errors[name])
-
+	// form submit
 	const onSubmit = (data) => {
+		// set data if remember me clicked or not
 		data = data.rememberMe
 			? data
 			: { email: data.email, password: data.password };
-		plane
-			.request({ name: 'logIn', body: data })
-			.then((data) =>
-				data.status === false
-					? toaster({ type: 'error', message: data.message })
-					: navigate('/home'),
-			);
+
+		// hit login api with data
+		Login(data).then((data) => {
+			setUserId(data.id);
+
+			// check is loggedIn successful or not
+			if (data.status === false) {
+				// show toaster
+				toaster({ type: 'error', message: data.message });
+			} else {
+				// check does login page need hit any api after login or not
+				if (sendRequest) {
+					const { images, ...rest } = requestItemData;
+
+					// hitting api for register request
+					plane
+						.request({
+							name: 'registerRequest',
+							body: { data: rest, images: images },
+						})
+						.then((d) => {
+							// console.log('item request response from login', d);
+							navigate('/home', { state: true });
+						});
+				} else {
+					navigate(path);
+				}
+			}
+		});
 
 		reset();
 	};

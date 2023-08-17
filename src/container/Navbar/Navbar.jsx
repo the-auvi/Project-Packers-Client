@@ -18,16 +18,24 @@ import { UserContext } from '../../contexts/user/UserContext';
 
 const Navbar = () => {
 	const [openMenu, setOpenMenu] = useState(false);
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	// const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 	const [isCartOpen, setIsCartOpen] = useState(false);
-	const { dispatch, data } = useContext(UserContext);
+	const { currentUser: data, userId: isLoggedIn } = useContext(UserContext);
 	const isAdmin = useLocation().pathname.includes('admin');
-	useEffect(() => {
-		plane.request({ name: 'fetchUser' }).then(data => {
-			if (data.id) { dispatch({ type: "SAVE_USER", payload: data }); setIsLoggedIn(true) }
-		})
-	}, [])
+	
+
+	// userId ? setIsLoggedIn(true) : setIsLoggedIn(false);
+
+	// useEffect(() => {
+	// 	plane.request({ name: 'fetchUser' }).then((data) => {
+	// 		if (data.id) {
+	// 			// dispatch({ type: 'SAVE_USER', payload: data });
+	// 		} else {
+	// 			// dispatch({ type: '', payload: data });
+	// 		}
+	// 	});
+	// }, []);
 	return (
 		<div className='border-b shadow-md relative z-20'>
 			<nav
@@ -204,7 +212,9 @@ const Navbar = () => {
 							{/* Notification */}
 							<li className='relative'>
 								<button
-									onClick={() => { setIsOpen(!isOpen)}}
+									onClick={() => {
+										setIsOpen(!isOpen);
+									}}
 									className='flex items-center gap-2'
 								>
 									<img
@@ -215,7 +225,11 @@ const Navbar = () => {
 								</button>
 
 								<div>
-									<DropDownNotification setIsOpen={setIsOpen} isOpen={isOpen} isNotification={true}>
+									<DropDownNotification
+										setIsOpen={setIsOpen}
+										isOpen={isOpen}
+										isNotification={true}
+									>
 										<Notification isNavbar={true} />
 									</DropDownNotification>
 								</div>
@@ -224,7 +238,9 @@ const Navbar = () => {
 							{/* Cart */}
 							<li className='relative'>
 								<button
-									onClick={() => { setIsCartOpen(!isCartOpen) }}
+									onClick={() => {
+										setIsCartOpen(!isCartOpen);
+									}}
 									className='flex items-center gap-2'
 								>
 									<img
@@ -251,10 +267,10 @@ const Navbar = () => {
 									to='/home/myAccount/orders'
 									className='flex items-center gap-2'
 								>
-									<img src={myAcct || data?.user?.avatar} alt='' />
+									<img src={myAcct || data?.avatar} alt='' />
 								</NavLink>
 							</li>
-							<li>{data?.user?.fullName}</li>
+							<li>{data?.fullName}</li>
 						</ul>
 					) : (
 						<div className='flex items-center gap-2'>
@@ -267,8 +283,8 @@ const Navbar = () => {
 						</div>
 					)}
 				</div>
-			</nav >
-		</div >
+			</nav>
+		</div>
 	);
 };
 

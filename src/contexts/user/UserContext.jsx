@@ -1,60 +1,97 @@
-import { createContext, useReducer, useState } from 'react';
+import { createContext, useEffect, useReducer, useState } from 'react';
+import { plane } from '../terminal/Terminal';
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-	// initialize state
-	const initialState = {
-		user: {
-			email: null,
-			fullName: null,
-			id: null,
-			role: null,
-			access: null,
-			avatar: null,
-		},
-		isLoading: true,
+	const [userId, setUserId] = useState(null);
+	const [loading, setLoading] = useState(true);
+	const [currentUser, setCuredUser] = useState();
+
+	const Login = (userCred) => {
+		setLoading(true);
+		return plane.request({ name: 'logIn', body: userCred });
 	};
 
-	// reducer
-	const UserReducer = (state, action) => {
-		switch (action.type) {
-			case 'SAVE_USER':
-				return {
-					user: {
-						email: action.payload.email,
-						fullName: action.payload.fullName,
-						id: action.payload.id,
-						role: action.payload.role,
-						access: action.payload?.access,
-						avatar: action.payload?.avatar,
-					},
-					isLoading: false,
-				};
-			case 'REMOVE_USER':
-				return {
-					user: {
-						email: null,
-						fullName: null,
-						id: null,
-						role: null,
-						access: null,
-						avatar: null,
-					},
-					isLoading: true,
-				};
-			default:
-				return state;
-		}
+	// TODO: SignUp and logout need to be complete
+
+	const SignUp = (userInfo) => {};
+
+	const Logout = () => {};
+
+	const user = {
+		userId,
+		setUserId,
+		loading,
+		Login,
+		SignUp,
+		Logout,
+		currentUser,
 	};
 
-	const [state, dispatch] = useReducer(UserReducer, initialState);
+	useEffect(() => {
+		plane.request({ name: 'fetchUser' }).then((data) => {
+			if (data.id) {
+				setCuredUser(data);
+				setUserId(data.id);
+			} else {
+				console.log('nai');
+			}
+			setLoading(false);
+		});
+	}, [userId]);
 
-	console.log(state);
-
-	return (
-		<UserContext.Provider value={{ data: state, dispatch }}>
-			{children}
-		</UserContext.Provider>
-	);
+	return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
 };
+
+// // initialize state
+// const initialState = {
+// 	user: {
+// 		email: null,
+// 		fullName: null,
+// 		id: null,
+// 		role: null,
+// 		access: null,
+// 		avatar: null,
+// 	},
+// 	isLoading: true,
+// };
+
+// // reducer
+// const UserReducer = (state, action) => {
+// 	switch (action.type) {
+// 		case 'SAVE_USER':
+// 			return {
+// 				user: {
+// 					email: action.payload.email,
+// 					fullName: action.payload.fullName,
+// 					id: action.payload.id,
+// 					role: action.payload.role,
+// 					access: action.payload?.access,
+// 					avatar: action.payload?.avatar,
+// 				},
+// 				isLoading: false,
+// 			};
+// 		case 'REMOVE_USER':
+// 			return {
+// 				user: {
+// 					email: null,
+// 					fullName: null,
+// 					id: null,
+// 					role: null,
+// 					access: null,
+// 					avatar: null,
+// 				},
+// 				isLoading: false,
+// 			};
+// 		default:
+// 			return {
+// 				...state,
+// 				isLoading: false,
+// 			};
+// 	}
+// };
+
+// const [state, dispatch] = useReducer(UserReducer, initialState);
+
+// console.log(state);

@@ -7,25 +7,39 @@ import { useForm } from 'react-hook-form';
 import UploadImages from '../../components/UploadImages/UploadImages';
 import QuantityUpdate from '../../components/QuantityUpdate/QuantityUpdate';
 import { UserContext } from '../../contexts/user/UserContext';
+import { plane } from '../../contexts/terminal/Terminal';
 
 const CreateReqModal = ({ setShowModal, setShowModal2, reqURL, setReqURL }) => {
 	const [productImage, setProductImage] = useState(false);
 	const navigate = useNavigate();
 
-	const { data: loggedIn } = useContext(UserContext);
-	console.log(loggedIn?.user?.id);
+	const { userId: loggedIn } = useContext(UserContext);
+	// console.log(loggedIn?.user?.id);
 
-	const { handleSubmit, register } = useForm();
+	const { handleSubmit, register, reset } = useForm();
 
 	const onSubmit = (data) => {
-		console.log('outSide', data);
-		setShowModal(false);
-		if (loggedIn?.user?.id) {
-			console.log('inSide', data);
-			setShowModal2(true);
+		const { images, ...rest } = data;
+		console.log('outSide', rest);
+
+		if (loggedIn) {
+			plane
+				.request({
+					name: 'registerRequest',
+					body: { data: rest, images: images },
+				})
+				.then((d) => {
+					setShowModal(false);
+					setShowModal2(true);
+				});
+
+			// console.log('inSide', data);
 		} else {
-			navigate('/authentication/login', { state: { requestItem: data } });
+			navigate('/authentication/login', {
+				state: { requestItem: data, sendRequest: true },
+			});
 		}
+		reset();
 	};
 
 	return (
@@ -84,7 +98,7 @@ const CreateReqModal = ({ setShowModal, setShowModal2, reqURL, setReqURL }) => {
 										name='productLink'
 										onChange={(e) => {
 											setReqURL(e.target.value);
-											register('reqURL', { value: e.target.value });
+											register('link', { value: e.target.value });
 										}}
 										className='relative m-0 block flex-auto bg-transparent bg-clip-padding text-base font-normal   outline-none placeholder:text-[#000]'
 										placeholder='Paste the URL of the product'
@@ -114,8 +128,7 @@ const CreateReqModal = ({ setShowModal, setShowModal2, reqURL, setReqURL }) => {
 									<input
 										type='text'
 										id='productName'
-										name='productName'
-										{...register('productName')}
+										{...register('name')}
 										className='relative m-0 block flex-auto bg-transparent bg-clip-padding  text-base font-normal outline-none placeholder:text-[#000]'
 										placeholder='Paste the URL of the product'
 									/>
@@ -151,9 +164,7 @@ const CreateReqModal = ({ setShowModal, setShowModal2, reqURL, setReqURL }) => {
 					<Button
 						buttonType='secondaryButton'
 						name={`${
-							loggedIn?.user?.id
-								? 'Create Request'
-								: 'Login and Request your item'
+							loggedIn ? 'Create Request' : 'Login and Request your item'
 						}`}
 						className=' w-full px-xl py-[17px]'
 					>

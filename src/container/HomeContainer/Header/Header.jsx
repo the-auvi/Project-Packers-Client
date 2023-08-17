@@ -6,11 +6,16 @@ import Modal from '../../../components/Modal/Modal';
 import CreateReqModal from '../../Modal/CreateReqModal';
 import Button from '../../../components/Button/Button';
 import ReqSuccessful from '../../Modal/ReqSuccessful';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 const Header = () => {
 	const [reqURL, setReqURL] = useState('');
 	const [showModal, setShowModal] = useState(false);
-	const [showModal2, setShowModal2] = useState(false);
+
+	const reqModal = useLocation()?.state;
+	const [showModal2, setShowModal2] = useState(reqModal);
+
+	// console.log('reqModal', showModal2);
 
 	const handleChangeRequestURL = (e) => {
 		setReqURL(e.target.value);
@@ -91,7 +96,10 @@ const Header = () => {
 				</div>
 
 				{/* header image */}
-				<img src={headerImg} className='mb-20 md:max-w-[668px] w-full sm:max-w-[338px]' />
+				<img
+					src={headerImg}
+					className='mb-20 md:max-w-[668px] w-full sm:max-w-[338px]'
+				/>
 
 				{/* slider for youtube video */}
 				<div className='wrapper absolute left-0 right-0 md:-bottom-[17.5rem] -bottom-[20rem]  overflow-x-scroll'>
@@ -101,7 +109,11 @@ const Header = () => {
 
 			{/*  */}
 			{/* confirmation modal after create request */}
-			<Modal showModal={showModal2} setShowModal={setShowModal2}>
+			<Modal
+				requestModal={true}
+				showModal={showModal2}
+				setShowModal={setShowModal2}
+			>
 				<ReqSuccessful />
 			</Modal>
 		</header>
