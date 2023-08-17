@@ -1,28 +1,29 @@
 import React, { useContext } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { UserContext } from '../contexts/user/UserContext';
+import Loader from '../assets/LoaderPage/loader.svg';
 
 const ProtectedRouter = ({ children }) => {
-	const { data: user } = useContext(UserContext);
+	const { userId, loading } = useContext(UserContext);
 
-	const navigate = useNavigate();
 	const location = useLocation().pathname;
-	console.log(!user.isLoading);
 
-	console.log(location);
-	if (user.isLoading) {
+	if (loading) {
 		return (
-			<div className='text-9xl text-blue-700 font-extrabold'>it's coming</div>
+			<div className=''>
+				<div className='wrapper h-screen'>
+					<img src={Loader} alt='' className=' ' />
+				</div>
+			</div>
 		);
 	}
 
-	console.log(!user.user.id);
-
-	if (!user.user.id) {
-		console.log('logout');
-		//  navigate('/authentication/login');
+	if (!userId) {
 		return (
-			<Navigate to='/authentication/login' state={{ location }}></Navigate>
+			<Navigate
+				to='/authentication/login'
+				state={{ location: location }}
+			></Navigate>
 		);
 	}
 
