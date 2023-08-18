@@ -21,7 +21,7 @@ const Item = () => {
 		});
 	}, [id]);
 	const handleRequest = () => {
-		plane.request({ name: 'updateCart', body: { products: [{ product: id, productQuantity: 1 }] } }).then(data => data.id ? toaster({ type: 'success', message: 'Added to cart' }) : toaster({ type: 'error', message: data.message || 'An error occured. Please try again later' }))
+		plane.request({ name: 'registerCart', body: { products: [{ product: id, productQuantity: 1 }] } }).then(data => data.id ? toaster({ type: 'success', message: 'Added to cart' }) : toaster({ type: 'error', message: data.message || 'An error occured. Please try again later' }))
 	}
 	return (
 		<>

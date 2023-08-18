@@ -11,7 +11,7 @@ export default function prepareData(api, type = 'params') {
     const keys = Object.keys(api[type] || {});
     if (keys.length) {
         keys.some(k => {
-            if (!api[type][k]) throw new Error(`${api.suggestions[k] || ''}\n${api.suggestions.raw || ''}`)
+            if (api[type][k] === '' || api[type][k] === undefined) throw new Error(`${api.suggestions[k] || ''}\n${api.suggestions.raw || ''}`)
         });
     };
 

@@ -12,29 +12,17 @@ import Button from '../Button/Button';
 
 const Modal = ({
 	children,
-	openButtonName,
-	className,
 	showModal,
 	setShowModal,
 	requestModal,
 }) => {
-	// console.log(showModal);
-	// /**
-	//  * @description this funtion used for opening a modal
-	//  */
-	// const openModal = (e) => {
-	// 	e.preventDefault();
-	// 	setShowModal(true);
-	// };
-
+	const navigate = useNavigate();
 	/**
 	 * @description this funtion used for close a modal
 	 */
-	const navigate = useNavigate();
 	const closeModal = (e) => {
 		e.preventDefault();
 		requestModal && navigate('/home', { replace: true });
-
 		setShowModal(false);
 	};
 

@@ -8,7 +8,7 @@ export const category = {
         },
         suggestions: {
             raw: "A raw example of the payload: {categoryname:'Electronics',categoryslug:'electronics'}.",
-            categoryname: "Please enter caegory name.",
+            categoryname: "Please enter category name.",
             categoryslug: "Please enter category slug."
         }
     },
@@ -17,6 +17,19 @@ export const category = {
         uri: "category",
         suggestions: {
             raw: "A raw example of the uri: 'category'.",
+        }
+    },
+    updateCategory: {
+        method: "PATCH",
+        uri: "category",
+        body: {
+            categoryname: undefined,
+            categoryslug: undefined
+        },
+        suggestions: {
+            raw: "A raw example of the payload: {categoryname:'Electronics',categoryslug:'electronics'}.",
+            categoryname: "Please enter name.",
+            categoryslug: "Please enter slug."
         }
     },
     deleteCategory: {

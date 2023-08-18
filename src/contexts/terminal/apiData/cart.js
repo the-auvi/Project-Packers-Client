@@ -1,11 +1,20 @@
 export const cart = {
-    updateCart: {
+    registerCart: {
         method: "POST",
         uri: "cart",
-        body: undefined,
+        body: {
+            products: undefined,
+        },
         suggestions: {
             raw: "A raw example of the uri: 'cart'",
-            body: "Please provide body object",
+            products: "Please select a product",
+        }
+    },
+    updateCart: {
+        method: "PATCH",
+        uri: "cart",
+        suggestions: {
+            raw: "A raw example of the uri: 'cart'",
         }
     },
     getCart: {
