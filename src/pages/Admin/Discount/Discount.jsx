@@ -113,9 +113,9 @@ const Discount = () => {
 									<td
 										onClick={(e) => {
 											e.preventDefault();
-											navigate(`/admin/updateDiscount/${d.id}`,
-											{state: { discount: d }}
-											);
+											navigate(`/admin/updateDiscount/${d.id}`, {
+												state: { discount: d },
+											});
 										}}
 										className='p-[18px_16px] cursor-pointer '
 									>
