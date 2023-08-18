@@ -19,7 +19,7 @@ export default function prepareReq(serverUrl) {
                 credentials: 'include'
             }
             if (headers && method !== 'GET') payload = { ...payload, headers, body };
-            if (method === 'POST') payload = { ...payload, body }
+            if (method === 'POST' && !headers) payload = { ...payload, body }
             const response = await fetch(url, payload)
             return await response.json();
         }
