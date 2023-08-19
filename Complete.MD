@@ -9,4 +9,14 @@ in admin side
 - item requests update
 - all products
 - new products or update products
-  Aaaaaaaaa
+  
+
+
+Yeasir:
+Debounce effect
+Customer
+Profile update
+order show in profile
+google and facebook login
+
+fix /home

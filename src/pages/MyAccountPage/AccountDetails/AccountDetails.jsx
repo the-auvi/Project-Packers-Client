@@ -1,31 +1,70 @@
-import React from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '../../../components/Button/Button';
 import InputField from '../../../components/InputField/InputField';
+import { plane } from '../../../contexts/terminal/Terminal';
+import removeEmptyFields from '../../../utils/removeEmptyFields';
+import toaster from '../../../utils/toaster';
 
 const AccountDetails = () => {
 	const {
 		register,
 		handleSubmit,
-		watch,
-		reset,
+		setValue,
 		formState: { errors },
 	} = useForm();
+	const [user, setUser] = useState()
+
+	let error = null;
+	useEffect(() => {
+		plane.request({ name: 'getOwn' }).then(data => {
+			if (data.id) {
+				setUser(data)
+			}
+		})
+	}, [])
+
+	useEffect(() => {
+		if (user) {
+			setValue('fullName', user?.fullName, { shouldValidate: true })
+			setValue('phone', user?.phone, { shouldDirty: true })
+		}
+	}, [user, setValue])
 
 	const onSubmit = (data) => {
-		console.log('click');
-		console.log(data);
-		reset();
+		removeEmptyFields(data)
+		delete data.email
+		if (data.newPassword) {
+			if (data.newPassword !== data.confirmPassword) {
+				return error = <p className='text-red-500 font-semibold'>Password does not match</p>
+			}
+			data = {
+				...data,
+				passwordChange: {
+					oldPass: data.currentPassword,
+					newPass: data.newPassword
+				}
+			}
+			delete data.newPassword
+			delete data.currentPassword
+			delete data.confirmPassword
+			return error = null
+		}
+		plane.request({ name: 'updateOwnProfile', body: { data } }).then(data => {
+			if (data.id) {
+				setUser(data)
+				toaster({ type: 'success', message: 'Profile Updated Successfully!!' })
+			}
+		})
 	};
 	return (
 		<div className='w-full md:w-[699px]  '>
 			<form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
 				{/* name */}
-				<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-					{/* First Name */}
+				{/* <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 					<InputField
 						placeholder='Enter your first name'
-						name='firstName'
+						name='fullName'
 						type='text'
 						errors={errors}
 						register={register}
@@ -33,7 +72,6 @@ const AccountDetails = () => {
 						label='First Name'
 						neededFor='homepage'
 					/>
-					{/* Last Name */}
 					<InputField
 						placeholder='Enter your last name'
 						name='lastName'
@@ -44,12 +82,24 @@ const AccountDetails = () => {
 						label='Last Name'
 						neededFor='homepage'
 					/>
-				</div>
+				</div> */}
+				{/* Full Name */}
+				<InputField
+					placeholder='Enter your first name'
+					name='fullName'
+					type='text'
+					errors={errors}
+					register={register}
+					required={true}
+					label='First Name'
+					neededFor='homepage'
+				/>
 				{/* Email */}
 				<InputField
 					placeholder='Enter your email address'
 					name='email'
 					type='email'
+					value={user?.email}
 					errors={errors}
 					register={register}
 					required={true}
@@ -59,7 +109,7 @@ const AccountDetails = () => {
 				{/* Phone number */}
 				<InputField
 					placeholder='Enter your phone Number'
-					name='phoneNumber'
+					name='phone'
 					label='Phone Number'
 					register={register}
 					required={true}
@@ -74,7 +124,6 @@ const AccountDetails = () => {
 					type='password'
 					errors={errors}
 					register={register}
-					required={true}
 					label='Current Password'
 					neededFor='homepage'
 				/>
@@ -85,7 +134,6 @@ const AccountDetails = () => {
 					type='password'
 					errors={errors}
 					register={register}
-					required={true}
 					label='New Password'
 					neededFor='homepage'
 				/>
@@ -96,7 +144,6 @@ const AccountDetails = () => {
 					type='password'
 					errors={errors}
 					register={register}
-					required={true}
 					label='Confirm New Password'
 					neededFor='homepage'
 				/>

@@ -38,8 +38,13 @@ import AddOrUpdateDiscount from '../pages/Admin/AddOrUpdateDiscount/AddOrUpdateD
 import NewCustomer from '../pages/Admin/NewCustomer/NewCustomer';
 import CustomerUpdate from '../container/AdminContainer/Customers/CustomerUpdate';
 import ProtectedRouter from './ProtectedRouter';
+import Redirect from '../components/Redirect/Redirect';
 
 export const router = createBrowserRouter([
+	{
+		path: '/',
+		element: <Redirect />,
+	},
 	{
 		path: '/home',
 		element: <Root />,
@@ -86,7 +91,11 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'myAccount',
-				element: <MyAccount />,
+				element: (
+					<ProtectedRouter>
+						<MyAccount />
+					</ProtectedRouter>
+				),
 				children: [
 					{
 						path: 'orders',

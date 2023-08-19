@@ -16,7 +16,6 @@ const NewPass = () => {
 	} = useForm();
 	let error = null;
 	const navigate = useNavigate()
-	const location = useLocation()
 	const onSubmit = (data) => {
 		if (data.newPassword !== data.confirmPassword) {
 			return error = <p className='text-red-500 font-semibold'>Password does not match</p>

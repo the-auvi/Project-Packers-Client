@@ -7,7 +7,7 @@ import { BiSupport } from "react-icons/bi";
 import { CiLocationOn, CiFacebook, CiTwitter, CiInstagram } from "react-icons/ci";
 const Footer = () => {
   return (
-    <footer className="bg-primary text-white z-[9999] relative">
+    <footer className="bg-primary text-white z-40 relative">
       <div className="wrapper grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-8">
         <div>
           <img className="mb-5" src={logo} alt="" />

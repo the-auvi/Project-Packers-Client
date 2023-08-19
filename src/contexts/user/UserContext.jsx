@@ -1,4 +1,4 @@
-import { createContext, useEffect, useReducer, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { plane } from '../terminal/Terminal';
 
 export const UserContext = createContext();
@@ -15,13 +15,24 @@ export const UserProvider = ({ children }) => {
 
 	// TODO: SignUp and logout need to be complete
 
-	const SignUp = (userInfo) => {};
+	const SignUp = (userInfo) => { };
 
-	const Logout = () => {};
+	const Logout = () => {
+		setLoading(true);
+		plane.request({ name: 'logIn' }).then(data => {
+			if (data.status) {
+				setUserId(null)
+				setCuredUser()
+			}
+			setLoading(false);
+			return data.status;
+		})
+	};
 
 	const user = {
 		userId,
 		setUserId,
+		setCuredUser,
 		loading,
 		Login,
 		SignUp,
@@ -34,8 +45,6 @@ export const UserProvider = ({ children }) => {
 			if (data.id) {
 				setCuredUser(data);
 				setUserId(data.id);
-			} else {
-				console.log('nai');
 			}
 			setLoading(false);
 		});

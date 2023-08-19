@@ -48,6 +48,10 @@ export const user = {
             password: "Please enter your password",
         }
     },
+    logOut: {
+        method: 'POST',
+        uri: 'user/logout',
+    },
     fetchUser: {
         method: 'GET',
         uri: 'social/success',

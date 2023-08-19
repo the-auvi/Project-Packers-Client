@@ -1,5 +1,3 @@
-import toaster from "../../../utils/toaster";
-
 export default function prepareReq(serverUrl) {
     /**
  * A dynamic fetch function that can be used to make HTTP requests.
@@ -19,7 +17,7 @@ export default function prepareReq(serverUrl) {
                 credentials: 'include'
             }
             if (headers && method !== 'GET') payload = { ...payload, headers, body };
-            if (method === 'POST' && !headers) payload = { ...payload, body }
+            if (method === 'POST' || method === 'PATCH' && !headers) payload = { ...payload, body }
             const response = await fetch(url, payload)
             return await response.json();
         }

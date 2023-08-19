@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from '../../components/Button/Button';
 import logo from '../../assets/logo.png';
 import logo2 from '../../assets/logo3.png';
@@ -11,33 +11,23 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import DropDownNotification from '../../components/DropDown/DropDown';
 import Notification from '../../pages/Notification/Notification';
 import Cart from '../../pages/Cart/Cart';
-import { plane } from '../../contexts/terminal/Terminal';
 import { UserContext } from '../../contexts/user/UserContext';
+import useDebounce from '../../Hooks/useDebounce';
 
 // TODO: add comment and short it more
 
 const Navbar = () => {
 	const [openMenu, setOpenMenu] = useState(false);
-	// const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 	const [isCartOpen, setIsCartOpen] = useState(false);
 	const { currentUser: data, userId: isLoggedIn } = useContext(UserContext);
 	const isAdmin = useLocation().pathname.includes('admin');
-
-
-	// userId ? setIsLoggedIn(true) : setIsLoggedIn(false);
-
-	// useEffect(() => {
-	// 	plane.request({ name: 'fetchUser' }).then((data) => {
-	// 		if (data.id) {
-	// 			// dispatch({ type: 'SAVE_USER', payload: data });
-	// 		} else {
-	// 			// dispatch({ type: '', payload: data });
-	// 		}
-	// 	});
-	// }, []);
+	const toggleCart = () => {
+		setIsCartOpen((prevValue) => !prevValue);
+	};
+	const debouncedToggleCart = useDebounce(toggleCart, 300);
 	return (
-		<div className='border-b shadow-md relative z-20'>
+		<div className='border-b shadow-md relative z-40'>
 			<nav
 				className={`flex gap-1 max-w-screen-xl mx-auto items-center justify-between
 			 bg-white text-black h-20 px-2 md:px-5`}
@@ -235,7 +225,7 @@ const Navbar = () => {
 							<li className='relative'>
 								<button
 									onClick={() => {
-										setIsCartOpen(!isCartOpen);
+										debouncedToggleCart();
 									}}
 									className='flex items-center gap-2'
 								>

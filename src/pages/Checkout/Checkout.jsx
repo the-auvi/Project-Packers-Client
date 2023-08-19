@@ -3,7 +3,9 @@ import { useForm } from 'react-hook-form';
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';
 import { plane } from '../../contexts/terminal/Terminal';
+import { useSearchParams } from 'react-router-dom';
 import OrderSuccessModal from '../../container/Modal/OrderSuccessModal';
+import Modal from '../../components/Modal/Modal';
 
 const Checkout = () => {
 	let totalPrice = 0;
@@ -11,6 +13,12 @@ const Checkout = () => {
 	const [discount, setDiscount] = useState();
 	const [price, setPrice] = useState()
 	const [inside, setInside] = useState(true)
+	const [orderModal, setOrderModal] = useState(false);
+	const [searchParams] = useSearchParams();
+	const orderqueries = searchParams.get('order');
+	let orderstatus = orderqueries?.split('?')[0]
+	let orderid = orderqueries?.split('?')[1]
+
 	useEffect(() => {
 		plane.request({ name: 'getCart' }).then(data => {
 			if (data.id) {
@@ -18,7 +26,10 @@ const Checkout = () => {
 				if (data.discountApplied) setDiscount(data.discountApplied);
 			}
 		})
-	}, []);
+		if (orderstatus === 'success') {
+			setOrderModal(true)
+		}
+	}, [orderstatus]);
 
 	useEffect(() => {
 		let discountItemsTotal = 0;
@@ -34,12 +45,12 @@ const Checkout = () => {
 					nondiscountItemsTotal += total;
 				}
 			});
-
 			discountamount = discount?.percentage ? (discountItemsTotal * discount.percentage) / 100 : discount?.amount;
 			totalPrice = discountamount ? totalPrice + nondiscountItemsTotal - discountamount : totalPrice + nondiscountItemsTotal;
+			totalPrice = inside ? totalPrice + 99 : totalPrice + 150
 			setPrice(totalPrice);
 		}
-	}, [cart, discount]);
+	}, [cart, discount, inside]);
 
 	const {
 		register,
@@ -64,6 +75,7 @@ const Checkout = () => {
 				zip: data,
 			}
 		}
+		// plane.request({ name: 'registerOrder', body }).then(data => data.url && window.location.replace(url))
 		// reset();
 	};
 
@@ -255,9 +267,9 @@ const Checkout = () => {
 							<input
 								type='radio'
 								id='insideDhaka'
-								checked
+								checked={inside}
 								value={true}
-								onChange={() => { setInside(true) }}
+								onClick={() => { setInside(true) }}
 								{...register('insideDhaka')}
 							/>
 							<label
@@ -274,8 +286,9 @@ const Checkout = () => {
 							<input
 								type='radio'
 								id='outsideDhaka'
+								checked={!inside}
 								value={false}
-								onChange={() => { setInside(false) }}
+								onClick={() => { setInside(false) }}
 								{...register('insideDhaka')}
 							/>
 							<label
@@ -290,7 +303,7 @@ const Checkout = () => {
 					{/* Estimated Total */}
 					<div className='flex items-center justify-between py-4 text-base text-black font-medium'>
 						<p className='text-start'>Estimated total</p>
-						<p className='text-end text-xl font-bold'>৳ {inside ? 150 + price + totalPrice : 99 + price + totalPrice}tk </p>
+						<p className='text-end text-xl font-bold'>৳ {price + totalPrice}tk </p>
 					</div>
 					<Button
 						buttonType='secondaryButton'
@@ -301,7 +314,13 @@ const Checkout = () => {
 					</Button>
 				</div>
 			</form>
-			<OrderSuccessModal />
+			{orderModal && <Modal orderModal={true} showModal={orderModal} setShowModal={setOrderModal}>
+				<OrderSuccessModal
+					id={orderid.split('=')[1]}
+					setShowModal={setOrderModal}
+				/>
+			</Modal>
+			}
 		</div>
 	);
 };

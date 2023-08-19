@@ -25,7 +25,6 @@ const Login = () => {
 	const location1 = useLocation();
 	const requestItemData = location1.state?.requestItem;
 	const sendRequest = location1.state?.sendRequest;
-	console.log(location1);
 
 	// userContext
 	const { Login, setUserId } = useContext(UserContext);

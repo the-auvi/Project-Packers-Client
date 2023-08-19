@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import Headings from '../../../components/Headings/Headings';
 import ProductsCard from '../../../components/ProductsCard/ProductsCard';
 import Button from '../../../components/Button/Button';

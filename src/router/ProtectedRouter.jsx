@@ -5,7 +5,6 @@ import Loader from '../assets/LoaderPage/loader.svg';
 
 const ProtectedRouter = ({ children }) => {
 	const { userId, loading } = useContext(UserContext);
-
 	const location = useLocation().pathname;
 
 	if (loading) {
@@ -27,7 +26,7 @@ const ProtectedRouter = ({ children }) => {
 		);
 	}
 
-	return <div>{children}</div>;
+	return <>{children}</>;
 };
 
 export default ProtectedRouter;
