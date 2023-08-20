@@ -38,12 +38,6 @@ const Notification = ({ isNavbar }) => {
             />
           })
         }
-        {/* <NotificationCard
-          isNavbar={isNavbar}
-          message="We've reviewed item #3163652 (Fitbit Versa...). You can now take it to checkout!"
-          time={sendingMin}
-          type="cart"
-        /> */}
       </div>
     </div>
   );

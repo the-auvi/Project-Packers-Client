@@ -17,7 +17,7 @@ const ItemRequestUpdate = () => {
   const requestItem = useLocation().state?.requestItem;
   console.log(requestItem);
 
-  const { user, fee, tax, price, quantity, link } = requestItem;
+  const { user, fee, tax, price, quantity, link, sellerTakes } = requestItem;
 
   const [isEdit, setIsEdit] = useState(null);
 
@@ -35,13 +35,13 @@ const ItemRequestUpdate = () => {
 
   const onSubmit = async (data) => {
     removeEmptyField(data);
-    //console.log(data);
+    console.log(data);
     const { images, ...rest } = data;
     plane
       .request({
         name: "updateRequest",
         params: { id: id },
-        body: { data: JSON.stringify(rest), images: images },
+        body: { data:  rest, images: images },
       })
       .then((res) => {
         console.log(res);
