@@ -11,7 +11,6 @@ const TitleBar = () => {
 
   // spliting them with "/" and filter them withouot any empty string
   const paths = pathname.split("/").filter((path) => path !== "");
-
   const pathsWithCapitalizedLetter = []
 
 // making 1st letter capitalized
@@ -24,7 +23,6 @@ const TitleBar = () => {
  * @description - joined all paths with "|" and set in the browser title
  */
   const title  = pathsWithCapitalizedLetter.join(" | ")
-
 
   // added title
   window.document.title = title 

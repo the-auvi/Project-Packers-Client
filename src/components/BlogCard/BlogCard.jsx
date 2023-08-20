@@ -11,22 +11,20 @@ import blog1 from '../../assets/Blog1.png';
  * @returns
  */
 const BlogCard = ({ id, img, title, details }) => {
-	/**
-	 * @description - sliced blog details for showing short details in card
-	 */
-	const shortDetails = details.slice(0, 95);
 	return (
 		<div
-			className='w-[283px] h-[366px] rounded-2xl border'
+			className='rounded-2xl border'
 			style={{
 				boxShadow:
 					'0px 1px 2px 0px rgba(0, 0, 0, 0.15), 0px 0px 5px 0px rgba(0, 0, 0, 0.05)',
 			}}
 		>
-			<img src={blog1} alt='' className='bg-black rounded-t-xl' />
+			<div className='h-[250px]'>
+				<img src={`${import.meta.env.VITE_SERVER_URL}/${img}`} alt='' className='bg-black rounded-t-xl w-full h-full' />
+			</div>
 			<div className='p-5 flex flex-col items-start gap-4'>
 				<p className='text-base font-semibold'>{title}</p>
-				<p className='text-sm font-normal '>{shortDetails}</p>
+				<p className='text-sm font-normal '>{details}</p>
 				<Link to={`/home/blog/${id}`}>
 					{' '}
 					<button className='text-primary text-sm font-semibold border p-2 rounded'>

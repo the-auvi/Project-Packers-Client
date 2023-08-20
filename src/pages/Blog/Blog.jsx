@@ -1,34 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import useAxiosSecure from '../../Hooks/useAxiosSecure';
-// TODO: Remove image from here when Image coming from db
-import blog1 from '../../assets/Blog1.png';
 import BlogCard from '../../components/BlogCard/BlogCard';
+import { plane } from '../../contexts/terminal/Terminal';
+import myAcct from '../../assets/Avatar.png';
 
 const Blog = () => {
 	const [blogDetails, setBlogDetails] = useState({});
 	const [blogs, setBlogs] = useState([]);
 	const { id } = useParams();
-	const [axiosSecure] = useAxiosSecure();
 
 	useEffect(() => {
-		axiosSecure.get(`/api/blog/${id}`).then((res) => {
-			setBlogDetails(res.data);
-		});
+		plane.request({ name: 'singleBlog', params: { id: id } }).then(data => data.id && setBlogDetails(data));
 	}, [id]);
 
 	useEffect(() => {
-		axiosSecure.get('/api/blogs').then((res) => {
-			console.log(res.data);
-			setBlogs(res.data.slice(0, 4));
-		});
+		plane.request({ name: 'allBlog', queries: { page: 1 } }).then(data => data.docs && setBlogs(data.docs));
 	}, []);
-
 	return (
 		<>
 			{/* header */}
 			<div
-				style={{ backgroundImage: `url(${blog1})` }}
+				style={{ backgroundImage: `url(${`${import.meta.env.VITE_SERVER_URL}/${blogDetails?.banner}`})` }}
 				className={`backgroundImage w-[375px] h-[276px] md:w-screen md:h-[600px] flex items-center justify-center`}
 			>
 				<div className='wrapper  '>
@@ -37,13 +29,17 @@ const Blog = () => {
 					</p>
 					<div className='flex items-center gap-4 text-white text-base'>
 						<img
-							src={blog1}
+							src={!blogDetails?.user?.avatar ? myAcct : `${import.meta.env.VITE_SERVER_URL}/${blogDetails?.user?.avatar}`}
 							alt=''
 							className=' w-[32px] md:w-[42px] h-[32px] md:h-[42px] rounded-50'
 						/>
-						<p className=' font-medium'>Pujon Das Auvi</p>
+						<p className=' font-medium'>{blogDetails?.user?.fullName}</p>
 						<div className='w-[4px] h-[4px] rounded-full text-white border-[4px]'></div>
-						<p>July 26, 2023</p>
+						<p>{new Date(blogDetails?.date).toLocaleString('en-US', {
+							year: 'numeric',
+							month: 'long',
+							day: 'numeric',
+						})}</p>
 					</div>
 				</div>
 			</div>
@@ -53,7 +49,8 @@ const Blog = () => {
 					{/* title */}
 					<div className='text-[32px] font-semibold'>{blogDetails?.title}</div>
 					{/* description */}
-					<p className='text-base font-normal'>{blogDetails?.description}</p>
+					<div className='text-base font-normal' dangerouslySetInnerHTML={{ __html: blogDetails?.content }} />
+					{/* <p className='text-base font-normal'>{blogDetails?.description}</p> */}
 				</div>
 
 				{/* more blogs section */}
@@ -76,14 +73,17 @@ const Blog = () => {
 
 					{/* more blog card */}
 					<div className='flex items-center overflow-x-scroll gap-7'>
-						{blogs.map((blog) => (
-							<div key={blog.id}>
-								<BlogCard
-									id={blog.id}
-									title={blog.title}
-									details={blog.description}
-								/>
-							</div>
+						{blogs.length > 0 && blogs.filter(blog => { return blog.id !== id }).map((blog) => (
+							<Link key={blog.id} to={`/home/blog/${blog.id}`}>
+								<div key={blog.id}>
+									<BlogCard
+										img={blog.banner}
+										id={blog.id}
+										title={blog.title}
+										details={blog.description}
+									/>
+								</div>
+							</Link>
 						))}
 					</div>
 				</div>

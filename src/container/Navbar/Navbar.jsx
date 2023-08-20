@@ -118,20 +118,20 @@ const Navbar = () => {
 
 				{/* logo for mobile responsive with out opening navmenu */}
 				<div>
-					<Link to={'/home'}>
+					<NavLink to={'/home'}>
 						<img
 							src={logo2}
 							alt=''
 							className='max-w-[5rem] min-w-[5rem] md:hidden'
 						/>
-					</Link>
+					</NavLink>
 				</div>
 
 				{/* for desktop */}
 				<div>
-					<Link to={'/home'}>
+					<NavLink to={'/home'}>
 						<img src={logo} alt='' className='w-20 md:w-full hidden md:block' />
-					</Link>
+					</NavLink>
 				</div>
 
 				{/* search */}
