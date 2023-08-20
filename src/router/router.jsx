@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter } from "react-router-dom";
 // import App from "../App";
 import Root from '../layout/Root';
 import Home from '../pages/Home/Home';
@@ -112,111 +112,111 @@ export const router = createBrowserRouter([
 				element: <Item />,
 			},
 
-			// TODO: remove this from here
-			{
-				path: 'template1',
-				element: <ConfirmationTemplate />,
-			},
-		],
-	},
-	{
-		path: '/authentication',
-		element: <AuthRoot />,
-		children: [
-			{
-				path: 'login',
-				element: <Login />,
-			},
-			{
-				path: 'signup',
-				element: <SignUp />,
-			},
-			{
-				path: 'identify',
-				element: <AccountIdentify />,
-			},
-			{
-				path: 'verification',
-				element: <Verification />,
-			},
-			{
-				path: 'set-password',
-				element: <NewPass />,
-			},
-		],
-	},
-	{
-		path: '/admin',
-		element: <Admin />,
-		children: [
-			{
-				path: '/admin',
-				element: <DashBoard />,
-			},
-			{
-				path: 'itemRequest',
-				element: <ItemRequest />,
-			},
-			{
-				path: 'updateItemRequest/:id',
-				element: <ItemRequestUpdate />,
-			},
-			{
-				path: 'allOrders',
-				element: <AllOrders />,
-			},
-			{
-				path: 'orderDetails/:id',
-				element: <OrderDetails />,
-			},
-			{
-				path: 'allProducts',
-				element: <AllProducts />,
-			},
-			{
-				path: 'addProduct',
-				element: <AddOrUpdateProducts />,
-			},
-			{
-				path: 'updateProduct/:id',
-				element: <AddOrUpdateProducts />,
-			},
-			{
-				path: 'discount',
-				element: <Discount />,
-			},
-			{
-				path: 'addDiscount',
-				element: <AddOrUpdateDiscount />,
-			},
-			{
-				path: 'updateDiscount/:id',
-				element: <AddOrUpdateDiscount />,
-			},
-			{
-				path: 'categories',
-				element: <Categories />,
-			},
-			{
-				path: 'customers',
-				element: <Customers />,
-			},
-			{
-				path: 'newCustomer',
-				element: <NewCustomer />,
-			},
-			{
-				path: 'customerUpdate/:id',
-				element: <CustomerUpdate />,
-			},
-			{
-				path: 'support',
-				element: <Support />,
-			},
-			{
-				path: 'staff',
-				element: <Staff />,
-			},
-		],
-	},
+      // TODO: remove this from here
+      {
+        path: "template1",
+        element: <ConfirmationTemplate />,
+      },
+    ],
+  },
+  {
+    path: "/authentication",
+    element: <AuthRoot />,
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "signup",
+        element: <SignUp />,
+      },
+      {
+        path: "identify",
+        element: <AccountIdentify />,
+      },
+      {
+        path: "verification",
+        element: <Verification />,
+      },
+      {
+        path: "set-password",
+        element: <NewPass />,
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <Admin />,
+    children: [
+      {
+        path: "/admin",
+        element: <DashBoard />,
+      },
+      {
+        path: "itemRequest",
+        element: <ItemRequest />,
+      },
+      {
+        path: "updateItemRequest/:id",
+        element: <ItemRequestUpdate />,
+      },
+      {
+        path: "allOrders",
+        element: <AllOrders />,
+      },
+      {
+        path: "orderDetails/:id",
+        element: <OrderDetails />,
+      },
+      {
+        path: "allProducts",
+        element: <AllProducts />,
+      },
+      {
+        path: "addProduct",
+        element: <AddOrUpdateProducts />,
+      },
+      {
+        path: "updateProduct/:id",
+        element: <AddOrUpdateProducts />,
+      },
+      {
+        path: "discount",
+        element: <Discount />,
+      },
+      {
+        path: "addDiscount",
+        element: <AddOrUpdateDiscount />,
+      },
+      {
+        path: "updateDiscount/:id",
+        element: <AddOrUpdateDiscount />,
+      },
+      {
+        path: "categories",
+        element: <Categories />,
+      },
+      {
+        path: "customers",
+        element: <Customers />,
+      },
+      {
+        path: "newCustomer",
+        element: <NewCustomer />,
+      },
+      {
+        path: "customerUpdate/:id",
+        element: <CustomerUpdate />,
+      },
+      {
+        path: "support",
+        element: <Support />,
+      },
+      {
+        path: "staff",
+        element: <Staff />,
+      },
+    ],
+  },
 ]);

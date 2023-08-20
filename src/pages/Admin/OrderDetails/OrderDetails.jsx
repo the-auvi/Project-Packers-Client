@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form';
 import CustomerDetailsUpdate from '../../../container/AdminContainer/CustomerDetailsUpdate/CustomerDetailsUpdate';
 import OrderPaymentUpdate from '../../../container/AdminContainer/OrderDetailsContainer/OrderPaymentUpdate/OrderPaymentUpdate';
 import OrderProductsUpdate from '../../../container/AdminContainer/OrderDetailsContainer/OrderProductsUpdate/OrderProductsUpdate';
+import {useEffect} from 'react';
 
 const OrderDetails = () => {
 	const { id } = useParams();
@@ -24,7 +25,9 @@ const OrderDetails = () => {
 		formState: { errors },
 	} = useForm();
 
-	const formData = new FormData();
+useEffect(()=>{
+
+})
 
 	const onSubmit = async (data) => {
 		console.log(data);
