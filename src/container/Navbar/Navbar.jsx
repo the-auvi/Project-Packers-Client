@@ -23,7 +23,7 @@ const Navbar = () => {
 	const [isCartOpen, setIsCartOpen] = useState(false);
 	const { currentUser: data, userId: isLoggedIn } = useContext(UserContext);
 	const isAdmin = useLocation().pathname.includes('admin');
-	
+
 
 	// userId ? setIsLoggedIn(true) : setIsLoggedIn(false);
 
@@ -55,9 +55,8 @@ const Navbar = () => {
 				{/* NavMenu in Mobile responsive navmenu*/}
 				{isLoggedIn && (
 					<div
-						className={` absolute z-50 bg-white h-screen w-3/4 top-0 md:hidden transition-all duration-1000 ${
-							openMenu ? ' left-0 opacity-100' : 'h-0 opacity-0 -left-[40rem]'
-						}`}
+						className={` absolute z-50 bg-white h-screen w-3/4 top-0 md:hidden transition-all duration-1000 ${openMenu ? ' left-0 opacity-100' : 'h-0 opacity-0 -left-[40rem]'
+							}`}
 					>
 						<div className='px-4 py-10'>
 							{/* Logo and button */}
@@ -147,11 +146,10 @@ const Navbar = () => {
 
 				{/* search */}
 				<div
-					className={`w-auto md:w-2/4 lg:w-3/5 flex px-3 items-center text-ellipsis truncate   ${
-						isAdmin
-							? 'rounded-none border-none bg-slate-50'
-							: 'border rounded-3xl'
-					} `}
+					className={`w-auto md:w-2/4 lg:w-3/5 flex px-3 items-center text-ellipsis truncate   ${isAdmin
+						? 'rounded-none border-none bg-slate-50'
+						: 'border rounded-3xl'
+						} `}
 				>
 					{/* search Icon */}
 					<span>
@@ -159,9 +157,8 @@ const Navbar = () => {
 							xmlns='http://www.w3.org/2000/svg'
 							viewBox='0 0 20 20'
 							fill='currentColor'
-							className={`h-5 w-5 ${
-								isAdmin ? 'text-[#5C5F62]' : ' text-[#F2C852]'
-							}`}
+							className={`h-5 w-5 ${isAdmin ? 'text-[#5C5F62]' : ' text-[#F2C852]'
+								}`}
 						>
 							<path
 								fillRule='evenodd'
@@ -175,9 +172,8 @@ const Navbar = () => {
 					<input
 						type='search'
 						className='relative m-0 block flex-auto bg-transparent bg-clip-padding ps-3 py-[0.25rem] text-base font-normal leading-[1.6] text-[#124E58] outline-none placeholder:text-[#124E58]'
-						placeholder={`${
-							isAdmin ? 'Search' : 'Paste the URL of the product'
-						}`}
+						placeholder={`${isAdmin ? 'Search' : 'Paste the URL of the product'
+							}`}
 					/>
 				</div>
 
@@ -256,7 +252,7 @@ const Navbar = () => {
 										isOpen={isCartOpen}
 										isNotification={false}
 									>
-										<Cart isNavbar={true} />
+										<Cart isCartOpen={isCartOpen} isNavbar={true} />
 									</DropDownNotification>
 								</div>
 							</li>

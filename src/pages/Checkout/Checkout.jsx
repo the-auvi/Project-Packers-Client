@@ -1,10 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import CheckOutInput from '../../components/CheckOutInput/CheckOutInput';
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';
+import { plane } from '../../contexts/terminal/Terminal';
+import OrderSuccessModal from '../../container/Modal/OrderSuccessModal';
 
 const Checkout = () => {
+	let totalPrice = 0;
+	const [cart, setCart] = useState();
+	const [discount, setDiscount] = useState();
+	const [price, setPrice] = useState()
+	const [inside, setInside] = useState(true)
+	useEffect(() => {
+		plane.request({ name: 'getCart' }).then(data => {
+			if (data.id) {
+				setCart(data);
+				if (data.discountApplied) setDiscount(data.discountApplied);
+			}
+		})
+	}, []);
+
+	useEffect(() => {
+		let discountItemsTotal = 0;
+		let nondiscountItemsTotal = 0;
+		let discountamount = 0;
+		let totalPrice = 0;
+		if (cart) {
+			cart.products.forEach(product => {
+				const total = (product.product.price + product.product.tax + product.product.fee) * product.productQuantity;
+				if (discount?.code && product.product.category.toString() === discount.category && product.product.subcategory.toString() === discount.subcategory) {
+					discountItemsTotal += total;
+				} else {
+					nondiscountItemsTotal += total;
+				}
+			});
+
+			discountamount = discount?.percentage ? (discountItemsTotal * discount.percentage) / 100 : discount?.amount;
+			totalPrice = discountamount ? totalPrice + nondiscountItemsTotal - discountamount : totalPrice + nondiscountItemsTotal;
+			setPrice(totalPrice);
+		}
+	}, [cart, discount]);
+
 	const {
 		register,
 		handleSubmit,
@@ -14,19 +50,30 @@ const Checkout = () => {
 	} = useForm();
 
 	const onSubmit = (data) => {
-		console.log('click');
-		console.log(data);
-		reset();
+		const body = {
+			email: data.email,
+			phone: data.phone,
+			alternativephone: data.alternativephone.length > 4 ? data.alternativephone : null,
+			instructions: data.instructions,
+			insideDhaka: data.insideDhaka,
+			shippingaddress: {
+				name: data.firstName + ' ' + data.lastName,
+				address: data.address,
+				city: data.city,
+				area: data.area,
+				zip: data,
+			}
+		}
+		// reset();
 	};
 
 	return (
-		<div className='md:h-screen mt-12'>
+		<div className='md:min-h-screen mt-12 mb-20'>
 			<form
 				onSubmit={handleSubmit(onSubmit)}
 				className='wrapper flex flex-col md:flex-row  gap-[30px] justify-between'
 			>
 				<div className='w-full md:w-[691px]'>
-					{/* <h3>Contact Information</h3> */}
 					<h3 className='mb-6 text-lg font-medium text-[#0D3D4B]'>
 						Contact Information
 					</h3>
@@ -45,7 +92,7 @@ const Checkout = () => {
 						{/* Phone number */}
 						<InputField
 							placeholder='Enter your phone Number'
-							name='phoneNumber'
+							name='phone'
 							label='Phone Number'
 							register={register}
 							required={true}
@@ -138,6 +185,7 @@ const Checkout = () => {
 								required={true}
 								label='Zip Code'
 								neededFor='homepage'
+								className="appearance-none"
 							/>
 						</div>
 						{/* Delivery Instruction */}
@@ -151,7 +199,7 @@ const Checkout = () => {
 								id='deliveryInstruction'
 								cols='30'
 								rows='5'
-								className={`rounded-[4px] p-[14px_20px] border border-[#000316]/5 outline-none text-[#124E58]`}
+								className={`rounded- [4px] p-[14px_20px] border border-slate-200  outline-none text-[#124E58]`}
 							></textarea>
 						</div>
 					</div>
@@ -167,22 +215,34 @@ const Checkout = () => {
 							<p className='text-start'>Product</p>
 							<p className='text-end'>Subtotal</p>
 						</div>
-						{/* TODO: use map for show all products that come from previous page */}
+						{
+							cart?.products?.length > 0 && cart?.products?.map(product => <div key={product.product.id} className='flex items-center justify-between border-b py-4 text-base text-slate-600 font-medium'>
+								<p className='text-start'>{product.product.name}</p>
+								<p className='text-end'>৳ {(product?.product?.price + product?.product?.tax + product?.product?.fee) * product.productQuantity} </p>
+							</div>
+							)
+						}
+						{
+							cart?.requests?.length > 0 && cart?.requests?.map(request => {
+								totalPrice += (request?.request?.price + request?.request?.tax + request?.request?.fee) * request.requestQuantity
+								return <div key={request.request.id} className='flex items-center justify-between border-b py-4 text-base text-slate-600 font-medium'>
+									<p className='text-start'>{request.request.name}</p>
+									<p className='text-end'>৳ {(request?.request?.price + request?.request?.tax + request?.request?.fee) * request.requestQuantity} </p>
+								</div>
+							})
+						}
+						{
+							discount?.code &&
+							<div className='flex items-center justify-between border-b py-4 text-base text-slate-600 font-medium'>
+								<p className='text-start'>{discount.code}</p>
+								<p className='text-end'>{discount.amount ? `৳ ${discount.amount} tk` : discount.percentage}</p>
+							</div>
 
-						{/* product-1 */}
-						<div className='flex items-center justify-between border-b py-4 text-base text-slate-600 font-medium'>
-							<p className='text-start'>External SSD USB 3.1 750 GB × 1</p>
-							<p className='text-end'>৳ 22,590.00tk </p>
-						</div>
-						{/* product-2 */}
-						<div className='flex items-center justify-between border-b py-4 text-base text-slate-600 font-medium'>
-							<p className='text-start'>External SSD USB 3.1 750 GB × 1</p>
-							<p className='text-end'>৳ 22,590.00tk </p>
-						</div>
+						}
 						{/* Subtotal */}
 						<div className='flex items-center justify-between border-b py-4 text-base text-slate-600 font-medium'>
 							<p className='text-start'>Subtotal</p>
-							<p className='text-end text-black'>৳ 22,590.00tk </p>
+							<p className='text-end text-black'>৳ {price + totalPrice}tk </p>
 						</div>
 					</div>
 					<h4 className='flex items-center justify-between pt-4 text-base text-slate-600 font-medium'>
@@ -195,7 +255,9 @@ const Checkout = () => {
 							<input
 								type='radio'
 								id='insideDhaka'
+								checked
 								value={true}
+								onChange={() => { setInside(true) }}
 								{...register('insideDhaka')}
 							/>
 							<label
@@ -213,6 +275,7 @@ const Checkout = () => {
 								type='radio'
 								id='outsideDhaka'
 								value={false}
+								onChange={() => { setInside(false) }}
 								{...register('insideDhaka')}
 							/>
 							<label
@@ -220,14 +283,14 @@ const Checkout = () => {
 								className='flex justify-between items-center w-full '
 							>
 								<span>Outside Dhaka</span>
-								<span>99tk</span>
+								<span>150tk</span>
 							</label>
 						</div>
 					</div>
 					{/* Estimated Total */}
 					<div className='flex items-center justify-between py-4 text-base text-black font-medium'>
 						<p className='text-start'>Estimated total</p>
-						<p className='text-end text-xl font-bold'>৳ 22,590.00tk </p>
+						<p className='text-end text-xl font-bold'>৳ {inside ? 150 + price + totalPrice : 99 + price + totalPrice}tk </p>
 					</div>
 					<Button
 						buttonType='secondaryButton'
@@ -238,6 +301,7 @@ const Checkout = () => {
 					</Button>
 				</div>
 			</form>
+			<OrderSuccessModal />
 		</div>
 	);
 };

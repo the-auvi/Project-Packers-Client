@@ -14,7 +14,6 @@ const CreateReqModal = ({ setShowModal, setShowModal2, reqURL, setReqURL }) => {
 	const navigate = useNavigate();
 
 	const { userId: loggedIn } = useContext(UserContext);
-	// console.log(loggedIn?.user?.id);
 
 	const { handleSubmit, register, reset } = useForm();
 
