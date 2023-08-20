@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
-const QuantityUpdate = ({ register, className }) => {
-  const [quantity, setQuantity] = useState(0);
+const QuantityUpdate = ({ register, className, prevQuantity }) => {
+  console.log(prevQuantity);
+  const [quantity, setQuantity] = useState(prevQuantity);
 
   const handleQuantity = (type) => {
     if (type === "minus" && quantity > 0) {
@@ -15,7 +17,9 @@ const QuantityUpdate = ({ register, className }) => {
 
   return (
     <div className="flex items-center gap-5">
-      <div className="flex items-center justify-center gap-2 border py-3 px-5 rounded-50 bg-white w-[182px]">
+      <div
+        className={`flex items-center justify-center gap-2 border py-3 px-5 rounded-50 bg-white w-[182px] ${className}`}
+      >
         <button
           className="text-base"
           onClick={(e) => {
@@ -45,12 +49,12 @@ const QuantityUpdate = ({ register, className }) => {
         </button>
       </div>
 
-      <p className="font-medium text-base text-gray-400">
+      {/*<p className="font-medium text-base text-gray-400">
         By{" "}
         <a href="amazon.com" className="underline text-[#6EAFB3]">
           amazon.com
         </a>
-      </p>
+      </p>*/}
     </div>
   );
 };

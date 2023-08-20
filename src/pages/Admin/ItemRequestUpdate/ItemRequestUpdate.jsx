@@ -13,11 +13,20 @@ import { plane } from "../../../contexts/terminal/Terminal";
 
 const ItemRequestUpdate = () => {
   const { id } = useParams();
+  const [singleItem, setSingleItem] = useState();
 
   const requestItem = useLocation().state?.requestItem;
   console.log(requestItem);
 
-  const { user, fee, tax, price, quantity, link, sellerTakes } = requestItem;
+  useEffect(() => {
+    plane.request({ name: "singleRequest", params: { id: id } }).then((res) => {
+      console.log(res);
+      setSingleItem(res);
+    });
+  }, []);
+
+  //const { user, fee, tax, price, quantity, link, sellerTakes, note } =
+  //  requestItem;
 
   const [isEdit, setIsEdit] = useState(null);
 
@@ -26,11 +35,13 @@ const ItemRequestUpdate = () => {
   const { register, handleSubmit, reset, setValue } = useForm();
 
   useEffect(() => {
-    setValue("link", link);
-    setValue("quantity", quantity);
-    setValue("sellerTakes", sellerTakes);
-    setValue("tax", tax);
-    setValue("fee", fee);
+    setValue("link", singleItem?.link);
+    setValue("quantity", singleItem?.quantity);
+    setValue("sellerTakes", singleItem?.sellerTakes);
+    setValue("tax", singleItem?.tax);
+    setValue("fee", singleItem?.fee);
+    setValue("note", singleItem?.note);
+    setValue("email", singleItem?.user?.email);
   });
 
   const onSubmit = async (data) => {
@@ -41,7 +52,7 @@ const ItemRequestUpdate = () => {
       .request({
         name: "updateRequest",
         params: { id: id },
-        body: { data:  rest, images: images },
+        body: { data: rest, images: images },
       })
       .then((res) => {
         console.log(res);
@@ -85,7 +96,7 @@ const ItemRequestUpdate = () => {
         <div className="w-4/6 flex flex-col gap-4">
           {/* Item images and quantity */}
           <ItemDetailsUpdate
-            itemQuantity={quantity}
+            itemQuantity={singleItem?.quantity}
             isEdit={isEdit}
             setIsEdit={setIsEdit}
             register={register}

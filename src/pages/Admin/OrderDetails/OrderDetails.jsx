@@ -32,7 +32,7 @@ const OrderDetails = () => {
     });
   }, []);
 
-  console.log(singleOrder);
+//  console.log(singleOrder);
 
   useEffect(() => {});
 
@@ -69,6 +69,7 @@ const OrderDetails = () => {
         {/* Item details */}
         <div className="w-4/6 flex flex-col gap-4">
           <OrderProductsUpdate
+            products={singleOrder?.products}
             isEdit={isEdit}
             setIsEdit={setIsEdit}
             register={register}
