@@ -13,11 +13,7 @@ import myAcct from '../../assets/Avatar.png';
  * @param {boolean} isNavbar - recieve why this component used for. if true then it used for navigation else for page
  * @returns
  */
-const NotificationCard = ({ icon, message, time, type, className, isNavbar }) => {
-
-  const date = new Date();
-  const NotificationTime = date.getMinutes() - time;
-
+const NotificationCard = ({ message, time, type, className, isNavbar }) => {
   return (
     <div className="flex items-start max-w-[764px]  gap-1 border-t p-1">
       <div>
@@ -33,7 +29,7 @@ const NotificationCard = ({ icon, message, time, type, className, isNavbar }) =>
           isNavbar ? message.slice(0, 20) + "..." : message
         }</p>
         <p className={`text-black/40 ${isNavbar && "text-xs"}`}>
-          {NotificationTime}min ago
+          {time}min ago
         </p>
       </div>
     </div>
