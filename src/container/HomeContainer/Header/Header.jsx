@@ -38,7 +38,7 @@ const Header = () => {
 
 					{/* search */}
 					<div className='flex flex-col gap-2 md:gap-0 md:flex-row'>
-						<div className='w-auto md:w-2/3 flex px-[5px] sm:px-[20px] py-[5px] sm:py-[15px] items-center text-ellipsis truncate border rounded-50 bg-white'>
+						<div className='mr-3 w-auto md:w-2/3 flex px-[5px] sm:px-[20px] py-[5px] sm:py-[15px] items-center text-ellipsis truncate border rounded-50 bg-white'>
 							<span>
 								<svg
 									xmlns='http://www.w3.org/2000/svg'
@@ -71,17 +71,16 @@ const Header = () => {
 							}}
 							className='py-[10px] sm:py-[17px]'
 						/>
-						{/* modal */}
-						<Modal showModal={showModal} setShowModal={setShowModal}>
-							<CreateReqModal
-								reqURL={reqURL}
-								setReqURL={setReqURL}
-								setShowModal={setShowModal}
-								setShowModal2={setShowModal2}
-							/>
-						</Modal>
 					</div>
-
+					{/* modal */}
+					<Modal showModal={showModal} setShowModal={setShowModal}>
+						<CreateReqModal
+							reqURL={reqURL}
+							setReqURL={setReqURL}
+							setShowModal={setShowModal}
+							setShowModal2={setShowModal2}
+						/>
+					</Modal>
 					{/* features in header */}
 					<div className=' hidden md:flex gap-4 w-96'>
 						<div className='flex items-start my-10  '>
