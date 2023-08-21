@@ -1,23 +1,19 @@
-import React from 'react'
-import Youtubecard from './Youtubecard'
+import React from 'react';
+import Youtubecard from './Youtubecard';
 
 const Slider = () => {
-  return (
-    <div className='flex gap-1 md:gap-5 ' >
+	return (
+		<div className='flex gap-1 md:gap-7 '>
+			<Youtubecard videoId='s7DbVTkaXn0' />
+			<Youtubecard videoId='s7DbVTkaXn0' />
+			<Youtubecard videoId='s7DbVTkaXn0' />
+			<Youtubecard videoId='s7DbVTkaXn0' />
+			<Youtubecard videoId='s7DbVTkaXn0' />
+			<Youtubecard videoId='s7DbVTkaXn0' />
+			<Youtubecard videoId='s7DbVTkaXn0' />
+			<Youtubecard videoId='s7DbVTkaXn0' />
+		</div>
+	);
+};
 
-        <Youtubecard videoId="s7DbVTkaXn0" />
-        <Youtubecard videoId="s7DbVTkaXn0" />
-        <Youtubecard videoId="s7DbVTkaXn0" />
-        <Youtubecard videoId="s7DbVTkaXn0" />
-        <Youtubecard videoId="s7DbVTkaXn0" />
-        <Youtubecard videoId="s7DbVTkaXn0" />
-        <Youtubecard videoId="s7DbVTkaXn0" />
-        <Youtubecard videoId="s7DbVTkaXn0" />
-
-        
-
-    </div>
-  )
-}
-
-export default Slider
+export default Slider;

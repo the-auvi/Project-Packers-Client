@@ -97,11 +97,11 @@ const Header = () => {
 				{/* header image */}
 				<img
 					src={headerImg}
-					className='mb-20 md:max-w-[668px] w-full sm:max-w-[338px]'
+					className='mb-20 md:max-w-[668px] max-w-[308px]'
 				/>
 
 				{/* slider for youtube video */}
-				<div className='wrapper absolute left-0 right-0 md:-bottom-[17.5rem] -bottom-[20rem]  overflow-x-scroll'>
+				<div className='wrapper absolute left-0 right-0 md:-bottom-[23.5rem] -bottom-[25rem]  overflow-x-scroll'>
 					<Slider />
 				</div>
 			</div>
