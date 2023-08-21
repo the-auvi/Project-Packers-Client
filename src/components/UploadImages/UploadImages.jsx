@@ -34,11 +34,11 @@ const UploadImages = ({ register, className }) => {
 	};
 
 	return (
-		<div>
+		<>
 			{/* products images */}
-			<div className='w-full p-3 rounded-lg '>
+			<div className='p-3 rounded-lg '>
 				<div className='flex items-center gap-3'>
-					<div className='flex max-w-[600px]  overflow-x-scroll'>
+					<div className='flex max-w-[400px]  overflow-x-scroll'>
 						{previewImages.map((image, index) => (
 							<div
 								key={index}
@@ -80,7 +80,7 @@ const UploadImages = ({ register, className }) => {
 					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 
