@@ -20,7 +20,7 @@ const ProductsCard = ({ img, title, price, className }) => {
 					alt='image'
 					className='w-[280px] h-[280px]'
 				/>
-				<p className='text-lg font-semibold'>{title}</p>
+				<p className='text-lg font-semibold' dangerouslySetInnerHTML={{ __html: title }}></p>
 				<div className='flex justify-between items-center'>
 					<p className='text-base'>Retailer Price</p>
 					<p className='text-lg font-semibold'>${price}</p>
