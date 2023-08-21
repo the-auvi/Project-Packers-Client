@@ -22,8 +22,8 @@ const Header = () => {
 	};
 
 	return (
-		<header className='bg-[#0D3D4B]   text-white mb-80 '>
-			<div className='wrapper md:h-[759px] relative  flex justify-between items-center flex-col lg:flex-row pt-8'>
+		<header className='bg-[#0D3D4B]   text-white mb-[25rem] '>
+			<div className='wrapper md:h-[759px] relative  flex justify-between items-center flex-col lg:flex-row pt-8 '>
 				<div className='space-y-4'>
 					{/* title */}
 					<div className='text-[32px] md:text-[52px] font-bold'>
@@ -95,10 +95,7 @@ const Header = () => {
 				</div>
 
 				{/* header image */}
-				<img
-					src={headerImg}
-					className='mb-20 md:max-w-[668px] max-w-[308px]'
-				/>
+				<img src={headerImg} className='mb-20 md:max-w-[668px] max-w-[308px]' />
 
 				{/* slider for youtube video */}
 				<div className='wrapper absolute left-0 right-0 md:-bottom-[23.5rem] -bottom-[25rem]  overflow-x-scroll'>
