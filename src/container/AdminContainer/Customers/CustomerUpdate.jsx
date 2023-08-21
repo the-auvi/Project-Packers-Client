@@ -19,7 +19,8 @@ const CustomerUpdate = () => {
 
 	return (
 		<div>
-			<div className='flex items-center justify-between border-b'>
+			{/* title */}
+			<div className='flex items-center justify-between border-b p-[20px_0] '>
 				<PreviousButtonHeading
 					name={customerDetails ? customerDetails[0]?.user?.fullName : ''}
 					buttonName='Back to Customers'
@@ -36,6 +37,27 @@ const CustomerUpdate = () => {
 						/>
 					</Link>
 				</div>
+			</div>
+
+			<div className='flex'>
+				<div className='flex-1'>
+					<table className='w-full'>
+						<thead>
+							<tr>
+								<th className='text-start'>
+									<input type='checkbox' name='' id='' />
+								</th>
+								<th className='text-start'>Product</th>
+								<th className='text-start'>Status</th>
+								<th className='text-start'>Price</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+				</div>
+				<div className='w-1/3'>customer</div>
 			</div>
 		</div>
 	);
