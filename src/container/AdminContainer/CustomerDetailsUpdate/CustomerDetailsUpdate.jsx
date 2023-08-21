@@ -48,7 +48,7 @@ const CustomerDetailsUpdate = ({ isEdit, setIsEdit, register }) => {
               <input
                 type="email"
                 className="border p-2 w-full"
-                {...register("name")}
+                {...register("email")}
               />
 
               <PhoneInput
