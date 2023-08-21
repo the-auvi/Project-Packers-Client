@@ -41,14 +41,7 @@ const Modal = ({
 
 						{/* Modal Close Button */}
 						{orderModal ?
-							<Link to={'/home'}>
-								<button
-									className='text-3xl absolute top-5 right-4 text-gray-400 font-thin rounded'
-									onClick={closeModal}
-								>
-									<AiOutlineClose />
-								</button>
-							</Link> : <button
+							<></> : <button
 								className='text-3xl absolute top-5 right-4 text-gray-400 font-thin rounded'
 								onClick={closeModal}
 							>
@@ -73,12 +66,14 @@ const Modal = ({
 						{children}
 
 						{/* Modal Close Button */}
-						<button
-							className='text-3xl absolute top-5 right-4 text-gray-400 font-thin rounded'
-							onClick={closeModal}
-						>
-							<AiOutlineClose />
-						</button>
+						{orderModal ?
+							<></> : <button
+								className='text-3xl absolute top-5 right-4 text-gray-400 font-thin rounded'
+								onClick={closeModal}
+							>
+								<AiOutlineClose />
+							</button>
+						}
 					</div>
 				</div>
 			</div>

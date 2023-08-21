@@ -45,6 +45,7 @@ export const UserProvider = ({ children }) => {
 			if (data.id) {
 				setCuredUser(data);
 				setUserId(data.id);
+				plane.socket.connect();
 			}
 			setLoading(false);
 		});

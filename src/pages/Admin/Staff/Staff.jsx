@@ -2,7 +2,7 @@ import React from "react";
 import Button from "../../../components/Button/Button";
 import { Link } from "react-router-dom";
 import StaffCard from "../../../components/StaffCard/StaffCard";
-import staff from "../../../assets/blog1.png";
+import staff from "../../../assets/Blog1.png";
 import { useForm } from "react-hook-form";
 import removeEmptyField from "../../../utils/removeEmptyFields";
 import AddNewStaff from "../../../container/AdminContainer/Staff/AddNewStaff";

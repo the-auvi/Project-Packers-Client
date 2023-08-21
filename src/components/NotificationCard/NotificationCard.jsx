@@ -29,7 +29,7 @@ const NotificationCard = ({ message, time, type, className, isNavbar }) => {
           isNavbar ? message.slice(0, 20) + "..." : message
         }</p>
         <p className={`text-black/40 ${isNavbar && "text-xs"}`}>
-          {time}min ago
+          {time} ago
         </p>
       </div>
     </div>
