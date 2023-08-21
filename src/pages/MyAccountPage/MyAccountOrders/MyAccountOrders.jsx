@@ -8,7 +8,7 @@ const MyAccountOrders = () => {
 	const [userOrder, setUserOrder] = useState()
 
 	useEffect(() => {
-		plane.request({ name: 'userOrder', queries: { page: 1 } }).then(data => data.docs && setUserOrder(data.docs))
+		plane.request({ name: 'userOrder', queries: { page: 1 , sortBy:'date:desc'} }).then(data => data.docs && setUserOrder(data.docs))
 	}, [])
 	return (
 		<div className='w-full overflow-x-scroll'>

@@ -14,6 +14,14 @@ const Notification = ({ isNavbar }) => {
   useEffect(() => {
     plane.request({ name: 'getNotification' }).then(data => data.length && setNotificationsdata(data))
   }, [])
+  useEffect(() => {
+    plane.socket.on('notification', (data) => {
+      setNotificationsdata(prev => ([...prev, data].sort((a, b) => a.time - b.time)))
+    })
+    return () => {
+      plane.socket.off('notification')
+    }
+  }, [])
   return (
     <div>
       <div className={`${!isNavbar ? "max-w-[804px] mx-auto" : "max-h-72 overflow-auto"}`} >
@@ -22,10 +30,10 @@ const Notification = ({ isNavbar }) => {
           !isNavbar && <h1 className="text-2xl font-semibold text-[#124E58] p-[20px] [0] [12px] [0]" >Notification</h1>
         }
         {
-          notifications.length > 0 && notifications.map(n => {
+          notifications.length > 0 && notifications.map((n, i) => {
             const time = formatTimeAgo(n.time)
             return <NotificationCard
-              key={n.id}
+              key={i}
               isNavbar={isNavbar}
               message={n.message}
               time={time}

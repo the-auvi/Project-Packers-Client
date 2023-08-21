@@ -18,9 +18,9 @@ const NotificationCard = ({ message, time, type, className, isNavbar }) => {
     <div className="flex items-start max-w-[764px]  gap-1 border-t p-1">
       <div>
         <img
-          src={type.toLowerCase() !== "user" ? myAcct : Cart1}
+          src={type.toLowerCase() === "account" ? myAcct : Cart1}
           alt=""
-          className={`${type.toLowerCase() !== "user" ? "bg-transparent" : "bg-[#CFF6EF]"
+          className={`${type.toLowerCase() === "account" ? "bg-transparent" : "bg-[#CFF6EF]"
             } min-w-[24px] max-w-[24px] min-h-[24px] rounded-lg p-1`}
         />
       </div>
