@@ -101,6 +101,7 @@ const CreateReqModal = ({ setShowModal, setShowModal2, reqURL, setReqURL }) => {
 										}}
 										className='relative m-0 block flex-auto bg-transparent bg-clip-padding text-base font-normal   outline-none placeholder:text-[#000]'
 										placeholder='Paste the URL of the product'
+										required
 									/>
 								</div>
 

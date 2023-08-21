@@ -111,7 +111,7 @@ const Login = () => {
 											name='remember'
 											id='remember'
 											{...register('rememberMe')}
-											// className=''
+										// className=''
 										/>
 										<label htmlFor='remember' className='ml-1'>
 											Remember me
@@ -127,12 +127,17 @@ const Login = () => {
 							</div>
 
 							<div className='flex items-center gap-2 mt-12'>
-								<Button buttonType='imageButton' image={google} className='' />
-								<Button
-									buttonType='imageButton'
-									image={facebook}
-									className=''
-								/>
+								<a href="http://localhost:4000/api/login/google">
+									<Button buttonType='imageButton' image={google} className='' />
+								</a>
+								<a href="http://localhost:4000/api/login/google">
+
+									<Button
+										buttonType='imageButton'
+										image={facebook}
+										className=''
+									/>
+								</a>
 								<Button buttonType='imageButton' image={apple} className='' />
 
 								<Button

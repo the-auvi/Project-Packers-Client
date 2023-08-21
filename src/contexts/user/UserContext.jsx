@@ -19,12 +19,12 @@ export const UserProvider = ({ children }) => {
 
 	const Logout = () => {
 		setLoading(true);
-		plane.request({ name: 'logIn' }).then(data => {
+		plane.request({ name: 'logOut' }).then(data => {
 			if (data.status) {
 				setUserId(null)
 				setCuredUser()
+				setLoading(false);
 			}
-			setLoading(false);
 			return data.status;
 		})
 	};
