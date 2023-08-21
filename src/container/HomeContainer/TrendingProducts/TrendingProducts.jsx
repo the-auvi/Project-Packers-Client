@@ -23,7 +23,7 @@ const TrendingProducts = () => {
 				<div className='grid py-[1px] justify-items-center px-0 grid-cols-1 md:grid-cols-2 lg:grid-cols-4'>
 					{tProducts &&
 						tProducts.map((product, index) => {
-							const { id, images, price, tax, fee, description } = product;
+							const { id, images, price, tax, fee, name } = product;
 							return (
 								<Link
 									to={`/home/items/${product.id}`}
@@ -31,7 +31,7 @@ const TrendingProducts = () => {
 								>
 									<ProductsCard
 										img={images[0]}
-										title={description}
+										title={name}
 										price={price + tax + fee}
 									/>
 								</Link>

@@ -17,7 +17,7 @@ const ProductsCard = ({ img, title, price, className }) => {
 			<div className='flex flex-col justify-center p-3'>
 				<img
 					src={`${import.meta.env.VITE_SERVER_URL}/${img}`}
-					alt='image'
+					alt={title}
 					className='w-[280px] h-[280px]'
 				/>
 				<p className='text-lg font-semibold' dangerouslySetInnerHTML={{ __html: title }}></p>

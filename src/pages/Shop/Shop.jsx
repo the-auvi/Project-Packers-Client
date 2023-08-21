@@ -33,7 +33,7 @@ const Shop = () => {
 					<div className=' grid grid-cols-3'>
 						{products &&
 							products.map((product) => {
-								const { id, images, price, description } = product;
+								const { id, images, price, name } = product;
 								return (
 									<Link
 										to={`/home/items/${product.id}`}
@@ -41,7 +41,7 @@ const Shop = () => {
 									>
 										<ProductsCard
 											img={images[0]}
-											title={description}
+											title={name}
 											price={price}
 											className='  '
 										/>
