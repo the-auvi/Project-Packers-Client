@@ -26,7 +26,7 @@ const Header = () => {
 			<div className='wrapper md:h-[759px] relative  flex justify-between items-center flex-col lg:flex-row pt-8 '>
 				<div className='space-y-4'>
 					{/* title */}
-					<div className='text-[32px] md:text-[52px] font-bold'>
+					<div className='text-[2rem] md:text-[3.25rem] font-bold'>
 						Shop product from USA <br /> and save up to 40%
 					</div>
 
@@ -38,7 +38,7 @@ const Header = () => {
 
 					{/* search */}
 					<div className='flex flex-col gap-2 md:gap-0 md:flex-row'>
-						<div className='mr-3 w-auto md:w-2/3 flex px-[5px] sm:px-[20px] py-[5px] sm:py-[15px] items-center text-ellipsis truncate border rounded-50 bg-white'>
+						<div className='mr-3 w-[20.9375rem] md:w-[29.0625rem] flex px-[1.25rem] py-[0.9375rem] items-center text-ellipsis truncate border rounded-50 bg-white'>
 							<span>
 								<svg
 									xmlns='http://www.w3.org/2000/svg'
@@ -69,7 +69,7 @@ const Header = () => {
 							onClick={() => {
 								setShowModal(true);
 							}}
-							className='py-[10px] sm:py-[17px]'
+							className='py-[1.0625rem] px-[1.25rem]'
 						/>
 					</div>
 					{/* modal */}
@@ -95,10 +95,13 @@ const Header = () => {
 				</div>
 
 				{/* header image */}
-				<img src={headerImg} className='mb-20 md:max-w-[668px] max-w-[308px]' />
+				<img
+					src={headerImg}
+					className='mb-20 md:max-w-[41.75rem] md:max-h-[35.125rem] max-w-[21.125rem] max-h-[17.875rem] '
+				/>
 
 				{/* slider for youtube video */}
-				<div className='wrapper absolute left-0 right-0 md:-bottom-[23.5rem] -bottom-[25rem]  overflow-x-scroll'>
+				<div className='wrapper absolute left-0 right-0 md:-bottom-[17.8rem] -bottom-[25rem]  overflow-x-scroll'>
 					<Slider />
 				</div>
 			</div>
