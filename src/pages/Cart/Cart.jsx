@@ -136,35 +136,42 @@ const Cart = ({ isNavbar, isCartOpen }) => {
 
 							{/* table body */}
 							<tbody>
-								{cart?.products?.length > 0 && cart?.products?.map((product) => {
-									sellerTakes += product?.product?.price * product.productQuantity
-									tax += product?.product?.tax * product.productQuantity
-									fee += product?.product?.fee * product.productQuantity
-									return <CartCard
-										key={product?.product?.id}
-										id={product?.product?.id}
-										isNavbar={isNavbar}
-										updateQuantity={updateQuantity}
-										ProductQuantity={product?.productQuantity}
-										productImg={product?.product?.images[0]}
-										price={(product?.product?.price + product?.product?.tax + product?.product?.fee) * product.productQuantity}
-										productName={product?.product?.name}
-									/>
-								})}
-								{cart?.requests?.length > 0 && cart?.requests?.map((request) => {
-									sellerTakes += request?.request?.price * request.requestQuantity
-									tax += request?.request?.tax * request.requestQuantity
-									fee += request?.request?.fee * request.requestQuantity
-									totalPrice += (request?.request?.price + request?.request?.tax + request?.request?.fee) * request.requestQuantity
-									return <CartCard
-										key={request?.request?.id}
-										isNavbar={isNavbar}
-										ProductQuantity={request?.requestQuantity}
-										productImg={request?.request?.images[0]}
-										price={(request?.request?.price + request?.request?.tax + request?.request?.fee) * request.requestQuantity}
-										productName={request?.request?.name}
-									/>
-								})}
+								{
+									cart?.products?.length && cart?.requests?.length ? <>
+										{cart?.products?.length > 0 && cart?.products?.map((product) => {
+											sellerTakes += product?.product?.price * product.productQuantity
+											tax += product?.product?.tax * product.productQuantity
+											fee += product?.product?.fee * product.productQuantity
+											return <CartCard
+												key={product?.product?.id}
+												id={product?.product?.id}
+												isNavbar={isNavbar}
+												updateQuantity={updateQuantity}
+												ProductQuantity={product?.productQuantity}
+												productImg={product?.product?.images[0]}
+												price={(product?.product?.price + product?.product?.tax + product?.product?.fee) * product.productQuantity}
+												productName={product?.product?.name}
+											/>
+										})}
+										{cart?.requests?.length > 0 && cart?.requests?.map((request) => {
+											sellerTakes += request?.request?.price * request.requestQuantity
+											tax += request?.request?.tax * request.requestQuantity
+											fee += request?.request?.fee * request.requestQuantity
+											totalPrice += (request?.request?.price + request?.request?.tax + request?.request?.fee) * request.requestQuantity
+											return <CartCard
+												key={request?.request?.id}
+												isNavbar={isNavbar}
+												ProductQuantity={request?.requestQuantity}
+												productImg={request?.request?.images[0]}
+												price={(request?.request?.price + request?.request?.tax + request?.request?.fee) * request.requestQuantity}
+												productName={request?.request?.name}
+											/>
+										})}</> :
+										<div>
+											<p className='font-semibold'>There are no items in your cart</p>
+										</div>
+								}
+
 							</tbody>
 						</table>
 						{isNavbar || (

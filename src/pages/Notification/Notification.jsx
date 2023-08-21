@@ -16,7 +16,7 @@ const Notification = ({ isNavbar }) => {
   }, [])
   useEffect(() => {
     plane.socket.on('notification', (data) => {
-      setNotificationsdata(prev => ([...prev, data].sort((a, b) => b.time - a.time)))
+      setNotificationsdata(prev => ([data, ...prev]))
     })
     return () => {
       plane.socket.off('notification')
