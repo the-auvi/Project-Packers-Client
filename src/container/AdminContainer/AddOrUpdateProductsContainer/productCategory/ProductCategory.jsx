@@ -6,7 +6,7 @@ import { plane } from '../../../../contexts/terminal/Terminal';
 const ProductCategory = ({ register, prevProducts }) => {
 	const [category, setCategory] = useState();
 	const [categoryID, setCategoryID] = useState();
-
+9
 	useEffect(() => {
 		plane
 			.request({
