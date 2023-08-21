@@ -126,6 +126,7 @@ const CreateReqModal = ({ setShowModal, setShowModal2, reqURL, setReqURL }) => {
 							<div className='flex items-center gap-1'>
 								<div className='w-full flex py-3 px-5 rounded-50 gap-1 items-center text-ellipsis truncate border bg-white'>
 									<input
+                  required
 										type='text'
 										id='productName'
 										{...register('name')}
