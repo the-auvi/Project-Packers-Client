@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 
-const QuantityUpdate = ({ register, className, prevQuantity = 1 }) => {
+const QuantityUpdate = ({ register, className, prevQuantity }) => {
 	console.log(prevQuantity);
 	const [quantity, setQuantity] = useState(prevQuantity);
 
