@@ -24,7 +24,7 @@ const Categories = () => {
 						onClick={() => setIsEdit(false)}
 						name='Add new category'
 						buttonType='secondaryButton'
-						className='rounded-[5px]'
+						className='rounded-[5px] w-[15rem] '
 					/>
 				)}
 			</div>

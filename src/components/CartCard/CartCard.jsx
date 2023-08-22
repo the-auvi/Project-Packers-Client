@@ -17,14 +17,18 @@ const CartCard = ({
 	ProductQuantity,
 	price,
 	isNavbar,
-	updateQuantity
+	updateQuantity,
 }) => {
 	return (
 		<tr className='border-b w-full'>
 			{/* 1st col */}
 			<td className='col min-h-[64px]  '>
 				<div className='flex items-center gap-1 '>
-					<img src={import.meta.env.VITE_SERVER_URL + `/${productImg}`} alt='' className='w-16 h-16' />
+					<img
+						src={import.meta.env.VITE_SERVER_URL + `/${productImg}`}
+						alt=''
+						className='w-16 h-16'
+					/>
 					<div>
 						{/* for page */}
 						{isNavbar || (
@@ -67,22 +71,6 @@ const CartCard = ({
 				{isNavbar && (
 					<div className='flex items-center justify-center'>
 						<p className='cursor-default'>{ProductQuantity}</p>
-						{/* <input
-							value={quantity}
-							readOnly
-							type='number'
-							id='productLink'
-							className='bg-transparent text-center text-[#000000] text-sm outline-none font-normal w-[30px] [&::-webkit-inner-spin-button]: '
-						/>
-
-						<div className='flex flex-col text-[10px] font-normal text-black/60'>
-							<button>
-								<BiSolidUpArrow />
-							</button>
-							<button>
-								<BiSolidDownArrow />
-							</button>
-						</div> */}
 					</div>
 				)}
 
@@ -95,7 +83,8 @@ const CartCard = ({
 								className='text-black/30'
 								onClick={(e) => {
 									e.preventDefault();
-									ProductQuantity > 0 && updateQuantity(id, ProductQuantity - 1);
+									ProductQuantity > 0 &&
+										updateQuantity(id, ProductQuantity - 1);
 								}}
 							>
 								<AiOutlineMinus />

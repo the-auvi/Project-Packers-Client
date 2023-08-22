@@ -25,14 +25,20 @@ const Staff = () => {
 			</div>
 
 			{/*  */}
-			<div className='w-[400px] my-5'>
-				<h2 className='text-base font-semibold text-[#0D3D4B] mb-3'>
-					Account and permission
+			<div className=' my-5 flex items-end '>
+				<div className='flex-1'>
+					{' '}
+					<h2 className='text-base font-semibold text-[#0D3D4B] mb-3'>
+						Account and permission
+					</h2>
+					<p className='text-sm font-normal text-slate-500'>
+						We can help with that Replace your next meeting with a short video
+						and get feedback faster .
+					</p>
+				</div>
+				<h2 className='text-[#0D3D4B] text-base font-semibold mt-2 mb-3 flex-1'>
+					Add Add New Staff
 				</h2>
-				<p className='text-sm font-normal text-slate-500'>
-					We can help with that Replace your next meeting with a short video and
-					get feedback faster .
-				</p>
 			</div>
 
 			<div className='flex gap-5 items-start'>

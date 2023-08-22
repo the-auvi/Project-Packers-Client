@@ -10,9 +10,7 @@ const AddNewStaff = () => {
 
   return (
     <div>
-      <h2 className="text-[#0D3D4B] text-base font-semibold mt-2 mb-3">
-        Add Add New Staff
-      </h2>
+    
       <form
         id="addStaff"
         onSubmit={handleSubmit(onSubmit)}

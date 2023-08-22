@@ -36,7 +36,7 @@ const UpdateCategory = ({ selectedCategory }) => {
       })
       .then((res) => console.log(res));
 
-    reset();
+  reset();
   };
 
   const updateSubCategory = (data) => {
