@@ -9,6 +9,7 @@ import rec2 from '../../../assets/verifications/2.png';
 import rec3 from '../../../assets/verifications/3.png';
 import star from '../../../assets/verifications/4.png';
 import { plane } from '../../../contexts/terminal/Terminal';
+import toaster from '../../../utils/toaster';
 
 const Verification = () => {
 	const navigate = useNavigate()
@@ -22,7 +23,7 @@ const Verification = () => {
 
 	const onSubmit = (data) => {
 		const otp = Object.values(data).join('');
-		plane.request({ name: 'verifyOTP', body: data }).then(data => data.status === false ? toaster({ type: 'error', message: data.message }) :
+		plane.request({ name: 'verifyOTP', body: { otp, ...location.state } }).then(data => data.status === false ? toaster({ type: 'error', message: data.message }) :
 			navigate("/authentication/set-password", { state: { ...location.state, otp: otp } }))
 		reset();
 	};

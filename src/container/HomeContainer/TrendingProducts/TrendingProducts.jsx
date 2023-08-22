@@ -41,7 +41,6 @@ const TrendingProducts = () => {
 
 				<div className='flex items-center justify-center my-5'>
 					<Link to='/home/shop'>
-						{' '}
 						<Button
 							buttonType='secondaryButton'
 							name='View more items'

@@ -115,7 +115,7 @@ const Cart = ({ isNavbar, isCartOpen }) => {
 
 	return (
 		<div
-			className={`wrapper flex flex-col xl:flex-row gap-[30px] ${isNavbar || 'mt-[96px] min-h-screen mb-20'}`}
+			className={`wrapper flex flex-col xl:flex-row gap-[30px] ${isNavbar || 'mt-[96px] min-h-[50vh] mb-20'}`}
 		>
 			{
 				cart?.length < 1 ? <p>nothing added in cart</p> : <>
@@ -137,7 +137,7 @@ const Cart = ({ isNavbar, isCartOpen }) => {
 							{/* table body */}
 							<tbody>
 								{
-									cart?.products?.length && cart?.requests?.length ? <>
+									cart?.products?.length || cart?.requests?.length ? <>
 										{cart?.products?.length > 0 && cart?.products?.map((product) => {
 											sellerTakes += product?.product?.price * product.productQuantity
 											tax += product?.product?.tax * product.productQuantity

@@ -12,7 +12,7 @@ import formatTimeAgo from "../../utils/formatTimeAgo";
 const Notification = ({ isNavbar }) => {
   const [notifications, setNotificationsdata] = useState([])
   useEffect(() => {
-    plane.request({ name: 'getNotification' }).then(data => data.length && setNotificationsdata(data))
+    plane.request({ name: 'getNotification' }).then(data => data.docs && setNotificationsdata(data.docs))
   }, [])
   useEffect(() => {
     plane.socket.on('notification', (data) => {

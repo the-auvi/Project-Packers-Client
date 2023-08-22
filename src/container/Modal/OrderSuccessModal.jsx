@@ -14,14 +14,6 @@ const OrderSuccessModal = ({ setShowModal, id }) => {
     oneWeekLater.setDate(oneWeekLater.getDate() + 7);
     const twoWeeksLater = new Date(oneWeekLater);
     twoWeeksLater.setDate(twoWeeksLater.getDate() + 7);
-    const options = {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        hour12: true,
-    };
 
     return (
         <div className='px-4 py-6'>
@@ -32,7 +24,7 @@ const OrderSuccessModal = ({ setShowModal, id }) => {
             <p>Your order number is:</p>
             <p className='text-primary font-semibold'># {orderdata?.user?.id}</p>
             <p> Your order will deliver on:</p>
-            <p className='text-primary font-semibold'> {oneWeekLater.toLocaleString('en-US', options)} - {twoWeeksLater.toLocaleString('en-US', options)}</p>
+            <p className='text-primary font-semibold'> {oneWeekLater.toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} - {twoWeeksLater.toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
             <p> to the address:</p>
             <p className='text-primary font-semibold'>{
                 orderdata?.shippingaddress?.address + ', ' +

@@ -16,7 +16,6 @@ const ItemRequestUpdate = () => {
   const [singleItem, setSingleItem] = useState();
 
   const requestItem = useLocation().state?.requestItem;
-  console.log(requestItem);
 
   useEffect(() => {
     plane.request({ name: "singleRequest", params: { id: id } }).then((res) => {
