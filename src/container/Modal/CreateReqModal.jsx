@@ -19,8 +19,6 @@ const CreateReqModal = ({ setShowModal, setShowModal2, reqURL, setReqURL }) => {
 
 	const onSubmit = (data) => {
 		const { images, ...rest } = data;
-		console.log('outSide', rest);
-
 		if (loggedIn) {
 			plane
 				.request({
@@ -28,14 +26,14 @@ const CreateReqModal = ({ setShowModal, setShowModal2, reqURL, setReqURL }) => {
 					body: { data: rest, images: images },
 				})
 				.then((d) => {
-					setShowModal(false);
-					setShowModal2(true);
+					if (d.id) {
+						setShowModal(false);
+						setShowModal2(true);
+					}
 				});
-
-			// console.log('inSide', data);
 		} else {
 			navigate('/authentication/login', {
-				state: { requestItem: data, sendRequest: true },
+				state: { requestItem:  { data: rest, images: images }, sendRequest: true },
 			});
 		}
 		reset();
@@ -48,17 +46,15 @@ const CreateReqModal = ({ setShowModal, setShowModal2, reqURL, setReqURL }) => {
 				<div className='flex items-center gap-4 justify-start text-base font-semibold'>
 					<h1 className='font-semibold text-xl'>Request Item</h1>
 					<button
-						className={`border text-base px-5 py-[5px] rounded-50 ${
-							!productImage && 'bg-[#CFF6EF] '
-						}`}
+						className={`border text-base px-5 py-[5px] rounded-50 ${!productImage && 'bg-[#CFF6EF] '
+							}`}
 						onClick={() => setProductImage(false)}
 					>
 						Link
 					</button>
 					<button
-						className={`border text-base px-5 py-[5px] rounded-50 ${
-							productImage && 'bg-[#CFF6EF] '
-						} `}
+						className={`border text-base px-5 py-[5px] rounded-50 ${productImage && 'bg-[#CFF6EF] '
+							} `}
 						onClick={() => setProductImage(true)}
 					>
 						Images
@@ -69,20 +65,18 @@ const CreateReqModal = ({ setShowModal, setShowModal2, reqURL, setReqURL }) => {
 				<form className='space-y-[10px]' onSubmit={handleSubmit(onSubmit)}>
 					{/* Product Images */}
 					<div
-						className={`flex ${
-							productImage ? 'opacity-100' : 'opacity-0  h-0  '
-						} transition-all duration-1000 ease-in-out`}
+						className={`flex ${productImage ? 'opacity-100' : 'opacity-0  h-0  '
+							} transition-all duration-1000 ease-in-out`}
 					>
 						<UploadImages register={register} />
 					</div>
 
 					{/* details */}
 					<div
-						className={`z-30  ${
-							!productImage
+						className={`z-30  ${!productImage
 								? 'opacity-100  translate-y-0'
 								: 'opacity-0  h-0 translate-y-96 '
-						} transition-all duration-1000 ease-in-out`}
+							} transition-all duration-1000 ease-in-out`}
 					>
 						{/* Product link */}
 						<div className='space-y-[10px] py-2'>
@@ -126,7 +120,7 @@ const CreateReqModal = ({ setShowModal, setShowModal2, reqURL, setReqURL }) => {
 							<div className='flex items-center gap-1'>
 								<div className='w-full flex py-3 px-5 rounded-50 gap-1 items-center text-ellipsis truncate border bg-white'>
 									<input
-                  required
+										required
 										type='text'
 										id='productName'
 										{...register('name')}
@@ -172,9 +166,8 @@ const CreateReqModal = ({ setShowModal, setShowModal2, reqURL, setReqURL }) => {
 
 					<Button
 						buttonType='secondaryButton'
-						name={`${
-							loggedIn ? 'Create Request' : 'Login and Request your item'
-						}`}
+						name={`${loggedIn ? 'Create Request' : 'Login and Request your item'
+							}`}
 						className=' w-full px-xl py-[17px]'
 					>
 						<input type='submit' />
