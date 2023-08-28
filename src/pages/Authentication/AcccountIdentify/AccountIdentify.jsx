@@ -17,7 +17,7 @@ const AccountIdentify = () => {
 
 	const onSubmit = (data) => {
 		plane.request({ name: 'sendOTP', body: data }).then(data => data.status === false ? toaster({ type: 'error', message: data.message }) :
-			navigate("/authentication/verification", { state: { ...data, time: Date.now() } }))
+			navigate("/authentication/verification", { state: { token: data.token } }))
 		reset();
 	};
 

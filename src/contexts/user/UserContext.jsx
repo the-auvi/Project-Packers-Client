@@ -47,6 +47,9 @@ export const UserProvider = ({ children }) => {
 				setUserId(data.id);
 				plane.socket.connect();
 			}
+			else{
+				plane.socket.disconnect();
+			}
 			setLoading(false);
 		});
 	}, [userId]);

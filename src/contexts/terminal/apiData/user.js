@@ -49,7 +49,7 @@ export const user = {
         }
     },
     logOut: {
-        method: 'POST',
+        method: 'GET',
         uri: 'user/logout',
     },
     fetchUser: {
@@ -150,7 +150,7 @@ export const user = {
             otp: undefined,
         },
         suggestions: {
-            raw: "A raw example of payload: {email:yeasir@mail.com}",
+            raw: "A raw example of payload: {otp:1234}",
             otp: "Please provide otp"
         }
     },
@@ -161,7 +161,7 @@ export const user = {
             newpassword: undefined,
         },
         suggestions: {
-            raw: "A raw example of payload: {email:yeasir@mail.com}",
+            raw: "A raw example of payload: {newpassword:123456}",
             newpassword: "Please provide newpassword"
         }
     }

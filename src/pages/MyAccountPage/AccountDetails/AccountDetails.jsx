@@ -27,7 +27,7 @@ const AccountDetails = () => {
 	useEffect(() => {
 		if (user) {
 			setValue('fullName', user?.fullName, { shouldValidate: true })
-			setValue('phone', user?.phone, { shouldDirty: true })
+			setValue('phone', user?.phone, { shouldValidate: true })
 		}
 	}, [user, setValue])
 

@@ -11,7 +11,7 @@ const Shop = () => {
 	const [ids, setIds] = useState({});
 	const [products, setProducts] = useState();
 	useEffect(() => {
-		const requestObject = { name: 'allProduct', queries: { page: 1 } };
+		const requestObject = { name: 'allProduct', queries: { page: 1, limit: 9 } };
 		if (ids.categoryID) {
 			requestObject.queries.category = ids.categoryID;
 		}
@@ -23,26 +23,26 @@ const Shop = () => {
 
 	return (
 		<div className='mt-12 mb-[148px]'>
-			<div className='wrapper h-screen flex gap-[30px]  '>
+			<div className='wrapper min-h-screen flex gap-[30px]  '>
 				{/* category */}
 				<div className='w-72'>
 					<ShopCategory setIds={setIds} ids={ids} />
 				</div>
 				{/* products */}
 				<div className='flex-1  '>
-					<div className=' grid grid-cols-3'>
+					<div className='grid md:grid-cols-2 xl:grid-cols-3'>
 						{products &&
 							products.map((product) => {
-								const { id, images, price, description } = product;
-								return (
+								const { id, images, price, tax, fee, name } = product;
+							return (
 									<Link
 										to={`/home/items/${product.id}`}
 										key={id}
 									>
 										<ProductsCard
 											img={images[0]}
-											title={description}
-											price={price}
+											title={name}
+											price={price + tax + fee}
 											className='  '
 										/>
 									</Link>

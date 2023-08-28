@@ -52,13 +52,11 @@ const Login = () => {
 			} else {
 				// check does login page need hit any api after login or not
 				if (sendRequest) {
-					const { images, ...rest } = requestItemData;
-
 					// hitting api for register request
 					plane
 						.request({
 							name: 'registerRequest',
-							body: { data: rest, images: images },
+							body: requestItemData,
 						})
 						.then((d) => {
 							// console.log('item request response from login', d);

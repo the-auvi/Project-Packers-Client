@@ -31,40 +31,14 @@ class Terminal {
    * @throws {Error} If the specified API couldn't be api.
    */
   request(args) {
-    const {
-      type = "regular",
-      name,
-      queries = {},
-      params = {},
-      body = {},
-    } = args;
+    const { type = "regular", name, queries = {}, params = {}, body = {} } = args;
     if (type === "raw") return this.req(args);
     let api = apiData[name];
     if (!api) throw new Error(`Couldn\'t find your required api. name:${name}`);
-    api = {
-      ...api,
-      queries: { ...api.queries, ...queries },
-      params: { ...api.params, ...params },
-      body: { ...api.body, ...body },
-    };
-    api = this.data(
-      api,
-      api.method === "POST" &&
-        api.uri !== "sendmessage" &&
-        api.uri !== "refundorder"
-        ? "body"
-        : "params"
-    );
-    return this.req({
-      method: api.method,
-      uri: api.uri,
-      body: api.body,
-      headers: api.headers,
-    });
+    api = { ...api, queries: { ...api.queries, ...queries }, params: { ...api.params, ...params }, body: { ...api.body, ...body } };
+    api = this.data(api, api.method === "POST" && api.uri !== "sendmessage" && api.uri !== "refundorder" ? "body" : "params");
+    return this.req({ method: api.method, uri: api.uri, body: api.body, headers: api.headers });
   }
 }
 
-export const plane = new Terminal(
-  import.meta.env.VITE_SERVER_URL,
-  import.meta.env.VITE_SOCKET_SERVER
-);
+export const plane = new Terminal(import.meta.env.VITE_SERVER_URL, import.meta.env.VITE_SOCKET_SERVER);

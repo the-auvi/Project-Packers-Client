@@ -6,6 +6,7 @@ import InputField from '../../../components/InputField/InputField';
 
 import img1 from '../../../assets/verifications/5.png';
 import { plane } from '../../../contexts/terminal/Terminal';
+import toaster from '../../../utils/toaster';
 
 const NewPass = () => {
 	const {
@@ -16,12 +17,13 @@ const NewPass = () => {
 	} = useForm();
 	let error = null;
 	const navigate = useNavigate()
+	const location = useLocation()
 	const onSubmit = (data) => {
 		if (data.newPassword !== data.confirmPassword) {
 			return error = <p className='text-red-500 font-semibold'>Password does not match</p>
 		}
-		plane.request({ name: 'resetPassword', body: data }).then(data => data.status === false ? toaster({ type: 'error', message: data.message }) :
-			navigate("/authentication/login"))
+		plane.request({ name: 'resetPassword', body: { newpassword: data.newPassword, ...location.state } }).then(data => data.status === false ? toaster({ type: 'error', message: data.message }) :
+			navigate("/authentication/login", { state: {} }))
 		error = null
 		reset();
 	};
@@ -34,7 +36,6 @@ const NewPass = () => {
 						<h1 className='text-[52px] font-semibold mb-12'>
 							Enter your OTP verification code
 						</h1>
-
 						<form onSubmit={handleSubmit(onSubmit)} className='space-y-10'>
 							<InputField
 								name='newPassword'

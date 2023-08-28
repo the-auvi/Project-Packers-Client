@@ -101,7 +101,7 @@ const Header = () => {
 				/>
 
 				{/* slider for youtube video */}
-				<div className='wrapper absolute left-0 right-0 md:-bottom-[17.8rem] -bottom-[25rem]  overflow-x-scroll'>
+				<div className='wrapper absolute left-0 right-0 md:-bottom-[17.5rem] -bottom-[20rem]  overflow-x-scroll'>
 					<Slider />
 				</div>
 			</div>

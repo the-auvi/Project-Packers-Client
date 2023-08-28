@@ -6,6 +6,7 @@ import { plane } from '../../contexts/terminal/Terminal';
 import { useSearchParams } from 'react-router-dom';
 import OrderSuccessModal from '../../container/Modal/OrderSuccessModal';
 import Modal from '../../components/Modal/Modal';
+import toaster from '../../utils/toaster';
 
 const Checkout = () => {
 	let totalPrice = 0;
@@ -64,19 +65,24 @@ const Checkout = () => {
 		const body = {
 			email: data.email,
 			phone: data.phone,
-			alternativephone: data.alternativephone.length > 4 ? data.alternativephone : null,
-			instructions: data.instructions,
+			alternativephone: data.alternativephone?.length > 4 ? data.alternativephone : null,
+			instructions: data?.deliveryInstruction ? data.deliveryInstruction : null,
 			insideDhaka: data.insideDhaka,
 			shippingaddress: {
 				name: data.firstName + ' ' + data.lastName,
 				address: data.address,
 				city: data.city,
 				area: data.area,
-				zip: data,
+				zip: data.zipCode,
 			}
 		}
-		// plane.request({ name: 'registerOrder', body }).then(data => data.url && window.location.replace(url))
-		// reset();
+		plane.request({ name: 'registerOrder', body }).then(data => {
+			if (data.url) { window.location.replace(data.url); reset(); }
+			else {
+				toaster({ type: 'error', message: data.message })
+			}
+		})
+
 	};
 
 	return (

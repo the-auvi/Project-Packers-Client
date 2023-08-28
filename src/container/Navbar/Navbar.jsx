@@ -13,6 +13,7 @@ import Notification from '../../pages/Notification/Notification';
 import Cart from '../../pages/Cart/Cart';
 import { UserContext } from '../../contexts/user/UserContext';
 import useDebounce from '../../Hooks/useDebounce';
+import { ReactComponent as Search } from '../../assets/icons/cd-search.svg'
 
 // TODO: add comment and short it more
 
@@ -27,6 +28,7 @@ const Navbar = () => {
 	};
 	const debouncedToggleCart = useDebounce(toggleCart, 300);
 	return (
+
 		<div className='border-b shadow-md relative z-40'>
 			<nav
 				className={`flex gap-1 max-w-screen-xl mx-auto items-center justify-between
@@ -190,7 +192,7 @@ const Navbar = () => {
 				</>
 
 				{/* for desktop */}
-				<div className='md:flex items-center space-x-2 hidden'>
+				<div className='md:flex items-center space-x-2 hidden cursor-pointer'>
 					<p>Support</p>
 
 					{isLoggedIn ? (
